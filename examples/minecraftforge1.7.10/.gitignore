@@ -1,2 +1,5 @@
-bin/
-build/
+.gradle/
+.settings/
+eclipse/
+.classpath
+.project
