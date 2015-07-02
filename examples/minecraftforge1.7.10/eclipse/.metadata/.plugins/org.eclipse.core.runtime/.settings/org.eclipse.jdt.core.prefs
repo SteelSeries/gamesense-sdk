@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.classpathVariable.JRE_LIB=C\:/Program Files/Java/jdk1.7.0_71/jre/lib/rt.jar
+org.eclipse.jdt.core.classpathVariable.JRE_SRC=C\:/Program Files/Java/jdk1.7.0_71/src.zip
+org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+org.eclipse.jdt.core.compiler.compliance=1.7
+org.eclipse.jdt.core.compiler.problem.deprecation=ignore
+org.eclipse.jdt.core.compiler.problem.missingSerialVersion=ignore
+org.eclipse.jdt.core.compiler.problem.rawTypeReference=ignore
+org.eclipse.jdt.core.compiler.problem.staticAccessReceiver=ignore
+org.eclipse.jdt.core.compiler.problem.uncheckedTypeOperation=ignore
+org.eclipse.jdt.core.compiler.problem.unusedImport=ignore
+org.eclipse.jdt.core.compiler.problem.unusedLocal=ignore
+org.eclipse.jdt.core.compiler.problem.unusedPrivateMember=ignore
+org.eclipse.jdt.core.compiler.source=1.7
