@@ -1,0 +1,28 @@
+#eclipse
+/bin
+/.settings
+/.classpath
+
+#idea
+/.idea
+*.iml
+
+#gradle
+/build
+/.gradle
+/.project
+
+#occupational hazards
+/eclipse/
+/repo/
+/buildSrc
+
+#Patch rejects
+*.rej
+/patches-/
+# FML changelog
+changelog.txt
+/patches_old/
+/patches_old_bak/
+*.py
+*.7z
