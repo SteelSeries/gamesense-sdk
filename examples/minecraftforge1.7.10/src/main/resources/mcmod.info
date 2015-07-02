@@ -8,7 +8,7 @@
   "url": "",
   "updateUrl": "",
   "authorList": ["David Tibbetts"],
-  "credits": "Thanks to MinecraftForge for providing the framework. Conversion to Minecraft 1.7 by MattsMc",
+  "credits": "Thanks to MinecraftForge for providing the framework. Conversion by Matt Smeets",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
