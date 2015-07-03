@@ -12,9 +12,10 @@ The rest of this document assumes familiarity Lisp in general, and with SteelSer
 
 To start using GoLisp to create handlers, you need to create a lisp file that SteelSeries Engine will load.  First, locate the directory that Engine loads custom lisp from.  This location depends on your OS:
 
-**OSX**     | `/Library/Application Support/SteelSeries Engine 3/haX0rBindings`
-
-**Windows** | `%PROGRAMDATA%/SteelSeries/SteelSeries Engine 3/haX0rBindings`
+| OS          | Path                                                              |
+|-------------|-------------------------------------------------------------------|
+| **OSX**     | `/Library/Application Support/SteelSeries Engine 3/haX0rBindings` |
+| **Windows** | `%PROGRAMDATA%/SteelSeries/SteelSeries Engine 3/haX0rBindings`    |
 
 Create a file in this directory with the extension `.lsp`.  The filename of the file must match the string that will be passed in the `game` key when events are sent (although the match is case-insensitive).
 
