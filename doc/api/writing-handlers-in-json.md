@@ -398,7 +398,7 @@ The following IDs can be specified in the `"icon_id"` key when registering or bi
 12: ![Compass](/images/eventicons/compass.png) Compass  
 13: ![Tool](/images/eventicons/pick.png) Tool/Pickaxe  
 
-[golisp handlers]: /doc/writing-handlers-in-golisp.md "Writing Handlers in GoLisp"
-[api doc]: /doc/sending-game-events.md "Event API documentation"
-[zones-types]: /doc/standard-zones.md "Device types and zones"
+[golisp handlers]: /doc/api/writing-handlers-in-golisp.md "Writing Handlers in GoLisp"
+[api doc]: /doc/api/sending-game-events.md "Event API documentation"
+[zones-types]: /doc/api/standard-zones.md "Device types and zones"
 [HID reference]: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
