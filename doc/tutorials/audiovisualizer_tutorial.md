@@ -55,7 +55,7 @@ var music_event = function(values, cb) {
     var payload = {
         "game": GAME,
         "event": "AUDIO",
-        "data": JSON.stringify({values: values})
+        "data": {values: values}
     };
     try {
     	var url = "http://" + sseAddress + "/game_event";
@@ -83,7 +83,7 @@ Both the game name and event name are all-caps with no spaces. The payload for g
 }
 ```
 
-The event data itself is another JSON object, but serialized into a string. The exact format of this data is different based on the handler, but a common format used for single-value events is this:
+The event data itself is another JSON object. The exact format of this data is different based on the handler, but a common format used for single-value events is this:
 
 ```json
 {

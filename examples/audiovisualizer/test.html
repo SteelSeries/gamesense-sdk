@@ -64,7 +64,7 @@ var music_event = function(values, cb) {
     var payload = {
         "game": GAME,
         "event": "AUDIO",
-        "data": JSON.stringify({values: values})
+        "data": {values: values}
     };
     try {
     	var url = "http://" + sseAddress + "/game_event";

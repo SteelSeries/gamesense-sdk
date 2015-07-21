@@ -29,13 +29,15 @@ Games communicate with SteelSeries Engine 3 by posting a specifically formatted 
     {
       game: "MY_GAME",
       event: "HEALTH",
-      data: "{\"value\": 75}"
+      data: {
+          "value": 75
+      }
     }
 
 Notes about the data:
 * The values for `game` and `event` are limited to uppercase A-Z, 0-9, hyphen, and underscore characters.
 * All three of the keys are mandatory for the event to be processed.
-* The value for `data` is a string containing the stringified form of a JSON object.  Any events that will be handled by the JSON API *must* contain the key `value`.  For simplicity and greatest compatibility with user configurability of these events in SteelSeries Engine, it is recommended that the event data be a single `value` key with numeric values.
+* The value for `data` can be either a JSON object or a string containing the stringified form of a JSON object.  Any events that will be handled by the JSON API *must* contain the key `value`.  For simplicity and greatest compatibility with user configurability of these events in SteelSeries Engine, it is recommended that the event data be a single `value` key with numeric values.
 
 The events must be sent as a POST request to the address `<SSE3 url>/game_event`, with a content type of `application/json`.
 

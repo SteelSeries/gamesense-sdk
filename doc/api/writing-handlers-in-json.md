@@ -43,13 +43,13 @@ For a list of available icons, see `Reference Sections - Event Icons` below.
 
 # Binding an event #
 
-You can bind handlers for an event via sending POST data to the URL `http://127.0.0.1:<port>/bind_game_event`.  The payload includes all of the same mandatory and optional keys as event registration, as well as one additional key `handlers`.  The `handlers` value is an array of strings.  Each string should be the stringified representation of a JSON object that describes the handler and what device type it should be applied to.  There should be one string for each device type to which you wish to apply default behavior.
+You can bind handlers for an event via sending POST data to the URL `http://127.0.0.1:<port>/bind_game_event`.  The payload includes all of the same mandatory and optional keys as event registration, as well as one additional key `handlers`.  The `handlers` value is an array of handlers.  Each handler should be either a JSON object or the stringified representation of a JSON object that describes the handler and what device type it should be applied to.  There should be one handler for each device type to which you wish to apply default behavior.
 
 For each handler, your JSON data describes:
 
 * The device type to which you wish to apply the effect
 * The zone effected
-* How the color should be calculated 
+* How the color should be calculated
 * How the flash rate should be calculated
 * In the case of zone-rich devices (e.g. the APEX M800 keyboard), whether to apply the color across all keys in the zone or to dynamically calculate how many keys to illuminate.
 
@@ -61,11 +61,15 @@ So if the adventure game wanted to provide its health event handler, it would PO
       "min_value": 0
       "max_value": 100,
       "icon_id": 1,
-      "handlers": [ "{\"device-type\": \"keyboard\",
-                \"zone\": \"function-keys\",
-                \"color\": {\"gradient\": {\"zero\": {\"red\": 255, \"green\": 0, \"blue\": 0},
-                                           \"hundred\": {\"red\": 0, \"green\": 255, \"blue\": 0}}},
-                \"mode\": \"percent\"}" ]
+      "handlers": [
+        {
+          "device-type": "keyboard",
+          "zone": "function-keys",
+          "color": {"gradient": {"zero": {"red": 255, "green": 0, "blue": 0},
+                                 "hundred": {"red": 0, "green": 255, "blue": 0}}},
+          "mode": "percent"
+        }
+      ]
     }
 
 This handler will display the health (whose value is 0-100, inclusive) as a percentage bar graph (assuming the connected keyboard supports it, or just using the color otherwise) on the function keys, varying from green at full health down to red at 0 health.
@@ -204,7 +208,7 @@ _*Note_*: The count visualization is only enabled for per-key-illuminated device
 
 The visualization mode is set using the `"mode"` key. For example:
 
-    { 
+    {
       "mode": "percent"
       ...
     }
@@ -243,12 +247,12 @@ For an effect that flashes 10 times a second at values 0-10, 5 times a second fr
         }
       ]
     }
-     
+
 
 ### Flash repeat limit ###
 
 If you want the LEDs to flash only a certain number of times rather than flashing continually, you can specify the `"repeat_limit"` key within the `"rate"` value.  When an event value is received that triggers a rate definition with a repeat limit, the flashes will only occur the specified number of times and then stop flashing (remaining on).  Repeat limits can also be specified either with a static value or with a range.
- 
+
 If you do not want to use repeat limits, simply omit this key from the `"rate"` definition.
 
 #### Static repeat limit example
