@@ -401,6 +401,10 @@ The following IDs can be specified in the `"icon_id"` key when registering or bi
 11: ![Air](/images/eventicons/air.png) Air/Breath  
 12: ![Compass](/images/eventicons/compass.png) Compass  
 13: ![Tool](/images/eventicons/pick.png) Tool/Pickaxe  
+14: ![Mana](/images/eventicons/potion.png) Mana/Potion  
+15: ![Clock](/images/eventicons/clock.png) Clock  
+16: ![Lightning](/images/eventicons/lightning.png) Lightning  
+17: ![Item](/images/eventicons/backpack.png) Item/Backpack  
 
 [golisp handlers]: /doc/api/writing-handlers-in-golisp.md "Writing Handlers in GoLisp"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
