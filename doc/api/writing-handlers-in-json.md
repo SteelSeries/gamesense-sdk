@@ -365,6 +365,31 @@ Flash the M800's esc key 5 times in red (250mS flashes):
       }
     }
 
+# Removing an event #
+
+As of SteelSeries Engine 3.5.0, you can remove an event you have registered via sending POST data to the URL `http://127.0.0.1:<port>/remove_game_event`.  The payload requires you to specify the game and event names.  To remove the event MY_EVENT from the game MY_GAME, POST the following data:
+
+    {
+      "game": "MY_GAME",
+      "event": "MY_EVENT"
+    }
+
+Removing an event also removes all bindings for the event.  However, if you have bound handlers via golisp and the file still exists, the event will be automatically re-registered and re-bound when the file is loaded.
+
+Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
+
+# Removing a game #
+
+As of SteelSeries Engine 3.5.0, you can remove a game you have registered via sending POST data to the URL `http://127.0.0.1:<port>/remove_game`.  The payload requires you to specify the game name.  To remove the game MY_GAME, POST the following data:
+
+    {
+      "game": "MY_GAME"
+    }
+
+Removing a game also removes all events registered for the game, as well as all bindings for the events.However, if you have bound handlers via golisp and the file still exists, the game and events in the file will be automatically re-registered and re-bound when the file is loaded.
+
+Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
+
 # Reference sections #
 
 ## Default icon colors ##
