@@ -20,6 +20,8 @@ If you send your game events with the game `"TEST_GAME"`, but you want to indica
 
 # Registering an event #
 
+Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
+
 You can register an event via sending POST data to the URL `http://127.0.0.1:<port>/register_game_event`.  The payload requires you to specify the game and event names, and can optionally contain minimum and maximum numeric values for the event, as well as an ID specifying what icon is displayed next to the event in the SteelSeries Engine UI.
 
 If the adventure game wanted to indicate to SteelSeries Engine that you will be sending a health event with values between 0-100, and associate it with a health icon, it would POST the following JSON to `register_game_event` on startup.
@@ -42,6 +44,8 @@ Game and event names are limited to the following characters: Uppercase A-Z, the
 For a list of available icons, see `Reference Sections - Event Icons` below.
 
 # Binding an event #
+
+Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
 
 You can bind handlers for an event via sending POST data to the URL `http://127.0.0.1:<port>/bind_game_event`.  The payload includes all of the same mandatory and optional keys as event registration, as well as one additional key `handlers`.  The `handlers` value is an array of handlers.  Each handler should be either a JSON object or the stringified representation of a JSON object that describes the handler and what device type it should be applied to.  There should be one handler for each device type to which you wish to apply default behavior.
 

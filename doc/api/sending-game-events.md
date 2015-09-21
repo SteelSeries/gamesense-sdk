@@ -45,6 +45,8 @@ It is generally recommended to encapsulate the creation and POST of the JSON wit
 
 The event framework will work with games written in any language. All you need is to be able to create a JSON formatted string and POST it to a local URL. We've used it so far with languages as varied as C++, Java, Swift, Go, and Javascript.
 
+One enthusiast has created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to Christian Schuller.
+
 ## Heartbeat/Keepalive Events ##
 
 GameSense™ is initialized on devices when the first event for a game is recieved.  It is deactivated when no events have been received within its timeout period of 15 seconds.  This means that your game should send at least one event every 15 seconds if you want the game state to continue to be fully represented on the user's devices.
@@ -56,3 +58,5 @@ An additional endpoint, `game_heartbeat`, is available to simplify this process.
     }
 
 This endpoint does not affect any state on the user devices, but resets the GameSense™ deactivation timer.  Use of this endpoint is completely optional, as you can also send real event data to keep GameSense™ alive.
+
+[gamesense-client-repo]: https://github.com/cschuller/gamesense-client
