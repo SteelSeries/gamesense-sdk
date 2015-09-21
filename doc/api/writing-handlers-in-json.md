@@ -396,6 +396,26 @@ Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
 
 # Reference sections #
 
+## Error handling ##
+
+All successful requests to the JSON API will return an HTTP status code of 200.  As of SteelSeries Engine 3.5.0, unsuccessful requests will return an error code along with the error message describing the problem.
+
+A request that has any problems with the parameters will return a 400 status code and one of the following errors:
+
+0: "Game or event string not specified".  Most of the requests require specifying both the game and event in question.  This error is returned if one is missing.
+1: "Game string not specified".  Same as the above, but for requests that require only the game name.
+2: "Game or event string contains disallowed characters.  Allowed are upper-case A-Z, 0-9, hyphen, and underscore".  Game and event strings are limited to the characters described.  
+3: "Game string contains disallowed characters.  Allowed are upper-case A-Z, 0-9, hyphen, and underscore".  Same as above, but for requests which only take the game name as a parameter.
+4: "GameEvent data member is empty".  The `game_event` request requires a `data` member describing the data the event should use when calculating the effects to apply.
+5: "Events for too many games have been registered recently, please try again later".  There are limited anti-spam measures implemented into the API to prevent malicious use.  This message will show up if one of them has been triggered.
+6: "One or more handlers must be specified for binding".  This message is returned if the `bind_game_event` request is sent without the `handlers` key or if the array in the key is empty.
+7: "That event for that game is reserved".  Some operations cannot be performed on events which are built-in to SteelSeries Engine 3.  This includes binding and removing the events.
+8: "That game is reserved".  Same as above, but for requests which only take the game name.  This includes removing a game.
+9: "That event is not registered".  This is returned when attempting to remove an event which does not exist.
+10: "That game is not registered".  This is returned when attempting to remove a game which does not exist.
+
+A request that returns a 500 status code indicates an error internal to SteelSeries Engine.  If you wish to submit information about requests which caused these errors, you can file a support ticket on our website.
+
 ## Default icon colors ##
 
 The following IDs can be specified in the `"icon_color_id"` key when supplying game metadata, to display the following colored versions of the default game icon next to your game when it is displayed in SteelSeries Engine.
