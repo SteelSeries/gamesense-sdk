@@ -506,4 +506,4 @@ When you write event handler code, you provide a device type when sending illumi
 [HID reference]: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
 [json api doc]: /doc/writing-handlers-in-json.md
 [api doc]: /doc/sending-game-events.md
-[zones-types]: /doc/standard-zones.md "Device types and zones"
+[zones-types]: /doc/api/standard-zones.md "Device types and zones"
