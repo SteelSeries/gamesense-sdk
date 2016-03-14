@@ -2,6 +2,8 @@
 
 A category of device is specified using the `"device-type"` key. The value of this key is either the name of a device category, either type or capability based:
 
+## General device types ##
+
 `keyboard`
 : Any connected, supported keyboard. Initially the Apex M800, Apex 300, MSI GE62, and MSI GE72.
 
@@ -13,6 +15,8 @@ A category of device is specified using the `"device-type"` key. The value of th
 
 `indicator`
 : Any connected, supported simple indicator device. Initially the Sims4 Plumbob and Valve Dota 2 indicator.
+
+## Device types by number of RGB zones ##
 
 `rgb-1-zone`
 : Any connected, supported, single zone RGB device. Initially the Siberia Elite line, Siberia v3 Prism, and Sims 4 line.
@@ -28,6 +32,20 @@ A category of device is specified using the `"device-type"` key. The value of th
 
 `rgb-per-key-zones`
 : Any connected, supported, keyboard with a lighting zone for each key. Initially the APEX M800 keyboard.
+
+## Device types for tactile notifications ##
+
+`tactile`
+: Any connected, supported device that supports a single zone for tactile feedback.  Initially the Rival 700.
+
+Note: Engine 3.7.0 and later
+
+## Device types for OLED/LCD screen notifications ##
+
+`screened`
+: Any connected, supported device that supports notifications on a single OLED or LCD screen.  Initially the Rival 700.
+
+Note: Engine 3.7.0 and later
 
 # Zones by device type #
 
@@ -98,3 +116,15 @@ Note: These zones are named based on the keycaps in the US English layout.  If y
 * `keypad`: The entire keypad/numpad area
 * `keypad-nums`: Keypad/Numpad 1-9 (Starting at 1, sequentially to 9)
 * `all`: Every key and LED on the keyboard
+
+## `tactile`
+
+Note: Currently the only supported tactile feedback device is the Rival 700, which has a single motor for the purpose.  More zones may be introduced in the future with new devices.
+
+* `one`
+
+## `screened`
+
+Note: Currently the only supported OLED screen device is the Rival 700, which has a single OLED screen for notifications.  More zones may be introduced in the future with new devices.
+
+* `one`

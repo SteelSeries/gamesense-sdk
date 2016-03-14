@@ -205,6 +205,21 @@ Similar to the percentage displays, but uses the provided count as a measure of 
 **`show-on-keys:`** `<list of keys>` `<list of colors>`
 This is the lowest level way to set key colors on per-key-illuminated devices. `keys` is a list of HID key codes, and `colors` is a list of color tuples. The two lists must be the same length, and corresponding elements from each specify a key and the color to set it to. This gives you ultimate flexibility.
 
+**`vibrate:`** `<vibration event list>`
+Plays a series of vibrations on a device with a single vibration motor.
+
+**`vibrate-on-zone:` `<vibration event list>`
+Plays a series of vibrations on a vibration zone on a device.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
+
+**`show-text:` `<text string>`
+Shows text on the screen of a device with a single embedded OLED or LCD screen.
+
+**`show-text-on-zone:` `<text string>`
+Shows text on a screen of a device with one or more embedded OLED or LCD screens.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
+
+**`show-text-with-icon-on-zone:` `<text string>` `<icon id>` `<zone>`
+Shows an icon and text on a screen of a device with one or more embedded OLED or LCD screens.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].  For a list of icon ids, see [Event icons][event-icons].
+
 Examples:
 
     ;; Set all single-zone devices to red
@@ -507,3 +522,4 @@ When you write event handler code, you provide a device type when sending illumi
 [json api doc]: /doc/writing-handlers-in-json.md
 [api doc]: /doc/sending-game-events.md
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
+[event-icons]: /doc/api/event-icons.md

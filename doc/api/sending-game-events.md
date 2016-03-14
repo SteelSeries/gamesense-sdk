@@ -4,6 +4,12 @@ Most modern SteelSeries gaming devices have RGB illumination. All of our new and
 
 To better make use of these capabilities we've built a framework for receiving events from games and using our devices' illumination (for now, with other forms of output possible in future products) capabilities as indicators of game state.
 
+## Engine plugins ##
+
+Simultaneously with the release of SteelSeries Engine 3.7.0, we have released a plugin for the Unity Engine and editor that is available [here on Github][unity-plugin-repo] or on the Unity Web Store.  For documentation on binding and sending events using the plugin, refer to the documentation in its repository.
+
+An Unreal Engine 4 plugin is also planned for future release.
+
 ## Server discovery ##
 
 Before you can use the GameSense™ SDK, your game will need to find out where to send handlers and events. To do this it will need to read the `coreProps.json` file that Engine creates when it starts. This file contains a json object. You are interested in the `address` top level key. The corresponding value is the host and port that Engine is listening on. This is a string in `"host:port"` format. E.g.
@@ -60,3 +66,4 @@ An additional endpoint, `game_heartbeat`, is available to simplify this process.
 This endpoint does not affect any state on the user devices, but resets the GameSense™ deactivation timer.  Use of this endpoint is completely optional, as you can also send real event data to keep GameSense™ alive.
 
 [gamesense-client-repo]: https://github.com/cschuller/gamesense-client
+[unity-plugin-repo]: https://github.com/SteelSeries/unity-gamesense-client
