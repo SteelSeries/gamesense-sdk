@@ -91,7 +91,7 @@ For an effect that consists of a strong click followed after 150ms by another st
 
     "pattern": [
       {
-      	"type": "ti_predefined_strongclick_100", 
+      	"type": "ti_predefined_strongclick_100",
       	"delay-ms": 150
       },
       {
@@ -105,7 +105,7 @@ Patterns can also be specified with non-predefined custom vibration lengths.
 
 The `type` key is mandatory and must be set to the value `custom`.
 
-The `length-ms' key is mandatory, and controls the number of milliseconds that the vibration motor will be enabled before turning off again.  The maximum value is 2560.
+The `length-ms` key is mandatory, and controls the number of milliseconds that the vibration motor will be enabled before turning off again.  The maximum value is 2560.
 
 The `delay-ms` key is optional.  It works the same way for custom events as for predefined events, see above.
 
