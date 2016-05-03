@@ -108,12 +108,14 @@ The `icon-id` key can be used to specify an icon that will be displayed to the l
 
 #### Showing raw bitmaps ####
 
-You can specify a raw image for a frame instead of text with the `image-data` key.  If you use `image-data` for a screen the `has-text` key must be false and the `prefix`, `suffix`, `arg`, and `icon-id` keys must also be omitted.
+You can specify a raw image for a frame instead of text with the `image-data` key.  If you use `image-data` for a screen the `has-text` key must be false and the `prefix`, `suffix`, `arg`, and `icon-id` keys are ignored.
 
 The format for `image-data` is an array of byte values where each pixel is a single bit.  A bit of `1` is a white pixel and a bit of `0` is a black pixel. The pixels are packed per row with the origin in the upper-left corner of the bitmap with a most significant bit first bit order.  (Ex. `0b11110000`, or `240`, is four white pixels followed by four black pixels in a row going from left to right.)  The number of bytes in the array must match the size of the device's screen. This can be calculated with `⌈ width * height / 8 ⌉`.
 
 Because you must match the dimensions of the device's screen exactly you should not use the `screened` device type when specifying handlers with raw bitmaps.  Instead, use the `screened-WIDTHxHEIGHT` device type to match devices with the resolution you specify.
 
+
+    "device-type": "screened-128x36",
     "datas": [
       {
         "has-text": false,

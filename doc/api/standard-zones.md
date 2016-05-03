@@ -45,10 +45,12 @@ Note: Engine 3.7.0 and later
 `screened`
 : Any connected, supported device that supports notifications on a single OLED or LCD screen.  Initially the Rival 700.
 
+Note: Engine 3.7.0 and later
+
 `screened-WIDTHxHEIGHT`
 : Any connected, supported device that supports notifications on a single OLED or LCD screen that has the specified resolution in pixels.  Initially, the type `screened-128x36` matches the Rival 700.
 
-Note: Engine 3.7.0 and later
+Note: Engine 3.8.0 and later
 
 # Zones by device type #
 
