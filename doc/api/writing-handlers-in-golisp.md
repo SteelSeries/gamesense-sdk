@@ -519,7 +519,7 @@ When you write event handler code, you provide a device type when sending illumi
 [golisp documentation]: http://techblog.steelseries.com/golisp/documents.html
 [golisp language ref]: http://techblog.steelseries.com/golisp/language-ref.html
 [HID reference]: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
-[json api doc]: /doc/writing-handlers-in-json.md
-[api doc]: /doc/sending-game-events.md
+[json api doc]: /doc/api/writing-handlers-in-json.md
+[api doc]: /doc/api/sending-game-events.md
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
 [event-icons]: /doc/api/event-icons.md
