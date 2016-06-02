@@ -33,9 +33,9 @@ If this file is not present, then SteelSeries Engine 3 is not running and you sh
 Games communicate with SteelSeries Engine 3 by posting a specifically formatted JSON object to Engine's endpoint.  The properties of this object specify the game it is coming from, the event it corresponds to, and a data payload including a `"value"` property with an arbitrary value that is used by the handler. For example:
 
     {
-      game: "MY_GAME",
-      event: "HEALTH",
-      data: {
+      "game": "MY_GAME",
+      "event": "HEALTH",
+      "data": {
           "value": 75
       }
     }
@@ -60,7 +60,7 @@ GameSense™ is initialized on devices when the first event for a game is reciev
 An additional endpoint, `game_heartbeat`, is available to simplify this process.  The data payload sent to this endpoint only needs to include the name of the game:
 
     {
-      game: "MY_GAME"
+      "game": "MY_GAME"
     }
 
 This endpoint does not affect any state on the user devices, but resets the GameSense™ deactivation timer.  Use of this endpoint is completely optional, as you can also send real event data to keep GameSense™ alive.
