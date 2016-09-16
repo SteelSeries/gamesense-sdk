@@ -29,7 +29,7 @@ If the adventure game wanted to indicate to SteelSeries Engine that you will be 
     {
       "game": "ADVENTURE",
       "event": "HEALTH",
-      "min_value": 0
+      "min_value": 0,
       "max_value": 100,
       "icon_id": 1
     }
