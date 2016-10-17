@@ -12,7 +12,7 @@ The rest of this document assumes familiarity Lisp in general, and with SteelSer
 
 To start using GoLisp to create handlers, you have two choices. You can either use Steelseries Engine to register GoLisp handlers or use the haX0rBindings directory.
 
-For using Steelseries Engine to register the handlers, you need to send a JSON payload with both the game you're registering them for and the GoLisp handlers themselves. To do this you discover the Steelseries Engine port (you can do this using the guide in the [sending game event][server discovery] document) and sending it on the `/load_golisp_handlers` endpoint in this format:
+For using Steelseries Engine to register the handlers, you first must be using Steelseries Engine 3.9.0 or higher. You then need to send a JSON payload with both the game you're registering them for and the GoLisp handlers themselves. To do this you discover the Steelseries Engine port (you can do this using the guide in the [sending game event][server discovery] document) and sending it on the `/load_golisp_handlers` endpoint in this format:
 
 ```json
 {
