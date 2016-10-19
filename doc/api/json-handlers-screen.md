@@ -156,6 +156,7 @@ Examples
 
 * With an event data value of 15, the text "15 kills" will be displayed for a quarter second before the screen returns to the background image.
 
+
     "datas": [
       {
       	"has-text": true,
