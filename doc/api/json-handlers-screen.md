@@ -157,20 +157,20 @@ Examples
 * With an event data value of 15, the text "15 kills" will be displayed for a quarter second before the screen returns to the background image.
 
 ```
-    "datas": [
-      {
-      	"has-text": true,
-      	"suffix": "Headshot!",
-      	"length-millis": 250,
-      	"arg": "",
-      	"icon-id": 7
-      },
-      {
-      	"has-text": true,
-      	"suffix": " kills",
-      	"icon-id": 6
-      }
-    ]
+"datas": [
+  {
+  	"has-text": true,
+  	"suffix": "Headshot!",
+  	"length-millis": 250,
+  	"arg": "",
+  	"icon-id": 7
+  },
+  {
+  	"has-text": true,
+  	"suffix": " kills",
+  	"icon-id": 6
+  }
+]
 ```
 
 * With an event data value of 15, the text "Headshot!" will be displayed with a headshot icon for a quarter second.  Next, it will display the text "15 kills" with a kills icon until a new event value is received.
