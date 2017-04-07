@@ -170,6 +170,14 @@ The `all-events-use-this-per-key-zone` primitive is a shortcut for the above, an
     ;; This is the shortcut
     (all-events-use-this-per-key-zone "function-keys")
 
+**`add-event-zone-use-with-specifier`** `<event name>` `<zone name>` `<specifier name>`
+
+The `add-event-zone-use-with-specifier` primitive is required for SteelSeries Engine configuration purposes when writing custom GoLisp Handlers. The system uses these declarations to know what zones are actually in use by handlers so the user can still configure other zones from Engine.  The event name and zone name should be passed in as strings and the specifier name should be passed in as a string or quoted symbol.
+
+    (add-event-zone-use-with-specifier "HEALTH" "one" "rgb-2-zone")
+
+    ;; This is also acceptable
+    (add-event-zone-use-with-specifier "HEALTH" "one" 'rgb-2-zone)
 
 **`event-autoinit-exclusion`** `<list of event names>`
 
@@ -219,16 +227,16 @@ This is the lowest level way to set key colors on per-key-illuminated devices. `
 **`vibrate:`** `<vibration event list>`
 Plays a series of vibrations on a device with a single vibration motor.
 
-**`vibrate-on-zone:` `<vibration event list>`
+**`vibrate-on-zone:`** `<vibration event list>`
 Plays a series of vibrations on a vibration zone on a device.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
 
-**`show-text:` `<text string>`
+**`show-text:`** `<text string>`
 Shows text on the screen of a device with a single embedded OLED or LCD screen.
 
-**`show-text-on-zone:` `<text string>`
+**`show-text-on-zone:`** `<text string>`
 Shows text on a screen of a device with one or more embedded OLED or LCD screens.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
 
-**`show-text-with-icon-on-zone:` `<text string>` `<icon id>` `<zone>`
+**`show-text-with-icon-on-zone:`** `<text string>` `<icon id>` `<zone>`
 Shows an icon and text on a screen of a device with one or more embedded OLED or LCD screens.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].  For a list of icon ids, see [Event icons][event-icons].
 
 Examples:
