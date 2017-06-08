@@ -49,11 +49,11 @@ Below is a simple example of how to display calculated colors on multiple device
     (handler "HEALTH"
       (lambda (data)
         (let* ((v (value: data))
-               (c (color-between red-color green-color v))
+               (c (color-between red-color green-color v)))
           (on-device 'rgb-per-key-zones show-percent-on-zone: c v function-keys:)
           (on-device 'rgb-2-zone show-on-zone: c two:)
-          (on-device 'rgb-1-zone show-on-zone: c one:)))))
-
+          (on-device 'rgb-1-zone show-on-zone: c one:))))
+    
     (add-event-per-key-zone-use "HEALTH" "function-keys")
 
 Line-by-line breakdown:
