@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.11"
 group= "com.sse3.gamesense" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+archivesBaseName = "gamesense"
 
 sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
 compileJava {
