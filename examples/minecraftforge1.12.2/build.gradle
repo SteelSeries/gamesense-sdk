@@ -2,10 +2,6 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -25,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.1.2555"
+    version = "1.12.2-14.23.1.2581"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -42,9 +38,7 @@ dependencies {
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
-    //compile files('jars/json-20140107.jar')
     compile files('jars/json-20171018.jar')
-      
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env

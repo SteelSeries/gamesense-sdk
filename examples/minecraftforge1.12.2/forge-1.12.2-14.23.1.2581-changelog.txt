@@ -1,5 +1,119 @@
 Changelog:
-Build 2555:
+Build 2581:
+	mezz: Update Github StaleBot config to run on old Issues as well as PRs
+
+Build 1.12.2-14.23.1.2580:
+	LexManos:
+		Downgrade RegistryEntry's dangerous alternative prefix message to info
+		instead of BigWarning. This is still most likely a broken mod, but
+		nobody ever actually fixes themselves, and i'm tired of being blamed for
+		'spamming' the logs.
+
+Build 1.11.2-13.20.1.2579:
+	bartek.bok: Fix invalid rendering of single-frame B3D models (#3917)
+
+Build 1.12.2-14.23.1.2578:
+	LexManos:
+		Fix missing call to release() in the event channel handler (#4513) 
+		(reverted from commit cd99957627625f7baeff8761c6382b05db9699d3)
+
+Build 1.12.2-14.23.1.2577:
+	Leviathan143:
+		Add some extra context to Advancements/Minecart/Fishing/TileEntity loot
+		handlers.(#4443)
+	mccommanderminecraft: Added Custom Slime Block hook for Piston. (#4520)
+
+Build 1.12.2-14.23.1.2576:
+	bartek.bok: Fix animation of rotated block parts (#4156)
+	bartek.bok: Fix invalid rendering of single-frame B3D models (Fix #3815)
+	bs2609: Adjust diffuse light calculation to match vanilla facing values (#4305)
+	bs2609: Fix applyUVLock not preserving input order (#4336)
+	bs2609: Adjust light matrix calculations to use per-face logic (#4339)
+
+Build 1.12.2-14.23.1.2575:
+	tterrag1098: Fix BakedQuadRetextured not overriding getSprite (#4137)
+
+Build 1.12.2-14.23.1.2574:
+	bs2609: Fix missing call to release() in the event channel handler (#4513)
+	kashike: Delay egg creation to avoid null statistics (#4508)
+	arturzartdinov:
+		Added LivingKnockBackEvent event to allow better control over knock back
+		effects. (#4503)
+
+Build 1.12.2-14.23.1.2573:
+	mrkirby153:
+		Reimplemented TileEntity and Entity Update Profiling in the /forge track
+		command (#4521)
+
+Build 1.12.2-14.23.1.2572:
+	bs2609: Don't enforce IPv4 for clients connecting to IPv6-only servers (#4563)
+	JDLogic: [macOS] Fix missing text on loading error screens (#4532)
+
+Build 1.12.2-14.23.1.2571:
+	bs2609: Add an event for registering block/item colour handlers (#4565)
+
+Build 1.12.2-14.23.1.2570:
+	josephcsible: Deprecate passing a class to CapabilityManager::register (#4574)
+	josephcsible:
+		Make vanilla powered rails receive power from mods' custom powered rail
+		subclasses (#4573)
+	matthewprenger: Fix startIndex for /forge generate position parsing (#4572)
+	AlgorithmX2: BlockFlowerPot now checks solid top side instead of old method. (#4571)
+	AlgorithmX2: Fix: Anvil Bug with Custom Damage Items. (#4570)
+
+Build 1.12.2-14.23.1.2569:
+	mezz:
+		Change how chests check if they're blocked. (#4584)
+		Readd Vanilla Bug: https://bugs.mojang.com/browse/MC-378
+	bs2609: Add missing nullability annotations to some Forge-added methods (#4578)
+
+Build 1.12.2-14.23.1.2568:
+	BillyGalbreath:
+		Allow EntityFishHook to spawn water particles in all liquids that use
+		Material.WATER (#4585)
+
+Build 1.12.2-14.23.1.2567:
+	gegy1000: Add Sound loading progress bar (#4593)
+
+Build 1.12.2-14.23.1.2566:
+	bs2609: Clean up capability checking for entities (#4591)
+
+Build 1.12.2-14.23.1.2565:
+	bs2609: Fix sometimes being unable to extract items from double chests (#4590)
+
+Build 1.12.2-14.23.1.2564:
+	josephcsible:
+		Fix item handler documentation that says returning ItemStack.EMPTY is
+		required (#4587)
+
+Build 1.11.2-13.20.1.2563:
+	bartek.bok: Fix invalid FastTESR quad ordering (#3900)
+
+Build 1.12.2-14.23.1.2562:
+	julian_abelar: Added color as field with setter to Fluid class.  (#4460)
+
+Build 1.12.2-14.23.1.2561:
+	mezz: Prevent tooltips from going off the top of the screen.
+
+Build 1.12.2-14.23.1.2560:
+	Anthony Lomeli: [1.12] Add Advancement Event (#4467)
+
+Build 1.12.2-14.23.1.2559:
+	mezz: Update java docs for IItemHandler. Fix #4553
+
+Build 1.12.2-14.23.1.2558:
+	LexManos: Re-enable Vanilla's Shapeless recipe matching.
+	LexManos: Restore binary compatibility in EntityItemPickupEvent
+
+Build 1.12.2-14.23.1.2557:
+	draco18s:
+		Fix for the EntityItemPickupEvent having 0 count item when event is
+		fired. (#4549)
+
+Build 1.12.2-14.23.1.2556:
+	bs2609: Don't force IPv4 network stack if IPv6 is specifically requested (#4547)
+
+Build 1.12.2-14.23.1.2555:
 	LexManos: Fix more bad shapeless recipe matching. Closes #4557
 
 Build 1.12.2-14.23.1.2554:
