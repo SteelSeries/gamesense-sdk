@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-String modversion = "1.11"
+String modversion = "1.12"
 
 if (System.getenv("BUILD_NUMBER") != null && System.getenv("SHOW_BUILD_NUMBER") != null) {
     version = modversion + "_" + System.getenv("BUILD_NUMBER")
@@ -44,7 +44,10 @@ minecraft {
 }
 repositories {
     // org.json library
-    maven { url = "https://mvnrepository.com/artifact/org.json/json" }
+    maven {
+        name "JSON"
+        url "https://mvnrepository.com/artifact/org.json/json"
+    }
 }
 
 configurations {

@@ -7,10 +7,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
@@ -31,7 +31,8 @@ import java.io.IOException;
 
 @Mod(modid = GameSenseMod.MODID, name = GameSenseMod.NAME, version = GameSenseMod.VERSION, acceptedMinecraftVersions = "[1.12,)")
 
-public class GameSenseMod {
+public class GameSenseMod
+{
 
     static final String MODID = "gamesense", NAME = "gamesense", VERSION = "%VERSION%";
 
@@ -46,25 +47,29 @@ public class GameSenseMod {
     private Boolean isConnected = false;
     private long lastTick = 0;
 
-    public void SendGameEvent(String eventName, int data, EntityPlayer player) {
+    public void SendGameEvent(String eventName, int data, EntityPlayer player)
+    {
         JSONObject eventData = new JSONObject();
         eventData.put("value", data);
         SendGameEvent(eventName, eventData, player);
     }
 
-    public void SendGameEvent(String eventName, Boolean data, EntityPlayer player) {
+    public void SendGameEvent(String eventName, Boolean data, EntityPlayer player)
+    {
         JSONObject eventData = new JSONObject();
         eventData.put("value", data);
         SendGameEvent(eventName, eventData, player);
     }
 
-    public void SendGameEvent(String eventName, String data, EntityPlayer player) {
+    public void SendGameEvent(String eventName, String data, EntityPlayer player)
+    {
         JSONObject eventData = new JSONObject();
         eventData.put("value", data);
         SendGameEvent(eventName, eventData, player);
     }
 
-    private void SendGameEvent(String eventName, JSONObject dataObject, EntityPlayer player) {
+    private void SendGameEvent(String eventName, JSONObject dataObject, EntityPlayer player)
+    {
         JSONObject event = new JSONObject();
         event.put("game", "SSMCMOD");
         event.put("event", eventName);
@@ -73,7 +78,8 @@ public class GameSenseMod {
         executePost(event.toString(), player);
     }
 
-    private void executePost(String urlParameters, EntityPlayer player) {
+    private void executePost(String urlParameters, EntityPlayer player)
+    {
         try {
 
             // If we're not connected, retry after a certain amount of time has elapsed.
@@ -115,7 +121,8 @@ public class GameSenseMod {
         }
     }
 
-    private void ConnectToSSE3() {
+    private void ConnectToSSE3()
+    {
         String jsonAddress;
         jsonAddress = "";
         // First open the config file to see what port to connect to.
@@ -153,7 +160,7 @@ public class GameSenseMod {
 
         try {
             // If we got a json string of address of localhost:<port> open a connection to it
-            String sse3Address = "";
+            String sse3Address;
             if(!jsonAddress.equals("")) {
                 JSONObject obj = new JSONObject(jsonAddress);
                 sse3Address = "http://" + obj.getString("address") + "/game_event";
@@ -178,7 +185,8 @@ public class GameSenseMod {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event)
+    {
     }
 
     @EventHandler
@@ -188,7 +196,8 @@ public class GameSenseMod {
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event)
+    {
         MinecraftForge.EVENT_BUS.register(new GameSenseEventReceiver(Minecraft.getMinecraft()));
     }
 }
