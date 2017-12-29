@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +20,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,14 +29,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-//import net.minecraft.util.ChatComponentText;
-//import net.minecraft.util.IChatComponent;
-
 @Mod(modid = GameSenseMod.MODID, name = GameSenseMod.NAME, version = GameSenseMod.VERSION, acceptedMinecraftVersions = "[1.12,)")
 
 public class GameSenseMod {
 
-    public static final String MODID = "gamesense", NAME = "gamesense", VERSION = "%VERSION%";
+    static final String MODID = "gamesense", NAME = "gamesense", VERSION = "%VERSION%";
 
 
     // Tell Forge what instance to use.
@@ -44,7 +43,6 @@ public class GameSenseMod {
     //private HttpURLConnection sse3Connection = null;
     private CloseableHttpClient sseClient = null;
     private HttpPost ssePost = null;
-    private String sse3Address = "";
     private Boolean isConnected = false;
     private long lastTick = 0;
 
@@ -155,6 +153,7 @@ public class GameSenseMod {
 
         try {
             // If we got a json string of address of localhost:<port> open a connection to it
+            String sse3Address = "";
             if(!jsonAddress.equals("")) {
                 JSONObject obj = new JSONObject(jsonAddress);
                 sse3Address = "http://" + obj.getString("address") + "/game_event";

@@ -4,47 +4,45 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 
 public class GameSenseEventReceiver {
 
-    private float lastHealth = 0;
-    private int lastFoodLevel = 0;
-    private boolean isHungry = false;
-    private boolean isStarted = false;
+    private float lastHealth;
+    private int lastFoodLevel;
+    private boolean isHungry;
+    private boolean isStarted;
     private Minecraft _mcInst;
-    private long lastTickMS = 0;
-    private long timeOfDay = 0;
-    private int lastAir = 0;
+    private long lastTickMS;
+    private long timeOfDay;
+    private int lastAir;
     private EnumFacing lastFacing = EnumFacing.NORTH;
-    private ItemStack lastHeldItem = null;
-    private GameSenseMod gsmInst = null;
+    private ItemStack lastHeldItem;
+    private GameSenseMod gsmInst;
 
-    public GameSenseEventReceiver(Minecraft mcInst) {
+    GameSenseEventReceiver(Minecraft mcInst) {
         this._mcInst = mcInst;
+        gsmInst = null;
         this.gsmInst = GameSenseMod.instance;
+        lastTickMS = 0;
         lastTickMS = System.currentTimeMillis();
 
         this.reset();
+        lastHealth = 0;
+        lastFoodLevel = 0;
+        isHungry = false;
+        isStarted = false;
+        timeOfDay = 0;
+        lastAir = 0;
+        lastHeldItem = null;
     }
 
     public void reset() {
@@ -99,7 +97,7 @@ public class GameSenseEventReceiver {
 
             if (doPeriodicUpdate || player.getAir() != this.lastAir) {
                 this.lastAir = player.getAir();
-                gsmInst.SendGameEvent("AIRLEVEL", (int)(this.lastAir / 3), player);
+                gsmInst.SendGameEvent("AIRLEVEL", this.lastAir / 3, player);
             }
 
             // Compass direction facing
@@ -113,61 +111,55 @@ public class GameSenseEventReceiver {
                 this.lastHeldItem = player.getHeldItemMainhand();
 
                 // Double check the currentHeldItem is valid.
-                if (this.lastHeldItem != null) {
 
-                    // Check if player is holding a tool, if so, send game event
-                    // of what type of tool, material class, and durability
-                    Item heldItem = this.lastHeldItem.getItem();
-                    int heldItemDurability = 100 - (int) (heldItem.getDurabilityForDisplay(this.lastHeldItem) * 100);
-                    String heldItemMaterialName = "";
-                    String heldItemType = "";
+                // Check if player is holding a tool, if so, send game event
+                // of what type of tool, material class, and durability
+                Item heldItem = this.lastHeldItem.getItem();
+                int heldItemDurability = 100 - (int) (heldItem.getDurabilityForDisplay(this.lastHeldItem) * 100);
+                String heldItemMaterialName = "";
+                String heldItemType = "";
 
-                    String heldItemClassName = heldItem.getClass().getSimpleName();
-                    switch (heldItemClassName) {
-                        case "ItemAxe": {
-                            heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
-                            heldItemType = "AXE";
-                            break;
-                        }
-                        case "ItemSpade": {
-                            heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
-                            heldItemType = "SHOVEL";
-                            break;
-                        }
-                        case "ItemPickaxe": {
-                            heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
-                            heldItemType = "PICKAXE";
-                            break;
-                        }
-                        case "ItemHoe": {
-                            heldItemMaterialName = ((ItemHoe) heldItem).getMaterialName();
-                            heldItemType = "HOE";
-                            break;
-                        }
-                        case "ItemSword": {
-                            heldItemMaterialName = ((ItemSword) heldItem).getToolMaterialName();
-                            heldItemType = "SWORD";
-                            break;
-                        }
-                        case "ItemShears": {
-                            // Shears are always IRON
-                            heldItemMaterialName = "IRON";
-                            heldItemType = "SHEARS";
-                            break;
-                        }
-                        // TODO: Add more held items to send game events for
+                String heldItemClassName = heldItem.getClass().getSimpleName();
+                switch (heldItemClassName) {
+                    case "ItemAxe": {
+                        heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
+                        heldItemType = "AXE";
+                        break;
                     }
-
-                    if (heldItemType != "") {
-                        gsmInst.SendGameEvent("TOOL", heldItemType, player);
-                        gsmInst.SendGameEvent("TOOLMATERIAL", heldItemMaterialName, player);
-                        gsmInst.SendGameEvent("TOOLDURABILITY", heldItemDurability, player);
-                        gsmInst.SendGameEvent("SHOWTOOL", 1, player);
-                    } else {
-                        gsmInst.SendGameEvent("TOOL", "NONE", player);
-                        gsmInst.SendGameEvent("TOOLDURABILITY", 0, player);
-                        gsmInst.SendGameEvent("SHOWTOOL", 1, player);
+                    case "ItemSpade": {
+                        heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
+                        heldItemType = "SHOVEL";
+                        break;
                     }
+                    case "ItemPickaxe": {
+                        heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
+                        heldItemType = "PICKAXE";
+                        break;
+                    }
+                    case "ItemHoe": {
+                        heldItemMaterialName = ((ItemHoe) heldItem).getMaterialName();
+                        heldItemType = "HOE";
+                        break;
+                    }
+                    case "ItemSword": {
+                        heldItemMaterialName = ((ItemSword) heldItem).getToolMaterialName();
+                        heldItemType = "SWORD";
+                        break;
+                    }
+                    case "ItemShears": {
+                        // Shears are always IRON
+                        heldItemMaterialName = "IRON";
+                        heldItemType = "SHEARS";
+                        break;
+                    }
+                    // TODO: Add more held items to send game events for
+                }
+
+                if (!heldItemType.equals("")) {
+                    gsmInst.SendGameEvent("TOOL", heldItemType, player);
+                    gsmInst.SendGameEvent("TOOLMATERIAL", heldItemMaterialName, player);
+                    gsmInst.SendGameEvent("TOOLDURABILITY", heldItemDurability, player);
+                    gsmInst.SendGameEvent("SHOWTOOL", 1, player);
                 } else {
                     gsmInst.SendGameEvent("TOOL", "NONE", player);
                     gsmInst.SendGameEvent("TOOLDURABILITY", 0, player);
