@@ -30,13 +30,12 @@ import java.io.IOException;
 //import net.minecraft.util.ChatComponentText;
 //import net.minecraft.util.IChatComponent;
 
-@Mod(modid = GameSenseMod.MODID,
-        name = "gamesense",
-        version = GameSenseMod.VERSION)
+@Mod(modid = GameSenseMod.MODID, name = GameSenseMod.NAME, version = GameSenseMod.VERSION, acceptedMinecraftVersions = "[1.12,)")
 
 public class GameSenseMod {
-    public static final String MODID = "gamesense";
-    public static final String VERSION = "1.11";
+
+    public static final String MODID = "gamesense", NAME = "gamesense", VERSION = "%VERSION%";
+
 
     // Tell Forge what instance to use.
     @Instance(value = GameSenseMod.MODID)
@@ -67,7 +66,7 @@ public class GameSenseMod {
         SendGameEvent(eventName, eventData, player);
     }
 
-    public void SendGameEvent(String eventName, JSONObject dataObject, EntityPlayer player) {
+    private void SendGameEvent(String eventName, JSONObject dataObject, EntityPlayer player) {
         JSONObject event = new JSONObject();
         event.put("game", "SSMCMOD");
         event.put("event", eventName);
@@ -119,7 +118,8 @@ public class GameSenseMod {
     }
 
     private void ConnectToSSE3() {
-        String jsonAddress = "";
+        String jsonAddress;
+        jsonAddress = "";
         // First open the config file to see what port to connect to.
         // Try to open Windows path one first
         try {
@@ -137,7 +137,7 @@ public class GameSenseMod {
         }
 
         // If not on Windows, jsonAddress is probably still "", so try to open w/ Mac path
-        if(jsonAddress == "") {
+        if(jsonAddress.equals("")) {
             try {
                 String corePropsFileName = "/Library/Application Support/SteelSeries Engine 3/coreProps.json";
                 BufferedReader coreProps = new BufferedReader(new FileReader(corePropsFileName));
@@ -155,7 +155,7 @@ public class GameSenseMod {
 
         try {
             // If we got a json string of address of localhost:<port> open a connection to it
-            if(jsonAddress != "") {
+            if(!jsonAddress.equals("")) {
                 JSONObject obj = new JSONObject(jsonAddress);
                 sse3Address = "http://" + obj.getString("address") + "/game_event";
             } else {

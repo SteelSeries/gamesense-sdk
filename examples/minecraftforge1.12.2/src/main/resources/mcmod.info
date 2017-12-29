@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["David Tibbetts", "JayJay1989"],
   "credits": "Thanks to MinecraftForge for providing the framework.",
-  "logoFile": "assets/gamesense/textures/logo.png",
+  "logoFile": "steelseries.png",
   "screenshots": [],
   "dependencies": []
 }
