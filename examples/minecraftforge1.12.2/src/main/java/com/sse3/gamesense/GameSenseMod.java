@@ -29,12 +29,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-@Mod(modid = GameSenseMod.MODID, name = GameSenseMod.NAME, version = GameSenseMod.VERSION, acceptedMinecraftVersions = "[1.12,)")
+@Mod(modid = GameSenseMod.MODID,
+        name = GameSenseMod.MODNAME,
+        version = GameSenseMod.VERSION,
+        acceptedMinecraftVersions = "[%MINECRAFTVERSIONS%]")
 
 public class GameSenseMod
 {
-
-    static final String MODID = "gamesense", NAME = "gamesense", VERSION = "%VERSION%";
+    static final String MODID = "%MODID%";
+    static final String MODNAME = "%MODNAME%";
+    static final String VERSION = "%VERSION%";
 
 
     // Tell Forge what instance to use.

@@ -94,7 +94,7 @@ public class GameSenseEventReceiver
             }
 
             if (doPeriodicUpdate || player.getFoodStats().getFoodLevel() != this.lastFoodLevel) {
-                this.lastFoodLevel = this._mcInst.thePlayer.getFoodStats().getFoodLevel();
+                this.lastFoodLevel = this._mcInst.player.getFoodStats().getFoodLevel();
                 gsmInst.SendGameEvent("HUNGERLEVEL", this.lastFoodLevel * 5, player);
             }
 
@@ -251,8 +251,8 @@ public class GameSenseEventReceiver
                 }
             }
 
-            if (doPeriodicUpdate || this._mcInst.theWorld.getWorldTime() != this.timeOfDay) {
-                this.timeOfDay = this._mcInst.theWorld.getWorldTime();
+            if (doPeriodicUpdate || this._mcInst.world.getWorldTime() != this.timeOfDay) {
+                this.timeOfDay = this._mcInst.world.getWorldTime();
                 //sse3Inst.SendGameEvent("TIMEOFDAY", (int)(this.timeOfDay), player);
             }
         }

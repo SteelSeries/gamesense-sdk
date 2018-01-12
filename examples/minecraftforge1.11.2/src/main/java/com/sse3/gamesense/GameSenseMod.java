@@ -116,7 +116,7 @@ public class GameSenseMod
             // Couldn't actually connect.
             isConnected = false;
             if(player != null) {
-                player.addChatMessage(new TextComponentString("There was an error connecting to SteelSeries Engine 3"));
+                player.sendMessage(new TextComponentString("There was an error connecting to SteelSeries Engine 3"));
             }
         } catch (Exception e) {
             // Likely a socket timeout w/ "Read timed out" which is fine, we just want to set & forget.
