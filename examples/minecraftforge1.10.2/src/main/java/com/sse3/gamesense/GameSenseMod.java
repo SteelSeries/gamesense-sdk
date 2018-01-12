@@ -1,40 +1,25 @@
 package com.sse3.gamesense;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 import org.json.JSONException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-//import net.minecraft.util.ChatComponentText;
-//import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -44,21 +29,22 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = GameSenseMod.MODID,
-        name = "gamesense",
-        version = GameSenseMod.VERSION)
+        name = GameSenseMod.MODNAME,
+        version = GameSenseMod.VERSION,
+        acceptedMinecraftVersions = "[%MINECRAFTVERSIONS%]")
 
-public class GameSenseMod {
-    public static final String MODID = "gamesense";
-    public static final String VERSION = "1.11";
+public class GameSenseMod
+{
+    static final String MODID = "%MODID%";
+    static final String MODNAME = "%MODNAME%";
+    static final String VERSION = "%VERSION%";
 
     // Tell Forge what instance to use.
     @Instance(value = GameSenseMod.MODID)
     public static GameSenseMod instance;
 
-    //private HttpURLConnection sse3Connection = null;
     private CloseableHttpClient sseClient = null;
     private HttpPost ssePost = null;
-    private String sse3Address = "";
     private Boolean isConnected = false;
     private long lastTick = 0;
 
@@ -150,7 +136,7 @@ public class GameSenseMod {
         }
 
         // If not on Windows, jsonAddress is probably still "", so try to open w/ Mac path
-        if(jsonAddress == "") {
+        if(jsonAddress.equals("")) {
             try {
                 String corePropsFileName = "/Library/Application Support/SteelSeries Engine 3/coreProps.json";
                 BufferedReader coreProps = new BufferedReader(new FileReader(corePropsFileName));
@@ -168,7 +154,8 @@ public class GameSenseMod {
 
         try {
             // If we got a json string of address of localhost:<port> open a connection to it
-            if(jsonAddress != "") {
+            String sse3Address;
+            if(!jsonAddress.equals("")) {
                 JSONObject obj = new JSONObject(jsonAddress);
                 sse3Address = "http://" + obj.getString("address") + "/game_event";
             } else {
@@ -192,7 +179,8 @@ public class GameSenseMod {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event)
+    {
     }
 
     @EventHandler
@@ -202,7 +190,8 @@ public class GameSenseMod {
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event)
+    {
         MinecraftForge.EVENT_BUS.register(new GameSenseEventReceiver(Minecraft.getMinecraft()));
     }
 }

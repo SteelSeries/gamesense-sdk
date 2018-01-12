@@ -1,7 +1,7 @@
 [
 {
-  "modid": "${modid}",
-  "name": "${modname}",
+  "modid": "gamesense",
+  "name": "GameSense Mod",
   "description": "This is a mod that sends events to SteelSeries Engine 3 GameSense.",
   "version": "${version}",
   "mcversion": "${mcversion}",

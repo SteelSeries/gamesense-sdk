@@ -4,26 +4,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 
 public class GameSenseEventReceiver {
 
@@ -32,17 +21,16 @@ public class GameSenseEventReceiver {
     private boolean isHungry = false;
     private boolean isStarted = false;
     private Minecraft _mcInst;
-    private long lastTickMS = 0;
+    private long lastTickMS = System.currentTimeMillis();
     private long timeOfDay = 0;
     private int lastAir = 0;
     private EnumFacing lastFacing = EnumFacing.NORTH;
     private ItemStack lastHeldItem = null;
-    private GameSenseMod gsmInst = null;
+    private GameSenseMod gsmInst;
 
     public GameSenseEventReceiver(Minecraft mcInst) {
         this._mcInst = mcInst;
         this.gsmInst = GameSenseMod.instance;
-        lastTickMS = System.currentTimeMillis();
 
         this.reset();
     }
@@ -99,7 +87,7 @@ public class GameSenseEventReceiver {
 
             if (doPeriodicUpdate || player.getAir() != this.lastAir) {
                 this.lastAir = player.getAir();
-                gsmInst.SendGameEvent("AIRLEVEL", (int)(this.lastAir / 3), player);
+                gsmInst.SendGameEvent("AIRLEVEL", this.lastAir / 3, player);
             }
 
             // Compass direction facing
@@ -120,10 +108,14 @@ public class GameSenseEventReceiver {
                     Item heldItem = this.lastHeldItem.getItem();
                     int heldItemDurability = 100 - (int) (heldItem.getDurabilityForDisplay(this.lastHeldItem) * 100);
                     String heldItemMaterialName = "";
-                    String heldItemType = "";
+                    String heldItemType;
 
                     String heldItemClassName = heldItem.getClass().getSimpleName();
+                    //System.out.println(heldItemClassName); // DEBUG: get ItemName of Handheld item in logs
                     switch (heldItemClassName) {
+                        //
+                        // Vanilla Minecraft Items
+                        //
                         case "ItemAxe": {
                             heldItemMaterialName = ((ItemTool) heldItem).getToolMaterialName();
                             heldItemType = "AXE";
@@ -155,19 +147,85 @@ public class GameSenseEventReceiver {
                             heldItemType = "SHEARS";
                             break;
                         }
+                        // Add new Vanilla Minecraft Items
+                        case "ItemBow": {
+                            // Shears are always IRON
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "ItemShield": {
+                            // Shears are always IRON
+                            heldItemType = "SWORD";
+                            break;
+                        }
+
+                        //
+                        // Tinkers Construct
+                        //
+                        case "Shovel": {
+                            heldItemType = "SHOVEL";
+                            break;
+                        }
+                        case "Hatchet": {
+                            heldItemType = "AXE";
+                            break;
+                        }
+                        case "Rapier": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "LongSword": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "BroadSword": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "Scythe": {
+                            heldItemType = "SHEARS";
+                            break;
+                        }
+                        case "Mattock": {
+                            heldItemType = "HOE";
+                            break;
+                        }
+                        case "Kama": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "Hammer": {
+                            heldItemType = "PICKAXE";
+                            break;
+                        }
+                        case "Excavator": {
+                            heldItemType = "SHOVEL";
+                            break;
+                        }
+                        case "LumberAxe": {
+                            heldItemType = "AXE";
+                            break;
+                        }
+                        case "FryPan": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+                        case "LongBow": {
+                            heldItemType = "SWORD";
+                            break;
+                        }
+
                         // TODO: Add more held items to send game events for
+                        default: {
+                            heldItemType = "NONE";
+                            break;
+                        }
                     }
 
-                    if (heldItemType != "") {
-                        gsmInst.SendGameEvent("TOOL", heldItemType, player);
-                        gsmInst.SendGameEvent("TOOLMATERIAL", heldItemMaterialName, player);
-                        gsmInst.SendGameEvent("TOOLDURABILITY", heldItemDurability, player);
-                        gsmInst.SendGameEvent("SHOWTOOL", 1, player);
-                    } else {
-                        gsmInst.SendGameEvent("TOOL", "NONE", player);
-                        gsmInst.SendGameEvent("TOOLDURABILITY", 0, player);
-                        gsmInst.SendGameEvent("SHOWTOOL", 1, player);
-                    }
+                    gsmInst.SendGameEvent("TOOL", heldItemType, player);
+                    gsmInst.SendGameEvent("TOOLMATERIAL", heldItemMaterialName, player);
+                    gsmInst.SendGameEvent("TOOLDURABILITY", heldItemDurability, player);
+                    gsmInst.SendGameEvent("SHOWTOOL", 1, player);
                 } else {
                     gsmInst.SendGameEvent("TOOL", "NONE", player);
                     gsmInst.SendGameEvent("TOOLDURABILITY", 0, player);
@@ -177,7 +235,6 @@ public class GameSenseEventReceiver {
 
             if (doPeriodicUpdate || this._mcInst.theWorld.getWorldTime() != this.timeOfDay) {
                 this.timeOfDay = this._mcInst.theWorld.getWorldTime();
-                //sse3Inst.SendGameEvent("TIMEOFDAY", (int)(this.timeOfDay), player);
             }
         }
     }

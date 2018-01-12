@@ -2,20 +2,26 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
+String modversion = "1.12"
+String minecraftversion = "1.10,1.10.2"
+String modid = "gamesense"
+String modname = "gamesense"
 
-version = "1.11"
+if (System.getenv("BUILD_NUMBER") != null && System.getenv("SHOW_BUILD_NUMBER") != null) {
+    version = modversion + "_" + System.getenv("BUILD_NUMBER")
+} else {
+    version = modversion
+}
+
 group= "com.sse3.gamesense" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "gamesense"
 
@@ -34,7 +40,24 @@ minecraft {
     // Use non-default mappings at your own risk. they may not allways work.
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20161111"
+    replace "%VERSION%", project.version
+    replace "%MODID%", modid
+    replace "%MODNAME%", modname
+    replace "%MINECRAFTVERSIONS%", minecraftversion
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+repositories {
+    // org.json library
+    maven {
+        name "JSON"
+        url "https://mvnrepository.com/artifact/org.json/json"
+    }
+}
+
+configurations {
+    // configuration that holds jars to include in the jar
+    includeInJar
 }
 
 dependencies {
@@ -43,7 +66,8 @@ dependencies {
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
     //compile files('jars/json-20140107.jar')
-    compile files('jars/json-20171018.jar')
+    compile group: 'org.json', name: 'json', version: '20171018'
+    includeInJar group: 'org.json', name: 'json', version: '20171018'
       
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
@@ -63,18 +87,25 @@ dependencies {
 
 }
 
+jar {
+    // put it in the root of the jar
+    from configurations.includeInJar.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
 processResources
 {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
+    inputs.property "modname", modname
+    inputs.property "modid", modid
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
                 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':project.version, 'mcversion':project.minecraft.version,'modid':modid,'modname':modname
     }
         
     // copy everything else, thats not the mcmod.info

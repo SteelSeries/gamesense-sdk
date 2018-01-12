@@ -42,6 +42,7 @@ minecraft {
 
     //makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
+
 repositories {
     // org.json library
     maven {
