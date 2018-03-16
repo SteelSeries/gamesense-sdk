@@ -1,0 +1,16 @@
+[
+{
+  "modid": "${modid}",
+  "name": "${modname}",
+  "description": "This is a mod that sends events to SteelSeries Engine 3 GameSense.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/JayJay1989/gamesense-sdk",
+  "updateUrl": "",
+  "authorList": ["David Tibbetts", "JayJay1989"],
+  "credits": "Thanks to MinecraftForge for providing the framework.",
+  "logoFile": "steelseries.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
