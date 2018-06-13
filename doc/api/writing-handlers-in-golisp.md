@@ -35,7 +35,12 @@ So if you are on Windows, and your game is sending an event with the following J
     {
       "game": "MY_GAME",
       "event": "HEALTH",
-      "data": "{\"value\": 50, \"frame\": {\"exact-health\": \"2413\"}}"
+      "data": {
+        "value": 50, 
+        "frame": {
+          "exact-health": "2413"
+        }
+      }
     }
 
 then you would create the file `%PROGRAMDATA%/SteelSeries/SteelSeries Engine 3/haX0rBindings/my_game.lsp`.
