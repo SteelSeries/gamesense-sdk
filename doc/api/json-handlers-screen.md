@@ -197,7 +197,7 @@ The `repeats` key needs to be specified on the final frame in the list.  The val
 
 ## Example: A handler to display custom text
 
-The following example shows you how to bind an event handler that shows custom text that sent as context with the event data.
+The following example shows you how to bind an event handler that shows custom text that is sent as context with the event data.
 
 	{
 		"device-type": "screened",
@@ -209,7 +209,7 @@ The following example shows you how to bind an event handler that shows custom t
 		}
 	}
 
-When sending data to this handler, it is ideal to treat the `value` key as an integer that monotonically increases each time data is sent.  This ensures that value caching is bypassed and that the new custom text is displayed each time it is sent.  
+When sending data to this handler, it is ideal to treat the `value` key of the data as an integer that monotonically increases each time data is sent.  This ensures that value caching is bypassed and that the new custom text is displayed each time it is sent.  
 
 To ensure that this handler works properly, it is necessary to send the `frame` key within the data for the event with a subkey `custom-text` that has a string value.  See the "Context Data" section of the [Sending Events][api doc] document for details.
 

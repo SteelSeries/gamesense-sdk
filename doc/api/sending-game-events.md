@@ -53,7 +53,7 @@ The event framework will work with games written in any language. All you need i
 
 One enthusiast has created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to Christian Schuller.
 
-## Context data ##
+### Event context data ###
 
 In addition to the mandatory data described above, the key `frame` can be provided with a JSON object containing arbitrary key/value pairs.  If this key is provided, the data in the object can be accessed from golisp handlers or by using the `arg` key in screen handlers by using the key `context-frame`.
 
