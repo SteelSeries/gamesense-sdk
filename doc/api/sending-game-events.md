@@ -53,6 +53,23 @@ The event framework will work with games written in any language. All you need i
 
 One enthusiast has created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to Christian Schuller.
 
+### Event context data ###
+
+In addition to the mandatory data described above, the key `frame` can be provided with a JSON object containing arbitrary key/value pairs.  If this key is provided, the data in the object can be accessed from golisp handlers or by using the `arg` key in screen handlers by using the key `context-frame`.
+
+The following example, along with sending the player's percentage of health to the HEALTH event handlers, also sends a string containing the players exact amount of health that can be accessed by a screen handler bound to the event:
+
+    {
+      "game": "MY_GAME",
+      "event": "HEALTH",
+      "data": {
+        "value": 75,
+        "frame": {
+          "exact-health": "2413"
+        }
+      }
+    }
+
 ## Heartbeat/Keepalive Events ##
 
 GameSense™ is initialized on devices when the first event for a game is recieved.  It is deactivated when no events have been received within its timeout period of 15 seconds.  This means that your game should send at least one event every 15 seconds if you want the game state to continue to be fully represented on the user's devices.

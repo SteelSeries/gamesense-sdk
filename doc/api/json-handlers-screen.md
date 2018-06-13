@@ -195,6 +195,24 @@ The `repeats` key needs to be specified on the final frame in the list.  The val
 
 * With an event data value of 15, the text values "15 frame 1" and "15 frame 2" will alternate every 200ms until a new event is received that writes to the screen.
 
+## Example: A handler to display custom text
+
+The following example shows you how to bind an event handler that shows custom text that is sent as context with the event data.
+
+	{
+		"device-type": "screened",
+		"mode": "screen",
+		"zone": "one",
+		"datas": [{
+			"has-text": true,
+			"arg": "(custom-text: (context-frame: self))}"
+		}
+	}
+
+When sending data to this handler, it is ideal to treat the `value` key of the data as an integer that monotonically increases each time data is sent.  This ensures that value caching is bypassed and that the new custom text is displayed each time it is sent.  
+
+To ensure that this handler works properly, it is necessary to send the `frame` key within the data for the event with a subkey `custom-text` that has a string value.  See the "Context Data" section of the [Sending Events][api doc] document for details.
+
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
