@@ -35,7 +35,7 @@ So if you are on Windows, and your game is sending an event with the following J
     {
       "game": "MY_GAME",
       "event": "HEALTH",
-      "data": "{\"value\": 50}"
+      "data": "{\"value\": 50, \"frame\": {\"exact-health\": \"2413\"}}"
     }
 
 then you would create the file `%PROGRAMDATA%/SteelSeries/SteelSeries Engine 3/haX0rBindings/my_game.lsp`.
@@ -49,10 +49,12 @@ Below is a simple example of how to display calculated colors on multiple device
     (handler "HEALTH"
       (lambda (data)
         (let* ((v (value: data))
-               (c (color-between red-color green-color v)))
+               (c (color-between red-color green-color v))
+               (t (exact-health: (context-frame: data))))
           (on-device 'rgb-per-key-zones show-percent-on-zone: c v function-keys:)
           (on-device 'rgb-2-zone show-on-zone: c two:)
-          (on-device 'rgb-1-zone show-on-zone: c one:))))
+          (on-device 'rgb-1-zone show-on-zone: c one:)
+          (on-device 'screened show-text-on-zone: t one:))))
     
     (add-event-per-key-zone-use "HEALTH" "function-keys")
 
@@ -60,13 +62,17 @@ Line-by-line breakdown:
 
 1.First, we use the `handler` primitive to define a lambda function that will execute when event data is received.  The handler takes two parameters: the name of the event for which to register, and a single-parameter lambda function.  The single parameter accepted by the lambda function is a frame containing the data sent by the event.
 
-2.Next, we use a let statement to define some local variables.  `v` is defined as the contents of the slot in the data frame with the name `value`.  _Note_: Any events that are configurable via SteelSeries Engine and not handled purely through GoLisp must contain a slot named `value`.  However, the data frame can also contain other values as well, if they were sent in the event data.
+2.Next, we use a let statement to define some local variables.  `v` is defined as the contents of the slot in the data frame with the name `value`.  _Note_: Any events that are configurable via SteelSeries Engine and not handled purely through GoLisp must contain a slot named `value`.  
 
-3.Then the `color-between` function is used to calculate a color between red and green.  The color is calculated along a red-to-green gradient, using the value of `v` as a percentage value to select an intermediate color on the gradient.  The resulting color will be pure red at the value 0, pure green at 100, or varying colors in between.
+3.The preferred way to send additional context data to your handlers is to send the key `frame` in the event data.  Any JSON data contained in the value of this key is bound under `context-frame` in the data passed to the handler.  You can see `exact-health` being read from this context data in the example.
 
-4.The following three lines apply this color to several different device types using the `on-device` function.  The first call applies to devices with per-key illumination (e.g. the Apex M800), and applies the color as a percentage bar across the zone containing the function keys.  The second call applies to devices with exactly 2 zones of RGB illumination, and applies the color to the second zone on each device of that type.  The final call applies to devices with exactly 1 zone of RGB illumination, and applies the color to the first (and only) zone on each device of that type.
+4.Then the `color-between` function is used to calculate a color between red and green.  The color is calculated along a red-to-green gradient, using the value of `v` as a percentage value to select an intermediate color on the gradient.  The resulting color will be pure red at the value 0, pure green at 100, or varying colors in between.
 
-5.The last line of this example declares that the `HEALTH` event utilizes the `function-keys` zone on per-key-illuminated devices.  This is necessary for initialization of the proper keys on the Apex M800 (and other future per-key-illuminated devices).
+5.The following three lines apply this color to several different device types using the `on-device` function.  The first call applies to devices with per-key illumination (e.g. the Apex M800), and applies the color as a percentage bar across the zone containing the function keys.  The second call applies to devices with exactly 2 zones of RGB illumination, and applies the color to the second zone on each device of that type.  The final call applies to devices with exactly 1 zone of RGB illumination, and applies the color to the first (and only) zone on each device of that type.
+
+6.The next line takes the exact health that was read from the context data frame passed into the handler, and sends this text to the first zone of all devices with OLED or LCD screens.
+
+7.The last line of this example declares that the `HEALTH` event utilizes the `function-keys` zone on per-key-illuminated devices.  This is necessary for initialization of the proper keys on the Apex M800 (and other future per-key-illuminated devices).
 
 Detailed explanations of all of the GameSense™-exclusive primitives and functions are available in the rest of this document.  Documentation for the rest of the primitives is in [the GoLisp documentation][golisp documentation].
 
