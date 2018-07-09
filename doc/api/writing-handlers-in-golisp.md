@@ -55,7 +55,7 @@ Below is a simple example of how to display calculated colors on multiple device
       (lambda (data)
         (let* ((v (value: data))
                (c (color-between red-color green-color v))
-               (t (exact-health: (context-frame: data))))
+               (t (exact-health: (frame: data))))
           (on-device 'rgb-per-key-zones show-percent-on-zone: c v function-keys:)
           (on-device 'rgb-2-zone show-on-zone: c two:)
           (on-device 'rgb-1-zone show-on-zone: c one:)
@@ -69,7 +69,7 @@ Line-by-line breakdown:
 
 2. Next, we use a let statement to define some local variables.  `v` is defined as the contents of the slot in the data frame with the name `value`.  _Note_: Any events that are configurable via SteelSeries Engine and not handled purely through GoLisp must contain a slot named `value`.  
 
-3. The preferred way to send additional context data to your handlers is to send the key `frame` in the event data.  Any JSON data contained in the value of this key is bound under `context-frame` in the data passed to the handler.  You can see `exact-health` being read from this context data in the example.
+3. The preferred way to send additional context data to your handlers is to send the key `frame` in the event data.  When using GoLisp handlers, the data sent to engine is passed on directly without rebinding to the name `context-frame` as happens in JSON handlers.  You can see `exact-health` being read from this context data in the example.
 
 4. Then the `color-between` function is used to calculate a color between red and green.  The color is calculated along a red-to-green gradient, using the value of `v` as a percentage value to select an intermediate color on the gradient.  The resulting color will be pure red at the value 0, pure green at 100, or varying colors in between.
 

@@ -37,13 +37,18 @@ Games communicate with SteelSeries Engine 3 by posting a specifically formatted 
       "event": "HEALTH",
       "data": {
           "value": 75
+          "frame": {
+            "contextual-data": "arbitrary-value"
+          }
       }
     }
 
 Notes about the data:
 * The values for `game` and `event` are limited to uppercase A-Z, 0-9, hyphen, and underscore characters.
 * All three of the keys are mandatory for the event to be processed.
-* The value for `data` can be either a JSON object or a string containing the stringified form of a JSON object.  Any events that will be handled by the JSON API *must* contain the key `value`.  For simplicity and greatest compatibility with user configurability of these events in SteelSeries Engine, it is recommended that the event data be a single `value` key with numeric values.
+* The value for `data` can be either a JSON object or a string containing the stringified form of a JSON object.
+* Inside `data`, the `value` key can be arbitrary data.  However, it is recommend for simplicity and greatest compatibility with user configurability in SteelSeries Engine that it be a numerical value.
+* Inside `data`, the `frame` key is optional.  If present, it should be a JSON object containing key-value pairs with arbitrary data.  This contextual data can be accessed by any GoLisp handler or JSON screen handler.  See the appropriate documents for information on accessing this contextual data within handlers.
 
 The events must be sent as a POST request to the address `<SSE3 url>/game_event`, with a content type of `application/json`.
 
