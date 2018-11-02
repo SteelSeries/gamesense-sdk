@@ -1,5 +1,8 @@
 # SteelSeries GameSense™ SDK #
+This repo is only for the Minecraft mod, and heavily edited and released on [curseforge](https://minecraft.curseforge.com/projects/steelseries-gamesense)
+Bugs can be reported [here](https://github.com/JayJay1989/gamesense-sdk/issues/new?template=bug_report.md)
 
+## Information ##
 GameSense™ is a framework in SteelSeries Engine 3 that allows games to
 send status updates to Engine, which can then drive illumination (and
 potentially more) capabilities of SteelSeries devices. One simple
