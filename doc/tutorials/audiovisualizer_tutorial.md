@@ -18,7 +18,7 @@ For GameSense™ version 1, we have to locate and parse this file manually. We c
 
 ```html
 <label for="uploadedCoreProps">Select coreProps.json:</label>
-<input type="file" id="uploadedCoreProps" accept=".json"></input>
+<input type="file" id="uploadedCoreProps" accept=".json" />
 ```
 
 ```javascript
