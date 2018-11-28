@@ -1,0 +1,7 @@
+{
+    "pack": {
+        "description": "GameSense Mod",
+        "pack_format": 3,
+        "_comment": "This is a mod that sends events to SteelSeries Engine 3 GameSense."
+    }
+}
