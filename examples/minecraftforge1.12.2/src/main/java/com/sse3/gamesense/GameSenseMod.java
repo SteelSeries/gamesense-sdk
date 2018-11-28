@@ -25,8 +25,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONObject;
-import org.json.JSONException;
+
+import com.sse3.json.JSONException;
+import com.sse3.json.JSONObject;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
