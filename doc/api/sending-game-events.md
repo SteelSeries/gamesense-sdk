@@ -36,7 +36,7 @@ Games communicate with SteelSeries Engine 3 by posting a specifically formatted 
       "game": "MY_GAME",
       "event": "HEALTH",
       "data": {
-          "value": 75
+          "value": 75,
           "frame": {
             "contextual-data": "arbitrary-value"
           }
