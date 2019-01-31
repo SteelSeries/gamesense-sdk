@@ -27,14 +27,61 @@ _range-screen-data-definition_
 
 _screen-frame-data_
 
-    `length-millis`: <integer>    optional. default 0
-    `has-text`: <boolean>         mandatory
+  The single-line form of the API is supported for backwards compatibility.  The multi-line form was introduced in SteelSeries Engine 3.13.0 and is more flexible.
+
+    <single-line-frame-data> | <multi-line-frame-data> | <image-frame-data>
+
+_single-line-frame-data_
+    
+    <text-modifiers-data> | `has-progress-bar`
+    <frame-modifiers-data>
+    <data-accessor-data>
+
+_multi-line-frame-data_
+    
+    <frame-modifiers-data>
+    lines: [ <line-data> ... ] The list must contain one or more entries if present
+
+_image-frame-data_
+
+    <frame-modifiers-data>
+    `image-data`: <image-data>    Mandatory in this context.  default []    
+
+_frame-modifiers-data_
+
+  See [Controlling frame timing and repeating data](#controlling-frame-timing-and-repeating-data), [Showing icons alongside text](#showing-icons-alongside-text)
+
+    `length-millis`: <integer>       optional. default 0
+    `icon-id`: <icon id>             optional. default 0
+    `repeats`: <boolean> | <integer> optional. default false
+
+_line-data_
+
+    <text-modifiers-data> | `has-progress-bar`
+    <data-accessor-data>
+
+_text-modifiers-data_ 
+
+  See [Text Formatting Options](#text-formatting-options)
+
+    `has-text`: <boolean>         Either this or `has-progress-bar` is mandatory.  default true
     `prefix`: <text>              optional. default ""
     `suffix`: <text>              optional. default ""
-    `arg`: <data accessor string> optional. default "(value: self)"
-    `icon-id`: <icon id>          optional. default 0
-    `repeats`: <boolean> | <integer> optional. default false
-    `image-data`: <image-data>    optional.  default []
+    `bold`: <boolean>             optional. default false
+    `wrap`: <integer>             optional. default 0
+
+_has-progress-bar_
+
+  See [Progress Bars](#progress-bars)
+
+    `has-progress-bar`: <boolean> Either this or `has-text` is mandatory. default false
+
+_data_accessor_data_
+
+  See [Data Accessors](#data-accessors)
+
+    `arg`: <string>                optional. default unspecified
+    `context-frame-key`: <string>  optional.  overriden by `arg`. default unspecified
 
 ## Specifying a device type ##
 
@@ -56,53 +103,156 @@ Each set of data consists of a list of objects, each of which describes a single
 
 The only mandatory key is `has-text`.  Setting this value to `true` causes the frame to display the value of the event as text on the screen.  A number of additional options controlling the display of the text are available and described below.  A value of `false` causes the frame to require raw frame data to be supplied in the `image-data` key.  
 
-    "datas": [
-      {
-      	"has-text": true
-      }
-    ]
+```
+"datas": [
+  {
+    "has-text": true
+  }
+]
+```
 
 * With an event data value of 15, the text "15" will be displayed on the screen.
+
+### Ranged frame data ###
+
+Like lighting and tactile handlers, you can specify different event values to have different handler information.  As in those cases, rather than simply specifying a single `datas` value, specify a range of values which contain `low`, `high`, and `datas` values.
+
+```
+"datas" [
+  {
+    "low": 0,
+    "high": 15,
+    "datas": [ ... ]
+  },
+  {
+    "low": 16,
+    "high": 100,
+    "datas": [ ... ]
+  }
+]
+```
 
 #### Text formatting options ####
 
 The `prefix` and `suffix` keys can be used to specify text that will be prepended and appended respectively to the event value in the displayed text.
 
-    "datas": [
-      {
-      	"has-text": true,
-        "prefix": "Got ",
-        "suffix": " kills"
-      }
-    ]
+```
+"datas": [
+  {
+    "has-text": true,
+    "prefix": "Got ",
+    "suffix": " kills"
+  }
+]
+```
 
  * With an event data value of 15, the text "Got 15 kills" will be displayed on the screen
 
- The `arg` key can be used to specify a data transformation to be applied to the event data to get the value substituted into the final text, or be used to obtain the value to display from a source other than the event data.  This key is largely useful when using the local Golisp API rather than the JSON api, but is provided here for flexibility.
+The `bold` key can be used to enable bolder text for a line of text.  Keep in mind that the OLED screens on our devices are not extremely high resolution, so the effect of this key is rather subtle.
 
- The format of this key is a string that is evaluated by Golisp at runtime to obtain the value.  The default value of this key if not specified is "(value: self)", where `self` refers to the Golisp data frame for the event.
+```
+"datas": [
+  {
+    "has-text": true,
+    "bold": true
+  }
+]
+```
 
-     "datas": [
-       {
-         "has-text": true,
-         "suffix": "k kills",
-         "arg": (/ 1000 (value: self))
-       }
-     ]
+The `wrap` key can be used to specify a number of additional lines of text wrapping for a line of text.  The default value of 0 specifies no text wrapping.  The following example would cause the first specified line to be displayed across the first two lines of an OLED, and another line to be displayed on the third.  Also see [Data Accessors](#data-accessors) below for where each line's value is coming from.
 
-* With an event data value of 15000, the text "15k kills" will be displayed on the screen
+```
+"datas": [
+  {
+    "lines": [
+      {
+        "has-text": true,
+        "context-frame-key": "first-line",
+        "wrap": 1
+      },
+      {
+        "has-text": true,
+        "context-frame-key": "second-line"
+      }
+    ]
+  }
+]
+```
+
+#### Progress Bars ####
+
+Progress bars are natively supported as part of the API as of SteelSeries Engine 3.13.0.
+
+A progress bar can be displayed in place of a single line of text.  To do so, `has-text` must be false or unspecified, and `has-progress-bar` must be true.  The value it uses to display the fill state of the progress must be an integer in the range of 0-100.  By default, the value used for this will be the value of the `value` key in the event payload.  To change this, see [Data Accessors](#data-accessors) below.
+
+The following example displays a line of static header text as a label, followed by a progress bar with a fill state corresponding to the value key in the event payload:
+
+```
+"datas": [
+  {
+    "lines": [
+      {
+        "arg": "",
+        "prefix": "Progress"
+      },
+      {
+        "has-progress-bar": true
+      }
+    ]
+  }
+]
+```
+
+#### Data Accessors ####
+
+The default value that is substituted into the final text or used to fill the progress bar is the standard `value` key in the event payload.  There are two keys that can be used to obtain a different value for these purposes.
+
+The `context-frame-key` key takes a string.  The string is treated as a key in the object sent in the `frame` key in the event payload, if specified.  The value used is the value of this subkey, if the `frame` object exists and the `context-frame-key` specified exists as a key in that object.
+
+The `arg` key can be used to specify a more complex data transformation to be applied to the event data to get the value substituted.  The value of the `arg` key is a string containing a GoLisp expression that will be evaluated to obtain the final value to display.  The self keyword within this expression refers to the event payload object.  This key is largely useful when using the local Golisp API rather than the JSON api, but is provided here for flexibility.
+
+For example, assume the following event payload structure:
+
+```
+{
+  "game": "MYGAME",
+  "event": "MYEVENT",
+  "value": 56,
+  "frame": 
+  {
+    "textvalue": "this is some text",
+    "numericalvalue": 88
+  }
+}
+```
+
+The following data accessor key-value pairs result in the following final values:
+
+```
+"context-frame-key": "textvalue"                    -> "this is some text"
+"context-frame-key": "numericalvalue"               -> 88
+"arg": "(textvalue: (frame: self))"                 -> "this is some text"
+"arg": "(numericalvalue: (frame: self))"            -> 88
+"arg": "(/ (numericalvalue: (frame: self)) 44)"     -> 2
+"arg": "(string-upcase (textvalue: (frame: self)))" -> "THIS IS SOME TEXT"
+"arg": "(value: self)"                              -> 56 
+```
+
+Note that the final case has the same result as not specifying a data accessor at all.
 
 #### Showing icons alongside text #####
 
-The `icon-id` key can be used to specify an icon that will be displayed to the left of the text.  The icon will be displayed in the 32 leftmost pixels of the display, and the text will be displayed in the remaining space to the right.  For a list of available icon IDs, see [Event icons][event-icons].
+The `icon-id` key can be used to specify an icon that will be displayed to the left of the text and/or progress bar.  The icon will be displayed in the 32 leftmost pixels of the display, and the text will be displayed in the remaining space to the right.  For a list of available icon IDs, see [Event icons][event-icons].
 
-	"datas": [
-	  {
-	  	"has-text": true,
-	  	"suffix": "stuff",
-	  	"icon-id": 16
-	  }
-	]
+```
+"datas": [
+  {
+    "has-text": true,
+    "suffix": "stuff",
+    "icon-id": 16
+  }
+]
+```
 
 * With an event data value of 15, a lightning bolt icon will be displayed to the left, followed by the text "15"
 
@@ -112,31 +262,32 @@ You can specify a raw image for a frame instead of text with the `image-data` ke
 
 The format for `image-data` is an array of byte values where each pixel is a single bit.  A bit of `1` is a white pixel and a bit of `0` is a black pixel. The pixels are packed per row with the origin in the upper-left corner of the bitmap with a most significant bit first bit order.  (Ex. `0b11110000`, or `240`, is four white pixels followed by four black pixels in a row going from left to right.)  The number of bytes in the array must match the size of the device's screen. This can be calculated with `⌈ width * height / 8 ⌉`.
 
-Because you must match the dimensions of the device's screen exactly you should not use the `screened` device type when specifying handlers with raw bitmaps.  Instead, use the `screened-WIDTHxHEIGHT` device type to match devices with the resolution you specify.
+Because you must match the dimensions of the device's screen exactly you should not use the `screened` device type when specifying handlers with raw bitmaps.  Instead, use the `screened-WIDTHxHEIGHT` device type to match devices with the resolution you specify.  A list of the available resolutions and devices they correspond to is available in [Zones by device type][zones-types]
 
-
-    "device-type": "screened-128x36",
-    "datas": [
-      {
-        "has-text": false,
-        "image-data": [
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,12,0,0,
-            0,0,28,0,0,28,0,0,0,112,0,0,0,12,0,0,0,4,28,0,0,28,0,0,0,112,0,0,0,0,0,0,0,14,28,0,0,28,0,0,0,112,0,0,0,0,
-            0,0,0,4,127,0,120,28,7,0,112,112,224,14,0,0,28,1,128,1,255,193,254,127,31,193,252,115,248,63,140,236,127,
-            15,224,1,193,195,207,127,63,227,254,119,28,113,207,236,227,156,112,3,128,227,135,28,112,119,6,118,12,96,
-            207,12,193,152,48,3,28,99,192,28,112,119,7,119,0,192,108,13,128,216,0,31,54,113,248,28,112,119,7,115,192,
-            192,108,13,128,223,0,63,34,112,254,28,127,247,255,113,248,255,236,13,255,199,224,31,54,112,31,28,127,247,
-            255,112,28,192,12,13,128,0,112,3,28,96,7,28,112,7,0,112,14,192,12,13,128,0,56,3,128,227,131,28,112,119,7,
-            118,6,224,108,13,192,216,24,3,193,227,199,31,63,227,254,119,14,112,204,12,225,156,48,1,247,193,254,31,31,
-            193,252,115,252,63,140,12,127,15,240,0,255,128,124,31,7,0,112,112,240,14,12,12,28,3,128,0,28,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ]
-      }
+```
+"device-type": "screened-128x36",
+"datas": [
+  {
+    "has-text": false,
+    "image-data": [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,12,0,0,
+        0,0,28,0,0,28,0,0,0,112,0,0,0,12,0,0,0,4,28,0,0,28,0,0,0,112,0,0,0,0,0,0,0,14,28,0,0,28,0,0,0,112,0,0,0,0,
+        0,0,0,4,127,0,120,28,7,0,112,112,224,14,0,0,28,1,128,1,255,193,254,127,31,193,252,115,248,63,140,236,127,
+        15,224,1,193,195,207,127,63,227,254,119,28,113,207,236,227,156,112,3,128,227,135,28,112,119,6,118,12,96,
+        207,12,193,152,48,3,28,99,192,28,112,119,7,119,0,192,108,13,128,216,0,31,54,113,248,28,112,119,7,115,192,
+        192,108,13,128,223,0,63,34,112,254,28,127,247,255,113,248,255,236,13,255,199,224,31,54,112,31,28,127,247,
+        255,112,28,192,12,13,128,0,112,3,28,96,7,28,112,7,0,112,14,192,12,13,128,0,56,3,128,227,131,28,112,119,7,
+        118,6,224,108,13,192,216,24,3,193,227,199,31,63,227,254,119,14,112,204,12,225,156,48,1,247,193,254,31,31,
+        193,252,115,252,63,140,12,127,15,240,0,255,128,124,31,7,0,112,112,240,14,12,12,28,3,128,0,28,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
     ]
+  }
+]
+```
 
 #### Controlling frame timing and repeating data ####
 
@@ -146,29 +297,31 @@ After the frame is displayed, depending on the values of the `repeats` key and t
 
 Examples
 
-    "datas": [
-      {
-      	"has-text": true,
-      	"suffix": " kills",
-      	"length-millis": 250
-      }
-    ]
+```
+"datas": [
+  {
+    "has-text": true,
+    "suffix": " kills",
+    "length-millis": 250
+  }
+]
+```
 
 * With an event data value of 15, the text "15 kills" will be displayed for a quarter second before the screen returns to the background image.
 
 ```
 "datas": [
   {
-  	"has-text": true,
-  	"suffix": "Headshot!",
-  	"length-millis": 250,
-  	"arg": "",
-  	"icon-id": 7
+    "has-text": true,
+    "suffix": "Headshot!",
+    "length-millis": 250,
+    "arg": "",
+    "icon-id": 7
   },
   {
-  	"has-text": true,
-  	"suffix": " kills",
-  	"icon-id": 6
+    "has-text": true,
+    "suffix": " kills",
+    "icon-id": 6
   }
 ]
 ```
@@ -179,19 +332,21 @@ The `repeats` key can be used to specify whether, and how many times, to loop th
 
 The `repeats` key needs to be specified on the final frame in the list.  The value on any other frame will be ignored.
 
-	"datas": [
-	  {
-	    "has-text": true,
-	    "suffix": " frame 1",
-	    "length-millis": 200
-	  },
-	  {
-	  	"has-text": true,
-	  	"suffix": " frame 2",
-	  	"length-millis": 200,
-	  	"repeats": true
-	  }
-	]
+```
+"datas": [
+  {
+    "has-text": true,
+    "suffix": " frame 1",
+    "length-millis": 200
+  },
+  {
+    "has-text": true,
+    "suffix": " frame 2",
+    "length-millis": 200,
+    "repeats": true
+  }
+]
+```
 
 * With an event data value of 15, the text values "15 frame 1" and "15 frame 2" will alternate every 200ms until a new event is received that writes to the screen.
 
@@ -199,15 +354,17 @@ The `repeats` key needs to be specified on the final frame in the list.  The val
 
 The following example shows you how to bind an event handler that shows custom text that is sent as context with the event data.
 
-	{
-		"device-type": "screened",
-		"mode": "screen",
-		"zone": "one",
-		"datas": [{
-			"has-text": true,
-			"arg": "(custom-text: (context-frame: self))}"
-		}
-	}
+```
+{
+  "device-type": "screened",
+  "mode": "screen",
+  "zone": "one",
+  "datas": [{
+    "has-text": true,
+    "arg": "(custom-text: (context-frame: self))}"
+  }
+}
+```
 
 When sending data to this handler, it is ideal to treat the `value` key of the data as an integer that monotonically increases each time data is sent.  This ensures that value caching is bypassed and that the new custom text is displayed each time it is sent.  
 

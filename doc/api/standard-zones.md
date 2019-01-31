@@ -130,6 +130,12 @@ Note: Currently the only supported tactile feedback device is the Rival 700, whi
 
 ## `screened`, `screened-WIDTHxHEIGHT`
 
-Note: Currently the only supported OLED screen device is the Rival 700, which has a single OLED screen for notifications.  More zones may be introduced in the future with new devices.
+Note: All current OLED devices have a single screen.  This may change in the future, introducing new zones.
 
 * `one`
+
+Available WIDTHxHEIGHT device type specifiers:
+
+* `screened-128x36`: Rival 700, Rival 710
+* `screened-128x48`: Arctis Pro Wireless
+* `screened-128x52`: GameDAC / Arctis Pro + GameDAC
