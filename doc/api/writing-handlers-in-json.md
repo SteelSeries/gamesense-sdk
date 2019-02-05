@@ -8,14 +8,21 @@ For each event that you intend to support, you need to register it or bind handl
 
 # Registering a game #
 
-Your game is automatically registered with the system when you register or bind any events (see below).  However, if you want users to see a user-friendly game name and/or a custom-colored icon in the SteelSeries Engine interface, you will need to POST that metadata to the URL `http://127.0.0.1:<port>/game_metadata`.  Making this call is optional, and each parameter except `game` is optional when making the call.  For a list of the available colors of the default icon, see `Reference Sections - Default icon colors` below.
+Your game is automatically registered with the system when you register or bind any events (see below).  However, you can use another call to set various pieces of metadata.  Most notably, if you want users to see a user-friendly game name or developer name, you will need to POST that metadata to the URL `http://127.0.0.1:<port>/game_metadata`.  Making this call is optional, and each parameter except `game` is optional when making the call.
 
-If you send your game events with the game `"TEST_GAME"`, but you want to indicate to SteelSeries Engine that it should be displayed with a light blue icon and the user-friendly name `My testing game`, you would POST the following JSON to `game_metadata` on startup.
+The optional parameters are as follows:
+| JSON key                       | Value type           | Description       |
+|--------------------------------|----------------------|-------------------|
+| `game_display_name`            | string               | User-friendly name displayed in SSE.  If this is not set, your game will show up as the `game` string sent with your data |
+| `developer`                    | string               | Developer name displayed underneath the game name in SSE.  This line is omitted in SSE if the metadata field is not set. |
+| `deinitialize_timer_length_ms` | integer (1000-60000) | By default, SSE will return to default behavior when the `stop_game` call is made or when no events have been received for 15 seconds.  This can be used to customize that length of time between 1 and 60 seconds. |
+
+If you send your game events with the game `"TEST_GAME"`, but you want to indicate to SteelSeries Engine that it should be displayed with the user-friendly name `My testing game` and a developer name of `My Game Studios`, you would POST the following JSON to `game_metadata` on startup.
 
     {
       "game": "TEST_GAME",
-      "game_display_name": "My testing game",
-      "icon_color_id": 5
+      "game_display_name": "My testing game"
+      "developer": "My Game Studios"
     }
 
 # Registering an event #
@@ -140,23 +147,6 @@ A request that has any problems with the parameters will return a 400 status cod
 10: "That game is not registered".  This is returned when attempting to remove a game which does not exist.
 
 A request that returns a 500 status code indicates an error internal to SteelSeries Engine.  If you wish to submit information about requests which caused these errors, you can file a support ticket on our website.
-
-## Default icon colors ##
-
-The following IDs can be specified in the `"icon_color_id"` key when supplying game metadata, to display the following colored versions of the default game icon next to your game when it is displayed in SteelSeries Engine.
-
-0:  ![Orange](/images/defaulticons/orange.png) Orange  
-1:  ![Gold](/images/defaulticons/gold.png) Gold  
-2:  ![Yellow](/images/defaulticons/yellow.png) Yellow  
-3:  ![Green](/images/defaulticons/green.png) Green  
-4:  ![Teal](/images/defaulticons/teal.png) Teal  
-5:  ![Light blue](/images/defaulticons/bright-blue.png) Light blue  
-6:  ![Blue](/images/defaulticons/blue.png) Blue  
-7:  ![Purple](/images/defaulticons/purple.png) Purple  
-8:  ![Fuschia](/images/defaulticons/fuschia.png) Fuschia  
-9:  ![Pink](/images/defaulticons/hot-pink.png) Pink  
-10: ![Red](/images/defaulticons/red.png) Red  
-11: ![Silver](/images/defaulticons/silver.png) Silver  
 
 [golisp handlers]: /doc/api/writing-handlers-in-golisp.md "Writing Handlers in GoLisp"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
