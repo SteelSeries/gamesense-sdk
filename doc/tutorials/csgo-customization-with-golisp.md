@@ -1,6 +1,6 @@
 # Customizing CS:GO Integration #
 
-This document is meant as an add-on to the *Writing Handlers in GoLisp* document. You will need to familiarize your self with that as well as (to a degree based on how fancy you want to get) [the GoLisp documentation][golisp documentation] and [the GoLisp frames documentation][golisp frames].
+This document is meant as an add-on to the [Writing Handlers in GoLisp][handlers in golisp] document. You will need to familiarize your self with that as well as (to a degree based on how fancy you want to get) [the GoLisp documentation][golisp documentation] and [the GoLisp frames documentation][golisp frames].
 
 ## CS:GO data frame ##
 
@@ -20,7 +20,7 @@ There is a wealth of data in this frame, likely more than you will ever need. Th
 |-----------------|-------------|-------------------------------------------------------------------------------------------------|
 | `health:`       | 0-100       | Percent of full health, 0 = dead.                                                               |
 | `armor:`        | 0-100       | Percent of full armor protection, 0 = unprotected.                                              |
-| `helmet:`       | #t/#f       | Whether or not you are wearing a helment.                                                       |
+| `helmet:`       | #t/#f       | Whether or not you are wearing a helmet.                                                       |
 | `flashed:`      | 0-100       | The strength of the flash. Normally 0, jumps to 100 when you are flashed, then fades back to 0. |
 | `money:`        | 0-16000     | How much money you have.                                                                        |
 | `round_kills:`  | 0-?         | The number of kills you have made in the current round.                                         |
@@ -75,17 +75,23 @@ You can also get statistics for the entire match to the current time at `(match_
 
 ## Events ##
 
-The CS:GO support provides seven events that can be handled. The table below gives the name of each, the range of the `(value: data)` payload, and it's significance.
+The CS:GO support provides a number of events that can be assigned handlers. The table below gives their names, the range of the `(value: data)` payload, and its significance.
 
-| Event Name           | Value Range | Value Meaning                                                                                   |
-|----------------------|-------------|-------------------------------------------------------------------------------------------------|
-| `UPDATE-HEALTH`      | 0-100       | Percent of full health, 0 = dead.                                                               |
-| `UPDATE-ARMOR`       | 0-100       | Percent of full armor protection, 0 = unprotected.                                              |
-| `UPDATE-HELMET`      | #t/#f       | Whether or not you are wearing a helment.                                                       |
-| `UPDATE-FLASHED`     | 0-100       | The strength of the flash. Normally 0, jumps to 100 when you are flashed, then fades back to 0. |
-| `UPDATE-MONEY`       | 0-16000     | How much money you have.                                                                        |
-| `UPDATE-ROUND_KILLS` | 0-?         | The number of kills you have made in the current round. (note the dash/underscore)              |
-| `UPDATE-AMMO`        | 1-100       | How full (as a percentage) your clip is. The value is nil if you are not holding a gun.         |
+| Event Name                 | Value Range | Value Meaning                                                                                   |
+|----------------------------|-------------|-------------------------------------------------------------------------------------------------|
+| `UPDATE-HEALTH`            | 0-100       | Percent of full health, 0 = dead.                                                               |
+| `UPDATE-ARMOR`             | 0-100       | Percent of full armor protection, 0 = unprotected.                                              |
+| `UPDATE-HELMET`            | #t/#f       | Whether or not you are wearing a helmet.                                                       |
+| `UPDATE-HELMET_NUMERIC`    | 0/1         | Same as the above, presented as a numeric 0 or 1 instead |
+| `UPDATE-FLASHED`           | 0-255       | The strength of the flash.  Normally 0, jumps to 255 when flashed, then fades back to 0. |
+| `UPDATE-FLASHED_PERCENT`   | 0-100       | Same as above, but scaled to a 0-100 percentage value |
+| `UPDATE-MONEY`             | 0-16000     | How much money you have.                                                                        |
+| `UPDATE-ROUND_KILLS`       | 0-?         | The number of kills you have made in the current round. (note the dash/underscore)              |
+| `UPDATE-ROUND_KILLHS`      | 0-?         | Similar to the above, the number of headshot kills you have made in the current round. |
+| `MATCH-UPDATE-KILLS`       | 0-?         | The total number of kills you have made in the current match. (not just this round) |
+| `UPDATE-AMMO`              | 1-100       | How full (as a percentage) your clip is. The value is nil if you are not holding a gun.         |
+| `UPDATE-RELOADING`         | 0/1         | Whether you are currently reloading your weapon. |
+| `UPDATE-DEAD`              | 0/1         | Whether you are dead. |
 
 ## Example ##
 
@@ -110,3 +116,4 @@ Here is an example of layering headshots and other kills with the kill count upd
 
 [golisp documentation]: http://techblog.steelseries.com/golisp/documents.html
 [golisp frames]: http://techblog.steelseries.com/2014/10/15/golisp-frames.html
+[handlers in golisp]: ../api/writing-handlers-in-golisp.md
