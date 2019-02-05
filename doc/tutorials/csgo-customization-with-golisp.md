@@ -116,4 +116,4 @@ Here is an example of layering headshots and other kills with the kill count upd
 
 [golisp documentation]: http://techblog.steelseries.com/golisp/documents.html
 [golisp frames]: http://techblog.steelseries.com/2014/10/15/golisp-frames.html
-[handlers in golisp]: ../api/writing-handlers-in-golisp.md
+[handlers in golisp]: /doc/api/writing-handlers-in-golisp.md
