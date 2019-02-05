@@ -28,10 +28,6 @@ flexibility and power.
 [**`doc/api/standard-zones.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
 The list of standard zones that can be used in handlers.
 
-[**`doc/api/csgo-customization.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization.md)
-How to customize the builting CS:GO event handling using GoLisp. Read
-the `doc/api/writing-handlers-in-golisp.md` first.
-
 ## Tutorials ##
 
 [**`doc/tutorials/audiovisualizer_tutorial.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/audiovisualizer_tutorial.md)
@@ -46,6 +42,10 @@ presented in part 1.
 
 [**`doc/tutorials/creating-a-minecraft-mod.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/creating-a-minecraft-mod.md)
 Support tutorial on modding MineCraft.
+
+[**`doc/api/csgo-customization-with-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization-with-golisp.md)
+How to customize the builtin CS:GO event handling using GoLisp. Read
+the `doc/api/writing-handlers-in-golisp.md` first.
 
 ## Sample code ##
 
