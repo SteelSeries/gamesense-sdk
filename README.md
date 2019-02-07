@@ -21,12 +21,28 @@ How a game can register and send events to GameSense™.
 How to specify event handlers in JSON from a game for an
 out-of-the-box, user customizable experience.
 
+[**`doc/api/json-handlers-color.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
+Specifics on the JSON API for controlling device illumination.
+
+[**`doc/api/json-handlers-screen.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-screen.md)
+Specifics on the JSON API for controlling OLED screens
+on supported devices.
+
+[**`doc/api/json-handlers-tactile.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
+Specifics on the JSON API for controlling tactile feedback
+on supported devices.
+
 [**`doc/api/writing-handlers-in-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md)
 How to write handlers in the GoLisp language for the ultimate
 flexibility and power.
 
 [**`doc/api/standard-zones.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
-The list of standard zones that can be used in handlers.
+A reference document with the list of standard zones that can
+be used in handlers.
+
+[**`doc/api/event-icons.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/event-icons.md)
+A reference document with the list of event icons that can be
+used with OLED screen handlers.
 
 ## Tutorials ##
 
