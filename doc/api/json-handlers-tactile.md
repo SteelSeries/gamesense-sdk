@@ -10,50 +10,65 @@ Each portion is described in detail in later sections.
 
 Top-level schema
 
-    `device-type`: <device type>                                         mandatory
-    `zone`: <fixed zone value>                                           mandatory
-    `mode`: "vibrate"                                                    mandatory
-    `pattern`: <static-pattern-definition> |  <range-pattern-definition> mandatory
-    `rate`: <rate-definition>                                            optional
+```
+`device-type`: <device type>                                         mandatory
+`zone`: <fixed zone value>                                           mandatory
+`mode`: "vibrate"                                                    mandatory
+`pattern`: <static-pattern-definition> |  <range-pattern-definition> mandatory
+`rate`: <rate-definition>                                            optional
+```
 
 _static-pattern-definition_
 
-    [ <predefined-pattern-entry> | <custom-pattern-entry> ... ] The list is mandatory, but it may be empty
+```
+[ <predefined-pattern-entry> | <custom-pattern-entry> ... ] The list is mandatory, but it may be empty
+```
 
 _range-pattern-definition_
 
-    `low`: <event value, low end of range (inclusive)>                  mandatory
-    `high`: <event value, high end of range (inclusive)>                mandatory
-    `pattern`: <static-pattern-definition> | <range-pattern-definition> mandatory
+```
+`low`: <event value, low end of range (inclusive)>                  mandatory
+`high`: <event value, high end of range (inclusive)>                mandatory
+`pattern`: <static-pattern-definition> | <range-pattern-definition> mandatory
+```
 
 _predefined-pattern-entry_
 
-    `type`: <predefined pattern type value>                mandatory
-    `delay-ms`: <delay value in ms, ignored on last entry> optional
+```
+`type`: <predefined pattern type value>                mandatory
+`delay-ms`: <delay value in ms, ignored on last entry> optional
+```
 
 _custom-pattern-entry_
 
-    `type`: "custom" mandatory
-    `length-ms`: <length value in ms>                      mandatory
-    `delay-ms`: <delay value in ms, ignored on last entry> optional
+```
+`type`: "custom" mandatory
+`length-ms`: <length value in ms>                      mandatory
+`delay-ms`: <delay value in ms, ignored on last entry> optional
+```
 
 _rate-definition_
 
-    `frequency`: <static frequency value> | <range-frequency-definition>          mandatory
-    `repeat_limit`: <static repeat limit value> | <range-repeat-limit-definition> optional
+```
+`frequency`: <static frequency value> | <range-frequency-definition>          mandatory
+`repeat_limit`: <static repeat limit value> | <range-repeat-limit-definition> optional
+```
 
 _range-frequency-definition_
 
-    `low`: <event value, low end of range (inclusive)>                    mandatory
-    `high`: <event value, high end of range (inclusive)>                  mandatory
-    `frequency`:  <static frequency value> | <range-frequency-definition> mandatory
+```
+`low`: <event value, low end of range (inclusive)>                    mandatory
+`high`: <event value, high end of range (inclusive)>                  mandatory
+`frequency`:  <static frequency value> | <range-frequency-definition> mandatory
+```
 
 _range-repeat-limit-definition_
 
-    `low`: <event value, low end of range (inclusive)>   mandatory
-    `high`: <event value, high end of range (inclusive)> mandatory
-    `repeat_limit`:  <static repeat limit value>         mandatory
-
+```
+`low`: <event value, low end of range (inclusive)>   mandatory
+`high`: <event value, high end of range (inclusive)> mandatory
+`repeat_limit`:  <static repeat limit value>         mandatory
+```
 
 ## Specifying a device type ##
 
@@ -81,23 +96,27 @@ The `delay-ms` key is optional.  If specified on a value that is not the last va
 
 For a single strong click effect:
 
-    "pattern": [
-      {
-      	"type": "ti_predefined_strongclick_100"
-      }
-    ]
+```json
+"pattern": [
+  {
+  	"type": "ti_predefined_strongclick_100"
+  }
+]
+```
 
 For an effect that consists of a strong click followed after 150ms by another strong click:
 
-    "pattern": [
-      {
-      	"type": "ti_predefined_strongclick_100",
-      	"delay-ms": 150
-      },
-      {
-      	"type": "ti_predefined_strongclick_100"
-      }
-    ]
+```json
+"pattern": [
+  {
+  	"type": "ti_predefined_strongclick_100",
+  	"delay-ms": 150
+  },
+  {
+  	"type": "ti_predefined_strongclick_100"
+  }
+]
+```
 
 #### Custom vibration lengths ####
 
@@ -111,6 +130,45 @@ The `delay-ms` key is optional.  It works the same way for custom events as for 
 
 For an effect with a custom short buzz followed after 150 ms by a custom long buzz?:
 
+```
+"pattern": [
+  {
+    "type": "custom",
+    "length-ms": 100,
+    "delay-ms": 150
+  },
+  {
+    "type": "custom",
+    "length-ms": 250
+  }
+]
+```
+
+### Vibration based on ranges ###
+
+The full range of the event value is divided into discrete sub-ranges, with the low and high bounds of each sub-range being inclusive (if the value is >= the low bound and <= the high bound, then it considered to be in the range).  Each sub-range has an associated patterns specification as described above for a static pattern.
+
+The contents of the `"pattern"` key should be an array, with each object in the array containing `"low"` and `"high"` keys specifying the range, and a `"pattern"` key containing a pattern specification.
+
+For a vibration pattern that does not vibrate at high health, that clicks a single time per new value at medium health, and that uses the above custom pattern for every new value at low health:
+
+```json
+"pattern": [
+  {
+    "low": 61,
+    "high": 100,
+    "pattern": []
+  },
+  {
+    "low": 26,
+    "high": 60,
+    "pattern": [
+      { "type": "ti_predefined_sharpclick_60" }
+    ]
+  },
+  {
+    "low": 1,
+    "high": 25,
     "pattern": [
       {
         "type": "custom",
@@ -122,45 +180,9 @@ For an effect with a custom short buzz followed after 150 ms by a custom long bu
         "length-ms": 250
       }
     ]
-
-
-### Vibration based on ranges ###
-
-The full range of the event value is divided into discrete sub-ranges, with the low and high bounds of each sub-range being inclusive (if the value is >= the low bound and <= the high bound, then it considered to be in the range).  Each sub-range has an associated patterns specification as described above for a static pattern.
-
-The contents of the `"pattern"` key should be an array, with each object in the array containing `"low"` and `"high"` keys specifying the range, and a `"pattern"` key containing a pattern specification.
-
-For a vibration pattern that does not vibrate at high health, that clicks a single time per new value at medium health, and that uses the above custom pattern for every new value at low health:
-
-    "pattern": [
-      {
-        "low": 61,
-        "high": 100,
-        "pattern": []
-      },
-      {
-        "low": 26,
-        "high": 60,
-        "pattern": [
-          "type": "ti_predefined_sharpclick_60"
-        ]
-      },
-      {
-        "low": 1,
-        "high": 25,
-        "pattern": [
-          {
-            "type": "custom",
-            "length-ms": 100,
-            "delay-ms": 150
-          },
-          {
-            "type": "custom",
-            "length-ms": 250
-          }
-        ]
-      }
-    ]
+  }
+]
+```
 
 ## Specifying repeating vibration effects ##
 
@@ -174,9 +196,11 @@ A static frequency specifies that the vibration will always be repeated at the g
 
 To repeat twice a second:
 
-    "rate": {
-      "frequency": 2
-    }
+```json
+"rate": {
+  "frequency": 2
+}
+```
 
 ### Frequency ranges ###
 
@@ -184,21 +208,22 @@ As with colors or with vibration patterns, you can divide the full range of the 
 
 For an effect that repeats 3 times a second at values 0-10, once a second from 11-20, and does not for any higher value:
 
-    "rate": {
-      "frequency": [
-        {
-          "low": 0,
-          "high": 10,
-          "frequency": 3
-        },
-        {
-          "low": 11,
-          "high": 20,
-          "frequency": 1
-        }
-      ]
+```json
+"rate": {
+  "frequency": [
+    {
+      "low": 0,
+      "high": 10,
+      "frequency": 3
+    },
+    {
+      "low": 11,
+      "high": 20,
+      "frequency": 1
     }
-
+  ]
+}
+```
 
 ### Vibration effect repeat limit ###
 
@@ -210,41 +235,43 @@ If you do not want to use repeat limits, simply omit this key from the `"rate"` 
 
 For a static repeat limit of 5:
 
-    {
-      ...
-      "rate": {
-        "frequency": 1,
-        "repeat_limit": 5
-      }
-    }
+```json
+{
+  "rate": {
+    "frequency": 1,
+    "repeat_limit": 5
+  }
+}
+```
 
 #### Ranged repeat limit example ####
 
 For a vibration effect that repeats more the lower the value is:
 
-    {
-      ...
-      "rate": {
-        "frequency": 5,
-        "repeat_limit": [
-          {
-            "low": 0,
-            "high": 10,
-            "repeat_limit": 3
-          },
-          {
-            "low": 11,
-            "high": 20,
-            "repeat_limit": 2
-          },
-          {
-            "low": 21,
-            "high": 100,
-            "repeat_limit": 1
-          }
-        ]
+```json
+{
+  "rate": {
+    "frequency": 5,
+    "repeat_limit": [
+      {
+        "low": 0,
+        "high": 10,
+        "repeat_limit": 3
+      },
+      {
+        "low": 11,
+        "high": 20,
+        "repeat_limit": 2
+      },
+      {
+        "low": 21,
+        "high": 100,
+        "repeat_limit": 1
       }
-    }
+    ]
+  }
+}
+```
 
 ## Reference Sections - TI predefined vibrations ##
 

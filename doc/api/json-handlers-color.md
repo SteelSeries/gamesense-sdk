@@ -10,47 +10,60 @@ Each portion is described in detail in later sections.
 
 Top-level schema
 
-    `device-type`: <device type>                  mandatory
-    `zone`: <fixed zone value>                    mandatory for either the `zone` or `custom-zone-keys` to be specified
-    `custom-zone-keys`: <dynamic-zone-definition> mandatory for either the `zone` or `custom-zone-keys` to be specified
-    `mode`: <mode value>                          mandatory
-    `color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory
-    `rate`: <rate-definition>                     optional
+```
+`device-type`: <device type>                  mandatory
+`zone`: <fixed zone value>                    mandatory for either the `zone` or `custom-zone-keys` to be specified
+`custom-zone-keys`: <dynamic-zone-definition> mandatory for either the `zone` or `custom-zone-keys` to be specified
+`mode`: <mode value>                          mandatory
+`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory
+`rate`: <rate-definition>                     optional
+```
 
 _static-color-definition_
 
-    `red`: Red value  (0-255)    mandatory
-    `green`: Green value (0-255) mandatory
-    `blue`: Blue value (0-255)   mandatory
+```
+`red`: Red value  (0-255)    mandatory
+`green`: Green value (0-255) mandatory
+`blue`: Blue value (0-255)   mandatory
+```
 
 _gradient-color-definition_
 
-    `zero`: <static-color-definition>    mandatory
-    `hundred`: <static-color-definition> mandatory
+```
+`zero`: <static-color-definition>    mandatory
+`hundred`: <static-color-definition> mandatory
+```
 
 _range-color-definition_
 
-    `low`: <event value, low end of range (inclusive)>               mandatory
-    `high`: <event value, high end of range (inclusive)>             mandatory
-    `color`: <static-color-definition> | <gradient-color-definition> mandatory
+```
+`low`: <event value, low end of range (inclusive)>               mandatory
+`high`: <event value, high end of range (inclusive)>             mandatory
+`color`: <static-color-definition> | <gradient-color-definition> mandatory
+```
 
 _rate-definition_
 
-    `frequency`: <static frequency value> | <range-frequency-definition>          mandatory
-    `repeat_limit`: <static repeat limit value> | <range-repeat-limit-definition> optional
+```
+`frequency`: <static frequency value> | <range-frequency-definition>          mandatory
+`repeat_limit`: <static repeat limit value> | <range-repeat-limit-definition> optional
+```
 
 _range-frequency-definition_
 
-    `low`: <event value, low end of range (inclusive)>                    mandatory
-    `high`: <event value, high end of range (inclusive)>                  mandatory
-    `frequency`:  <static frequency value> | <range-frequency-definition> mandatory
+```
+`low`: <event value, low end of range (inclusive)>                    mandatory
+`high`: <event value, high end of range (inclusive)>                  mandatory
+`frequency`:  <static frequency value> | <range-frequency-definition> mandatory
+```
 
 _range-repeat-limit-definition_
 
-    `low`: <event value, low end of range (inclusive)>                             mandatory
-    `high`: <event value, high end of range (inclusive)>                           mandatory
-    `repeat_limit`:  <static repeat limit value> | <range-repeat-limit-definition> mandatory
-
+```
+`low`: <event value, low end of range (inclusive)>                             mandatory
+`high`: <event value, high end of range (inclusive)>                           mandatory
+`repeat_limit`:  <static repeat limit value> | <range-repeat-limit-definition> mandatory
+```
 
 ## Specifying a device type ##
 
@@ -65,31 +78,34 @@ GameSense enabled devices support different named zone specifiers depending on t
 
 You can specify a fixed zone via the `"zone"` key.  The value the name of the zone to use as a string. For a full list of fixed zone identifiers, see [Zones by device type][zones-types].
 
-    {
-      "device-type": "rgb-2-zone"
-      "zone": "two"
-      ...
-    }
+```json
+{
+  "device-type": "rgb-2-zone",
+  "zone": "two",
+}
+```
 
-    {
-      "device-type": "keyboard"
-      "zone": "function-keys"
-      ...
-    }
+```json
+{
+  "device-type": "keyboard",
+  "zone": "function-keys",
+}
+```
 
 ### Dynamic zones ###
 
-For devices with support for lighting control on a per-key basis (at launch this is limited to the APEX M800), you have the ability to create custom zones.  Note that this is mutually exclusive with specifying a fixed zone.
+For devices with support for lighting control on a per-key basis, you have the ability to create custom zones.  Note that this is mutually exclusive with specifying a fixed zone for a handler.
 
-To specify a dynamic zone, you use the `"custom-zone-keys"` key.  The value is an array of zone numbers.  For the APEX M800, this is an array of the HID codes of the keys in the zone, in the order in which the effect should be applied.  [HID key code reference][HID reference].  For example, to have a handler display using the WASD keys, you can specify:
+To specify a dynamic zone, you use the `"custom-zone-keys"` key.  The value is an array of zone numbers.  For all existing keyboards, this is an array of the HID codes of the keys in the zone, in the order in which the effect should be applied.  [HID key code reference][HID reference].  For example, to have a handler display using the WASD keys, you can specify:
 
-    {
-      "device-type": "rgb-per-key-zones",
-      "custom-zone-keys": [26,4,22,7]
-    }  
+```json
+{
+  "device-type": "rgb-per-key-zones",
+  "custom-zone-keys": [26,4,22,7]
+}
+```
 
-You need to be careful to ensure that the zones you use for a given device don't overlap; the result will likely be confusing for the user.
-
+You should be careful in most cases to ensure that the zones you use for a given device don't overlap.  If they do, the result will likely be confusing for the user.
 
 ## Describing the color computation ##
 
@@ -101,11 +117,13 @@ The color is specified statically.  The keys in this zone will always be this co
 
 For a purple color:
 
-    "color": {
-      "red": 255,
-      "green": 0,
-      "blue": 255
-    }
+```json
+"color": {
+  "red": 255,
+  "green": 0,
+  "blue": 255
+}
+```
 
 ### Color from a linear gradient ###
 
@@ -113,6 +131,45 @@ For this mode we specify a linear gradient between one color representing 0%, an
 
 For a gradient between red (0) and green (100):
 
+```json
+"color": {
+ "gradient": {
+    "zero": {
+      "red": 255,
+      "green": 0,
+      "blue": 0
+    },
+    "hundred": {
+      "red": 0,
+      "green": 255,
+      "blue": 0
+    }
+  }
+}
+```
+
+### Color based on ranges ###
+
+The full range of the event value is divided into discrete sub-ranges, with the low and high bounds of each sub-range being inclusive (if the value is >= the low bound and <= the high bound, then it considered to be in the range).  Each sub-range has an associated color specification, which can be a static color, a gradient, or another range definition.
+
+The contents of the `"color"` key should be an array, with each object in the array containing `"low"` and `"high"` keys specifying the range, and a `"color"` key containing a color specification.
+
+For a color that is static red at values 0-10 and a red to green gradient at values 11-100:
+
+```json
+"color": [
+  {
+    "low": 0,
+    "high": 10,
+    "color": {
+      "red": 255,
+      "green": 0,
+      "blue": 0
+    }
+  },
+  {
+    "low": 11,
+    "high": 100,
     "color": {
       "gradient": {
         "zero": {
@@ -127,44 +184,9 @@ For a gradient between red (0) and green (100):
         }
       }
     }
-
-### Color based on ranges ###
-
-The full range of the event value is divided into discrete sub-ranges, with the low and high bounds of each sub-range being inclusive (if the value is >= the low bound and <= the high bound, then it considered to be in the range).  Each sub-range has an associated color specification, which can be a static color, a gradient, or another range definition.
-
-The contents of the `"color"` key should be an array, with each object in the array containing `"low"` and `"high"` keys specifying the range, and a `"color"` key containing a color specification.
-
-For a color that is static red at values 0-10 and a red to green gradient at values 11-100:
-
-    "color": [
-      {
-        "low": 0,
-        "high": 10,
-        "color": {
-          "red": 255,
-          "green": 0,
-          "blue": 0
-        }
-      },
-      {
-        "low": 11,
-        "high": 100,
-        "color": {
-          "gradient": {
-            "zero": {
-              "red": 255,
-              "green": 0,
-              "blue": 0
-            },
-            "hundred": {
-              "red": 0,
-              "green": 255,
-              "blue": 0
-            }
-          }
-        }
-      }
-    ]
+  }
+]
+```
 
 ## Specifying the visualization mode ##
 
@@ -185,10 +207,11 @@ _*Note_*: The count visualization is only enabled for per-key-illuminated device
 
 The visualization mode is set using the `"mode"` key. For example:
 
-    {
-      "mode": "percent"
-      ...
-    }
+```json
+{
+  "mode": "percent",
+}
+```
 
 ## Specifying flash effects ##
 
@@ -200,9 +223,11 @@ A static frequency specifies that the LEDs will always flash at the given freque
 
 To flash four times a second:
 
-    "rate": {
-      "frequency": 4
-    }
+```json
+"rate": {
+  "frequency": 4
+}
+```
 
 ### Frequency ranges ###
 
@@ -210,21 +235,22 @@ As with colors, you can divide the full range of the event value into discrete s
 
 For an effect that flashes 10 times a second at values 0-10, 5 times a second from 11-20, and does not for any higher value:
 
-    "rate": {
-      "frequency": [
-        {
-          "low": 0,
-          "high": 10,
-          "frequency": 10
-        },
-        {
-          "low": 11,
-          "high": 20,
-          "frequency": 5
-        }
-      ]
+```json
+"rate": {
+  "frequency": [
+    {
+      "low": 0,
+      "high": 10,
+      "frequency": 10
+    },
+    {
+      "low": 11,
+      "high": 20,
+      "frequency": 5
     }
-
+  ]
+}
+```
 
 ### Flash repeat limit ###
 
@@ -236,111 +262,119 @@ If you do not want to use repeat limits, simply omit this key from the `"rate"` 
 
 For a static repeat limit of 5:
 
-    {
-      ...
-      "rate": {
-        "frequency": 1,
-        "repeat_limit": 5
-      }
-    }
+```json
+{
+  "rate": {
+    "frequency": 1,
+    "repeat_limit": 5
+  }
+}
+```
 
 #### Ranged repeat limit example ####
 
 For a flashing effect that always flashes for one second, but flashes faster at lower values:
 
-    {
-      ...
-      "rate": {
-        "frequency": [
-          {
-            "low": 0,
-            "high": 10,
-            "frequency": 10
-          },
-          {
-            "low": 11,
-            "high": 20,
-            "frequency": 5
-          },
-          {
-            "low": 21,
-            "high": 100,
-            "frequency": 2
-          }
-        ],
-        "repeat_limit": [
-          {
-            "low": 0,
-            "high": 10,
-            "repeat_limit": 10
-          },
-          {
-            "low": 11,
-            "high": 20,
-            "repeat_limit": 5
-          },
-          {
-            "low": 21,
-            "high": 100,
-            "repeat_limit": 2
-          }
-        ]
+```json
+{
+  "rate": {
+    "frequency": [
+      {
+        "low": 0,
+        "high": 10,
+        "frequency": 10
+      },
+      {
+        "low": 11,
+        "high": 20,
+        "frequency": 5
+      },
+      {
+        "low": 21,
+        "high": 100,
+        "frequency": 2
       }
-    }
-
-
+    ],
+    "repeat_limit": [
+      {
+        "low": 0,
+        "high": 10,
+        "repeat_limit": 10
+      },
+      {
+        "low": 11,
+        "high": 20,
+        "repeat_limit": 5
+      },
+      {
+        "low": 21,
+        "high": 100,
+        "repeat_limit": 2
+      }
+    ]
+  }
+}
+```
 
 ## Examples ##
 
-Use the row of 12 function keys on the Apex M800 to display a percentage bar graph, selecting the color from a gradient (red at 0, green at 100). Flash at 5 Hz when the value is between 11% and 20%, inclusive, and at 10Hz when it is at or below 10%:
+Use the row of 12 function keys on a per-key keyboard to display a percentage bar graph, selecting the color from a gradient (red at 0, green at 100). Flash at 5 Hz when the value is between 11% and 20%, inclusive, and at 10Hz when it is at or below 10%:
 
-    {
-      "device-type": "rgb-per-key-zones",
-      "zone": "function-keys",
-      "mode": "percent",
-      "color": {
-        "gradient": {
-          "zero": {"red": 255, "green": 0, "blue": 0},
-          "hundred": {"red": 0, "green": 255, "blue": 0}}},
-      "rate": {"frequency":[{"low": 1, "high": 10, "frequency": 10},
-                            {"low": 11, "high": 20, "frequency": 5}]}}
+```json
+{
+  "device-type": "rgb-per-key-zones",
+  "zone": "function-keys",
+  "mode": "percent",
+  "color": {
+    "gradient": {
+      "zero": {"red": 255, "green": 0, "blue": 0},
+      "hundred": {"red": 0, "green": 255, "blue": 0}}},
+  "rate": {"frequency":[{"low": 1, "high": 10, "frequency": 10},
+                        {"low": 11, "high": 20, "frequency": 5}]}
+}
+```
 
 To do something similar on any supported headset:
 
-    {
-      "device-type": "headset",
-      "zone": "earcups",
-      "mode": "color",
-      "color": {
-        "gradient": {
-          "zero": {"red": 255, "green": 0, "blue": 0},
-          "hundred": {"red": 0, "green": 255, "blue": 0}}},
-      "rate": {"frequency": [{"low": 1, "high": 10, "frequency": 10},
-                             {"low": 11, "high": 20, "frequency": 5}]}
-    }
+```
+{
+  "device-type": "headset",
+  "zone": "earcups",
+  "mode": "color",
+  "color": {
+    "gradient": {
+      "zero": {"red": 255, "green": 0, "blue": 0},
+      "hundred": {"red": 0, "green": 255, "blue": 0}}},
+  "rate": {"frequency": [{"low": 1, "high": 10, "frequency": 10},
+                         {"low": 11, "high": 20, "frequency": 5}]}
+}
+```
 
+Show a count on a per-key keyboard's 1-5 macro keys (if it is a keyboard with macro keys). Use a solid white color, and don't flash:
 
-Show a count on the M800's 1-5 macro keys. Use a solid white color, and don't flash:
+```json
+{
+  "device-type": "rgb-per-key-zones",
+  "zone": "macro-keys",
+  "mode": "count",
+  "color": { "red": 255, "green": 255, "blue": 255 }
+}
+```
 
-    {
-      "device-type": "rgb-per-key-zones",
-      "zone": "macro-keys",
-      "mode": "count",
-      "color": { "red": 255, "green": 255, "blue": 255 }
-    }
+Flash a per-key keyboard's Esc key 5 times in red (250mS flashes):
 
-Flash the M800's esc key 5 times in red (250mS flashes):
-
-    {
-      "device-type": "rgb-per-key-zones",
-      "zone": "esc",
-      "mode": "color",
-      "color": { "red": 255, "green": 0, "blue": 0 },
-      "rate": {
-        "frequency": 2,
-        "repeat_limit": 5
-      }
-    }
+```
+{
+  "device-type": "rgb-per-key-zones",
+  "zone": "esc",
+  "mode": "color",
+  "color": { "red": 255, "green": 0, "blue": 0 },
+  "rate": {
+    "frequency": 2,
+    "repeat_limit": 5
+  }
+}
+```
 
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
