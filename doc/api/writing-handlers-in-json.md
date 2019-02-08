@@ -6,50 +6,6 @@ Using SteelSeries GoLisp to write handlers allows the most detailed level of han
 
 For each event that you intend to support, you need to register it or bind handlers to it.  Registering an event will merely add it to the system and allow user customization of behavior, while binding handlers will also add default behavior.
 
-# Registering a game #
-
-Your game is automatically registered with the system when you register or bind any events (see below).  However, you can use another call to set various pieces of metadata.  Most notably, if you want users to see a user-friendly game name or developer name, you will need to POST that metadata to the URL `http://127.0.0.1:<port>/game_metadata`.  Making this call is optional, and each parameter except `game` is optional when making the call.
-
-The optional parameters are as follows:
-| JSON key                       | Value type           | Description       |
-|--------------------------------|----------------------|-------------------|
-| `game_display_name`            | string               | User-friendly name displayed in SSE.  If this is not set, your game will show up as the `game` string sent with your data |
-| `developer`                    | string               | Developer name displayed underneath the game name in SSE.  This line is omitted in SSE if the metadata field is not set. |
-| `deinitialize_timer_length_ms` | integer (1000-60000) | By default, SSE will return to default behavior when the `stop_game` call is made or when no events have been received for 15 seconds.  This can be used to customize that length of time between 1 and 60 seconds. |
-
-If you send your game events with the game `"TEST_GAME"`, but you want to indicate to SteelSeries Engine that it should be displayed with the user-friendly name `My testing game` and a developer name of `My Game Studios`, you would POST the following JSON to `game_metadata` on startup.
-
-    {
-      "game": "TEST_GAME",
-      "game_display_name": "My testing game"
-      "developer": "My Game Studios"
-    }
-
-# Registering an event #
-
-Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
-
-You can register an event via sending POST data to the URL `http://127.0.0.1:<port>/register_game_event`.  The payload requires you to specify the game and event names, and can optionally contain minimum and maximum numeric values for the event, as well as an ID specifying what icon is displayed next to the event in the SteelSeries Engine UI.
-
-If the adventure game wanted to indicate to SteelSeries Engine that you will be sending a health event with values between 0-100, and associate it with a health icon, it would POST the following JSON to `register_game_event` on startup.
-
-    {
-      "game": "ADVENTURE",
-      "event": "HEALTH",
-      "min_value": 0,
-      "max_value": 100,
-      "icon_id": 1
-    }
-
-Only the "game" and "event" keys are required.  The other keys will be filled in with the following default values if omitted:
-* Min value: 0
-* Max value: 100
-* Icon ID: 0 (No icon is displayed)
-
-Game and event names are limited to the following characters: Uppercase A-Z, the digits 0-9, hyphen, and underscore.
-
-For a list of available icons, see [Event icons][event-icons].
-
 # Binding an event #
 
 Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
