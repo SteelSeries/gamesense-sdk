@@ -16,9 +16,11 @@ One enthusiast also created an open source node-compatible implementation which 
 
 Interaction with the GameSense™ SDK is controlled through HTTP POST events to SteelSeries Engine.  Before you can use it, your game will need to find out the server address to which to send handlers and events.  To do this it will need to read the `coreProps.json` file that SteelSeries Engine creates when it starts. This file contains a small JSON object. You are interested in the `address` top level key. The corresponding value is the host and port that Engine is listening on. This is a string in `"host:port"` format. E.g.
 
-    {
-      "address": "127.0.0.1:51248"
-    }
+```json
+{
+  "address": "127.0.0.1:51248"
+}
+```
 
 This address value can then be used to create the URL used to post game handler specifications and events, by appending `"/game_event"`.
 
@@ -80,9 +82,11 @@ GameSense™ is initialized on devices when the first event for a game is reciev
 
 An additional endpoint, `game_heartbeat`, is available to simplify this process.  The data payload sent to this endpoint only needs to include the name of the game:
 
-    {
-      "game": "MY_GAME"
-    }
+```json
+{
+  "game": "MY_GAME"
+}
+```
 
 This endpoint does not affect any state on the user devices, but resets the GameSense™ deactivation timer.  Use of this endpoint is completely optional, as you can also send real event data to keep GameSense™ alive.
 
@@ -99,11 +103,13 @@ The optional parameters are as follows:
 
 If you send your game events with the game `"TEST_GAME"`, but you want to indicate to SteelSeries Engine that it should be displayed with the user-friendly name `My testing game` and a developer name of `My Game Studios`, you would POST the following JSON to `game_metadata` on startup.
 
-    {
-      "game": "TEST_GAME",
-      "game_display_name": "My testing game"
-      "developer": "My Game Studios"
-    }
+```json
+{
+  "game": "TEST_GAME",
+  "game_display_name": "My testing game",
+  "developer": "My Game Studios"
+}
+```
 
 # Registering an event #
 
@@ -113,13 +119,15 @@ You can register an event via sending POST data to the URL `http://127.0.0.1:<po
 
 If the adventure game wanted to indicate to SteelSeries Engine that you will be sending a health event with values between 0-100, and associate it with a health icon, it would POST the following JSON to `register_game_event` on startup.
 
-    {
-      "game": "ADVENTURE",
-      "event": "HEALTH",
-      "min_value": 0,
-      "max_value": 100,
-      "icon_id": 1
-    }
+```json
+{
+  "game": "ADVENTURE",
+  "event": "HEALTH",
+  "min_value": 0,
+  "max_value": 100,
+  "icon_id": 1
+}
+```
 
 Only the "game" and "event" keys are required.  The other keys will be filled in with the following default values if omitted:
 * Min value: 0
