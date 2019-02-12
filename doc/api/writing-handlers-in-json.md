@@ -2,79 +2,42 @@
 
 This document assumes that you have read the [Sending Events to the SteelSeries GameSense™ API][api doc]
 
-Using SteelSeries GoLisp to write handlers allows the most detailed level of handler creation, but introduces the external dependency of requiring the file with the handler definitions to be manually placed in the `hax0rBindings` directory.  It also makes it impossible for an end-user of the file to customize event bindings through SteelSeries Engine.  As an alternative, specifically formatted json can be used to create events and bind handlers that use a defined subset of functionality.  Handlers defined this way will also allow end users to override your default handler bindings through SteelSeries Engine to create the experience most suited to them.
+The JSON API is designed to be a flexible and accessible form of the API.  Specifically formatted JSON can be used to create events and bind handlers that use a large subset of the total available functionality.  Handlers defined this way will also allow end users to override default handler bindings inside SteelSeries Engine to create the experience most suited to them.
 
-For each event that you intend to support, you need to register it or bind handlers to it.  Registering an event will merely add it to the system and allow user customization of behavior, while binding handlers will also add default behavior.
-
-# Registering a game #
-
-Your game is automatically registered with the system when you register or bind any events (see below).  However, if you want users to see a user-friendly game name and/or a custom-colored icon in the SteelSeries Engine interface, you will need to POST that metadata to the URL `http://127.0.0.1:<port>/game_metadata`.  Making this call is optional, and each parameter except `game` is optional when making the call.  For a list of the available colors of the default icon, see `Reference Sections - Default icon colors` below.
-
-If you send your game events with the game `"TEST_GAME"`, but you want to indicate to SteelSeries Engine that it should be displayed with a light blue icon and the user-friendly name `My testing game`, you would POST the following JSON to `game_metadata` on startup.
-
-    {
-      "game": "TEST_GAME",
-      "game_display_name": "My testing game",
-      "icon_color_id": 5
-    }
-
-# Registering an event #
-
-Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
-
-You can register an event via sending POST data to the URL `http://127.0.0.1:<port>/register_game_event`.  The payload requires you to specify the game and event names, and can optionally contain minimum and maximum numeric values for the event, as well as an ID specifying what icon is displayed next to the event in the SteelSeries Engine UI.
-
-If the adventure game wanted to indicate to SteelSeries Engine that you will be sending a health event with values between 0-100, and associate it with a health icon, it would POST the following JSON to `register_game_event` on startup.
-
-    {
-      "game": "ADVENTURE",
-      "event": "HEALTH",
-      "min_value": 0,
-      "max_value": 100,
-      "icon_id": 1
-    }
-
-Only the "game" and "event" keys are required.  The other keys will be filled in with the following default values if omitted:
-* Min value: 0
-* Max value: 100
-* Icon ID: 0 (No icon is displayed)
-
-Game and event names are limited to the following characters: Uppercase A-Z, the digits 0-9, hyphen, and underscore.
-
-For a list of available icons, see [Event icons][event-icons].
+For each event that you intend to support, you need to register it as described in the previous document, or bind handlers to it.  Registering an event will merely add it to the system and allow user customization of behavior, while binding handlers will also add default behavior.
 
 # Binding an event #
 
 Note: It is not necessary to both bind and register an event.  The difference is that event registration does not specify default (pre user customization) behavior for an event, whereas event binding does.
 
-You can bind handlers for an event via sending POST data to the URL `http://127.0.0.1:<port>/bind_game_event`.  The payload includes all of the same mandatory and optional keys as event registration, as well as one additional key `handlers`.  The `handlers` value is an array of handlers.  Each handler should be either a JSON object or the stringified representation of a JSON object that describes the handler and what device type it should be applied to.  There should be one handler for each device type to which you wish to apply default behavior.
+You can bind JSON handlers for an event via sending POST data to the URL `http://127.0.0.1:<port>/bind_game_event`.  The payload includes all of the same mandatory and optional keys as event registration, as well as one additional key `handlers`.  The `handlers` value is an array of handlers.  Each handler should be either a JSON object or the stringified representation of a JSON object that describes the handler and what device type it should be applied to.  There should be one handler for each device type to which you wish to apply default behavior.
 
 For each handler, your JSON data describes:
 
 * The device type to which you wish to apply the effect
 * The zone effected
-* How the color should be calculated
-* How the flash rate should be calculated
-* In the case of zone-rich devices (e.g. the APEX M800 keyboard), whether to apply the color across all keys in the zone or to dynamically calculate how many keys to illuminate.
+* The details for how the illumination, OLED screen, or tactile effect should behave
 
 So if the adventure game wanted to provide its health event handler, it would POST the following JSON to `bind_game_event`.
 
+```json
+{
+  "game": "ADVENTURE",
+  "event": "HEALTH",
+  "min_value": 0,
+  "max_value": 100,
+  "icon_id": 1,
+  "handlers": [
     {
-      "game": "ADVENTURE",
-      "event": "HEALTH",
-      "min_value": 0
-      "max_value": 100,
-      "icon_id": 1,
-      "handlers": [
-        {
-          "device-type": "keyboard",
-          "zone": "function-keys",
-          "color": {"gradient": {"zero": {"red": 255, "green": 0, "blue": 0},
-                                 "hundred": {"red": 0, "green": 255, "blue": 0}}},
-          "mode": "percent"
-        }
-      ]
+      "device-type": "keyboard",
+      "zone": "function-keys",
+      "color": {"gradient": {"zero": {"red": 255, "green": 0, "blue": 0},
+                             "hundred": {"red": 0, "green": 255, "blue": 0}}},
+      "mode": "percent"
     }
+  ]
+}
+```
 
 This handler will display the health (whose value is 0-100, inclusive) as a percentage bar graph (assuming the connected keyboard supports it, or just using the color otherwise) on the function keys, varying from green at full health down to red at 0 health.
 
@@ -88,12 +51,14 @@ As of SteelSeries Engine 3.7.0, there are three different types of handlers you 
 
 As of SteelSeries Engine 3.5.0, you can remove an event you have registered via sending POST data to the URL `http://127.0.0.1:<port>/remove_game_event`.  The payload requires you to specify the game and event names.  To remove the event MY_EVENT from the game MY_GAME, POST the following data:
 
-    {
-      "game": "MY_GAME",
-      "event": "MY_EVENT"
-    }
+```json
+{
+  "game": "MY_GAME",
+  "event": "MY_EVENT"
+}
+```
 
-Removing an event also removes all bindings for the event.  However, if you have bound handlers via golisp and the file still exists, the event will be automatically re-registered and re-bound when the file is loaded.
+Removing an event also removes all bindings for the event.  However, if you have bound handlers via placing a GoLisp file on the client system and that file still exists, the event will be automatically re-registered and re-bound when the file is loaded.
 
 Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
 
@@ -101,13 +66,15 @@ Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
 
 As of SteelSeries Engine 3.5.0, you can remove a game you have registered via sending POST data to the URL `http://127.0.0.1:<port>/remove_game`.  The payload requires you to specify the game name.  To remove the game MY_GAME, POST the following data:
 
-    {
-      "game": "MY_GAME"
-    }
+```json
+{
+  "game": "MY_GAME"
+}
+```
 
 Removing a game also removes all events registered for the game, as well as all bindings for the events.However, if you have bound handlers via golisp and the file still exists, the game and events in the file will be automatically re-registered and re-bound when the file is loaded.
 
-Events that are built-in to SteelSeries Engine 3 by default cannot be removed.
+Games that are built-in to SteelSeries Engine 3 by default cannot be removed.
 
 # Reference sections #
 
@@ -117,7 +84,7 @@ All successful requests to the JSON API will return an HTTP status code of 200. 
 
 A request that has any problems with the parameters will return a 400 status code and one of the following errors:
 
-0: "Game or event string not specified".  Most of the requests require specifying both the game and event in question.  This error is returned if one is missing.
+0: "Game or event string not specified".  Most of the requests require specifying both the game and event in question.  This error is returned if one is missing.  This error will also be returned if the JSON sent to the endpoint is malformed and cannot be parsed.
 
 1: "Game string not specified".  Same as the above, but for requests that require only the game name.
 
@@ -141,22 +108,13 @@ A request that has any problems with the parameters will return a 400 status cod
 
 A request that returns a 500 status code indicates an error internal to SteelSeries Engine.  If you wish to submit information about requests which caused these errors, you can file a support ticket on our website.
 
-## Default icon colors ##
+## Error logging ##
 
-The following IDs can be specified in the `"icon_color_id"` key when supplying game metadata, to display the following colored versions of the default game icon next to your game when it is displayed in SteelSeries Engine.
+If an error is encountered within a handler while an event is being processed, the stack trace for the error will be logged by SteelSeries Engine.  The file can be found in one of these locations, depending on OS:
 
-0:  ![Orange](/images/defaulticons/orange.png) Orange  
-1:  ![Gold](/images/defaulticons/gold.png) Gold  
-2:  ![Yellow](/images/defaulticons/yellow.png) Yellow  
-3:  ![Green](/images/defaulticons/green.png) Green  
-4:  ![Teal](/images/defaulticons/teal.png) Teal  
-5:  ![Light blue](/images/defaulticons/bright-blue.png) Light blue  
-6:  ![Blue](/images/defaulticons/blue.png) Blue  
-7:  ![Purple](/images/defaulticons/purple.png) Purple  
-8:  ![Fuschia](/images/defaulticons/fuschia.png) Fuschia  
-9:  ![Pink](/images/defaulticons/hot-pink.png) Pink  
-10: ![Red](/images/defaulticons/red.png) Red  
-11: ![Silver](/images/defaulticons/silver.png) Silver  
+**OSX**     | `/Library/Application Support/SteelSeries Engine 3/Logs/golisp-log.txt`
+
+**Windows** | `%PROGRAMDATA%/SteelSeries/SteelSeries Engine 3/Logs/golisp-log.txt`
 
 [golisp handlers]: /doc/api/writing-handlers-in-golisp.md "Writing Handlers in GoLisp"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"

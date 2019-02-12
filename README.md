@@ -21,16 +21,28 @@ How a game can register and send events to GameSense™.
 How to specify event handlers in JSON from a game for an
 out-of-the-box, user customizable experience.
 
+[**`doc/api/json-handlers-color.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
+Specifics on the JSON API for controlling device illumination.
+
+[**`doc/api/json-handlers-screen.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-screen.md)
+Specifics on the JSON API for controlling OLED screens
+on supported devices.
+
+[**`doc/api/json-handlers-tactile.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
+Specifics on the JSON API for controlling tactile feedback
+on supported devices.
+
 [**`doc/api/writing-handlers-in-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md)
 How to write handlers in the GoLisp language for the ultimate
 flexibility and power.
 
 [**`doc/api/standard-zones.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
-The list of standard zones that can be used in handlers.
+A reference document with the list of standard zones that can
+be used in handlers.
 
-[**`doc/api/csgo-customization.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization.md)
-How to customize the builting CS:GO event handling using GoLisp. Read
-the `doc/api/writing-handlers-in-golisp.md` first.
+[**`doc/api/event-icons.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/event-icons.md)
+A reference document with the list of event icons that can be
+used with OLED screen handlers.
 
 ## Tutorials ##
 
@@ -46,6 +58,10 @@ presented in part 1.
 
 [**`doc/tutorials/creating-a-minecraft-mod.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/creating-a-minecraft-mod.md)
 Support tutorial on modding MineCraft.
+
+[**`doc/api/csgo-customization-with-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization-with-golisp.md)
+How to customize the builtin CS:GO event handling using GoLisp. Read
+the `doc/api/writing-handlers-in-golisp.md` first.
 
 ## Sample code ##
 
