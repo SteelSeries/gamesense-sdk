@@ -81,14 +81,14 @@ You can specify a fixed zone via the `"zone"` key.  The value the name of the zo
 ```json
 {
   "device-type": "rgb-2-zone",
-  "zone": "two",
+  "zone": "two"
 }
 ```
 
 ```json
 {
   "device-type": "keyboard",
-  "zone": "function-keys",
+  "zone": "function-keys"
 }
 ```
 
@@ -209,7 +209,7 @@ The visualization mode is set using the `"mode"` key. For example:
 
 ```json
 {
-  "mode": "percent",
+  "mode": "percent"
 }
 ```
 
