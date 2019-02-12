@@ -19,11 +19,11 @@ The following IDs can be specified in the `"icon_id"` key when registering or bi
 15: ![Clock](/images/eventicons/clock.png) Clock  
 16: ![Lightning](/images/eventicons/lightning.png) Lightning  
 17: ![Item](/images/eventicons/backpack.png) Item/Backpack  
-18: ![@](/images/eventicons/at.svg) <!-- .element height="24px" --> @ Symbol
-19: ![Muted](/images/eventicons/muted.svg) <!-- .element height="24px" --> Muted
-20: ![Talking](/images/eventicons/talking.svg) <!-- .element height="24px" --> Talking
-21: ![Connect](/images/eventicons/connect.svg) <!-- .element height="24px" --> Connect
-22: ![Disconnect](/images/eventicons/disconnect.svg) <!-- .element height="24px" --> Disconnect
-23: ![Music](/images/eventicons/music.svg) <!-- .element height="24px" --> Music
-24: ![Play](/images/eventicons/play.svg) <!-- .element height="24px" --> Play
-25: ![Pause](/images/eventicons/pause.svg) <!-- .element height="24px" --> Pause
+18: <img src="/images/at.svg" align="left" height="24px"> @ Symbol
+19: <img src="/images/muted.svg" align="left" height="24px"> Muted
+20: <img src="/images/talking.svg" align="left" height="24px"> Talking
+21: <img src="/images/connect.svg" align="left" height="24px"> Connect
+22: <img src="/images/disconnect.svg" align="left" height="24px"> Disconnect
+23: <img src="/images/music.svg" align="left" height="24px"> Music
+24: <img src="/images/play.svg" align="left" height="24px"> Play
+25: <img src="/images/pause.svg" align="left" height="24px"> Pause
