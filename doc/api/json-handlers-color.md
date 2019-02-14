@@ -379,4 +379,4 @@ Flash a per-key keyboard's Esc key 5 times in red (250mS flashes):
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
-[HID reference]: http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
+[HID reference]: https://www.usb.org/document-library/hid-usage-tables-112
