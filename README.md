@@ -1,11 +1,10 @@
 # SteelSeries GameSense™ SDK #
-
-GameSense™ is a framework in SteelSeries Engine 3 that allows games to
-send status updates to Engine, which can then drive illumination (and
-potentially more) capabilities of SteelSeries devices. One simple
+GameSense™ is a framework in SteelSeries Engine that allows games & apps
+to send status updates to Engine, which can then drive illumination,
+haptic & OLED display capabilities of SteelSeries devices. One simple
 example would be displaying the player's health on the row of
 functions keys as a bargraph that gets shorter and changes from green
-to red as their health decreases, even flashing when it gets
+to red as their health decreases -- even flashing when it gets
 critically low.
 
 This repository contains documentation, tutorials, and examples for
@@ -14,56 +13,39 @@ applications.
 
 ## Documentation ##
 
-[**`doc/api/sending-game-events.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/sending-game-events.md)
-How a game can register and send events to GameSense™.
+### Getting Started
+[**How a game can register and send events to GameSense™**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/sending-game-events.md).
 
-[**`doc/api/writing-handlers-in-json.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-json.md)
-How to specify event handlers in JSON from a game for an
-out-of-the-box, user customizable experience.
+[**How to specify event handlers in JSON from a game**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-json.md),for an out-of-the-box user customizable experience.
 
-[**`doc/api/json-handlers-color.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
-Specifics on the JSON API for controlling device illumination.
+[**How to control device illumination**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
 
-[**`doc/api/json-handlers-screen.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-screen.md)
-Specifics on the JSON API for controlling OLED screens
-on supported devices.
+[**How to control OLED screens**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-screen.md)
 
-[**`doc/api/json-handlers-tactile.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
-Specifics on the JSON API for controlling tactile feedback
-on supported devices.
+[**How to control tactile feedback**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
 
-[**`doc/api/writing-handlers-in-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md)
-How to write handlers in the GoLisp language for the ultimate
-flexibility and power.
 
-[**`doc/api/standard-zones.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
-A reference document with the list of standard zones that can
-be used in handlers.
+### GoLisp Handlers
+[**How to write handlers in GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md), for the ultimate flexibility and power.**
 
-[**`doc/api/event-icons.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/event-icons.md)
-A reference document with the list of event icons that can be
-used with OLED screen handlers.
+### Reference
+[**List of standard zones that can be used in handlers**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
+
+[**List of event icons that can be used with OLED screen handlers**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/event-icons.md)
+
 
 ## Tutorials ##
+[**Turn an RGB device into an audio spectrum analyzer**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/audiovisualizer_tutorial.md), using the GoLisp handlers
 
-[**`doc/tutorials/audiovisualizer_tutorial.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/audiovisualizer_tutorial.md)
-Turn your APEX M800 into an audio spectrum analyzer.
+[**Writing a mod for MineCraft to support GameSense™**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/minecraft-meet-sse.md)
 
-[**`doc/tutorials/minecraft-meet-sse.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/minecraft-meet-sse.md)
-Writing a mod for MineCraft to support GameSense™.
+[**Writing a mod for MineCraft to support GameSense™, Part 2**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/minecraft-meet-sse-part2.md), writing advanced handlers to work with the events being sent from the mod presented in part 1.
 
-[**`doc/tutorials/minecraft-meet-sse-part2.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/minecraft-meet-sse-part2.md)
-Writing advanced handlers to work with the events being sent from the mod
-presented in part 1.
+[**Support tutorial on modding MineCraft**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/creating-a-minecraft-mod.md)
 
-[**`doc/tutorials/creating-a-minecraft-mod.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/creating-a-minecraft-mod.md)
-Support tutorial on modding MineCraft.
+[**Customizing built-in CS:GO event handling with GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization-with-golisp.md), read (https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md) first.
 
-[**`doc/api/csgo-customization-with-golisp.md`**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization-with-golisp.md)
-How to customize the builtin CS:GO event handling using GoLisp. Read
-the `doc/api/writing-handlers-in-golisp.md` first.
-
-## Sample code ##
+## Sample Code ##
 
 [**`examples/audiovisualizer`**](https://github.com/SteelSeries/gamesense-sdk/tree/master/examples/audiovisualizer)
 Code to go with `doc/tutorials/audiovisualizer_tutorial.md`.
