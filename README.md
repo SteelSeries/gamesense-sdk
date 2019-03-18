@@ -16,7 +16,7 @@ applications.
 ### Getting Started
 [**How a game can register and send events to GameSense™**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/sending-game-events.md).
 
-[**How to specify event handlers in JSON from a game**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-json.md),for an out-of-the-box user customizable experience.
+[**How to specify event handlers in JSON from a game**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-json.md), for an out-of-the-box user customizable experience.
 
 [**How to control device illumination**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
 
@@ -26,7 +26,7 @@ applications.
 
 
 ### GoLisp Handlers
-[**How to write handlers in GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md), for the ultimate flexibility and power.**
+[**How to write handlers in GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md), for the ultimate flexibility and power.
 
 ### Reference
 [**List of standard zones that can be used in handlers**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/standard-zones.md)
