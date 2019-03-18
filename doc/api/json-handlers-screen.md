@@ -366,7 +366,7 @@ The following example shows you how to bind an event handler that shows custom t
 }
 ```
 
-When sending data to this handler, it is ideal to treat the `value` key of the data as an integer that monotonically increases each time data is sent.  This ensures that value caching is bypassed and that the new custom text is displayed each time it is sent.  
+When sending data to this handler, caching of the `value` field from the event data could prevent newer custom text from being displayed.  This can be prevented by setting the `value_optional` field of the event metadata to true when binding it.  The legacy way of handling this case was to treat the `value` field in the data as an integer that should be monotonically increased each time event data is sent, but this is no longer necessary with the addition of the `value_optional` metadata. 
 
 To ensure that this handler works properly, it is necessary to send the `frame` key within the data for the event with a subkey `custom-text` that has a string value.  See the "Context Data" section of the [Sending Events][api doc] document for details.
 

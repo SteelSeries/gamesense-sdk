@@ -11,11 +11,11 @@ Each portion is described in detail in later sections.
 Top-level schema
 
 ```
-`device-type`: <device type>                  mandatory
-`zone`: <fixed zone value>                    mandatory for either the `zone` or `custom-zone-keys` to be specified
-`custom-zone-keys`: <dynamic-zone-definition> mandatory for either the `zone` or `custom-zone-keys` to be specified
-`mode`: <mode value>                          mandatory
-`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory
+`device-type`: <device type>                     mandatory
+`zone`: <fixed zone value>                       mandatory for either the `zone` or `custom-zone-keys` to be specified
+`custom-zone-keys`: <dynamic-zone-definition>    mandatory for either the `zone` or `custom-zone-keys` to be specified
+`mode`: `count` | `percent` | `color` | `bitmap` mandatory
+`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory except when using `bitmap` mode
 `rate`: <rate-definition>                     optional
 ```
 
@@ -213,6 +213,8 @@ The visualization mode is set using the `"mode"` key. For example:
 }
 ```
 
+For details on the `bitmap` visualization mode, see the section [Full individual key control via bitmap mode](#full-individual-key-control-via-bitmap-mode) below.
+
 ## Specifying flash effects ##
 
 You can optionally use the `"rate"` key to enable flashing effects on the LEDs in the zone.  Rates are specified by frequency, which is the number of times the LEDs will turn on and off per second.  The amount of time an LED spends on and off when flashing equal.  Flashing frequency can be specified either statically or through a range of values.
@@ -315,6 +317,16 @@ For a flashing effect that always flashes for one second, but flashes faster at 
   }
 }
 ```
+
+## Full individual key control via bitmap mode ##
+
+The `bitmap` visualization mode is a special case that can be used to individually control an entire keyboard's lighting each update.  To use this mode, your event data must include a context frame data key named `bitmap`.  This key's value must be a 132-length array of colors, each of which should be a 3-length array specifying R, G, and B values.  This array is interpreted as a 22x6 grid that is automatically mapped to the nearest appropriate keys on the user's keyboard.   Any parts of the array that do not map to a key on the user's keyboard are ignored.
+
+This mode is only usable with per-key illuminated keyboards (type `rgb-per-key-zones`).
+
+When using this lighting mode, the `color` key in the handler is ignored and can be omitted.
+
+For details on sending context data with events, see [Event context data](/doc/api/sending-game-events.md#event-context-data).
 
 ## Examples ##
 
