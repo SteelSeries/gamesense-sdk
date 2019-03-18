@@ -16,7 +16,7 @@ Top-level schema
 `custom-zone-keys`: <dynamic-zone-definition>    mandatory for either the `zone` or `custom-zone-keys` to be specified
 `mode`: `count` | `percent` | `color` | `bitmap` mandatory
 `color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory except when using `bitmap` mode
-`rate`: <rate-definition>                     optional
+`rate`: <rate-definition>                        optional
 ```
 
 _static-color-definition_
