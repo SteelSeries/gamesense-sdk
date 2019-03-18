@@ -32,7 +32,7 @@ A category of device is specified using the `"device-type"` key. The value of th
 
   4. `rgb-5-zone`: Any connected, supported, five zone RGB device. Covers the Apex 150, Apex 300, and MSI GT72 keyboards.
 
-  5. `rgb-8-zone`: Any connected, supported, six zone RGB device.  Covers the Rival 600 and Rival 650 mice.
+  5. `rgb-8-zone`: Any connected, supported, eight zone RGB device.  Covers the Rival 600 and Rival 650 mice.
 
   6. `rgb-12-zone`: Any connected, supported, twelve zone RGB device.  Covers the QCK Prism mousepad.
 
