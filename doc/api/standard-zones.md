@@ -99,7 +99,7 @@ Note: Each of these types supports up to the number of zones specified in its na
 
 <details>
 	<summary>Click to expand the list of numbered zones</summary>
-	
+
   `one`
   `two`
   `three`
@@ -115,7 +115,7 @@ Note: Each of these types supports up to the number of zones specified in its na
   `thirteen`
   `fourteen`
   `fifteen`
-  `sixteen`ac
+  `sixteen`
   `seventeen`
   `eighteen`
   `nineteen`
