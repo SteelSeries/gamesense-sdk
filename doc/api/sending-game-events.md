@@ -125,7 +125,8 @@ If the adventure game wanted to indicate to SteelSeries Engine that you will be 
   "event": "HEALTH",
   "min_value": 0,
   "max_value": 100,
-  "icon_id": 1
+  "icon_id": 1,
+  "value_optional": false
 }
 ```
 
@@ -133,10 +134,13 @@ Only the "game" and "event" keys are required.  The other keys will be filled in
 * Min value: 0
 * Max value: 100
 * Icon ID: 0 (No icon is displayed)
+* Value optional: false
 
 Game and event names are limited to the following characters: Uppercase A-Z, the digits 0-9, hyphen, and underscore.
 
 For a list of available icons, see [Event icons][event-icons].
+
+If the `value_optional` key is set to true for an event, the handlers for the event will be processed each time it is updated, even if a value key is not specified in the data or if the value key matches the previously cached value.  This is mainly useful for events that use context data rather than the event value to determine what to display, such as some OLED screen events or for `bitmap` type lighting events.
 
 [gamesense-client-repo]: https://github.com/cschuller/gamesense-client
 [unity-plugin-repo]: https://github.com/SteelSeries/unity-gamesense-client

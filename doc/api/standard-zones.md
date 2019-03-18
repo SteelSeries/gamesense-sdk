@@ -18,32 +18,45 @@ A category of device is specified using the `"device-type"` key. The value of th
 
 ## Device types by number of RGB zones ##
 
-`rgb-1-zone`
-: Any connected, supported, single zone RGB device. Initially the Siberia Elite line, Siberia v3 Prism, and Sims 4 line.
+`rgb-zoned-device`
+: A generic specifier that applies to any connected, supported RGB device that has a static number of lighting zones.  This can be used to apply settings to a certain zone on all of the types of devices in the list below at once.  When using this type, a handler will be created for each type below that has the sepcified zone. 
 
-`rgb-2-zone`
-: Any connected, supported, dual zone RGB device. Initially the Rival mouse.
+<details>
+  <summary>Static RGB zone device types</summary>
 
-`rgb-3-zone`
-: Any connected, supported, three zone RGB device. Initially the Sensei Wireless mouse, the MSI GE62 keyboard, and the MSI GE72 keyboard.
+  1. `rgb-1-zone`: Any connected, supported, single zone RGB device.  Covers the Siberia Elite line of headsets, Siberia v3 Prism, Sims 4 line of products, Rival 100, and Rival 110.
 
-`rgb-5-zone`
-: Any connected, supported, five zone RGB device. Initially the Apex 300 keyboard.
+  2. `rgb-2-zone`: Any connected, supported, dual zone RGB device.  Covers the Rival, Rival 300, Rival 500, and Rival 700 mice lines, Arctis 5, Arctis Pro, QCK Prism Cloth line of mousepads.
+
+  3. `rgb-3-zone`: Any connected, supported, three zone RGB device. Covers the Sensei Wireless mouse and MSI 3 Zone RGB Keyboard.
+
+  4. `rgb-5-zone`: Any connected, supported, five zone RGB device. Covers the Apex 150, Apex 300, and MSI GT72 keyboards.
+
+  5. `rgb-8-zone`: Any connected, supported, six zone RGB device.  Covers the Rival 600 and Rival 650 mice.
+
+  6. `rgb-12-zone`: Any connected, supported, twelve zone RGB device.  Covers the QCK Prism mousepad.
+
+  7. `rgb-17-zone`: Any connected, supported, seventeen zone RGB device.  Covers the MSI Z270 Gaming Pro Carbon motherboard.
+
+  8. `rgb-24-zone`: Any connected, supported, twenty-four zone RGB device.  Covers the MSI Mystic Light.
+
+  9. `rgb-103-zone`: Any connected, supported, one hundred three zone RGB device.  Covers the MSI MPG27C and MPG27CQ monitors.
+</details>
 
 `rgb-per-key-zones`
-: Any connected, supported, keyboard with a lighting zone for each key. Initially the APEX M800 keyboard.
+: Any connected, supported, keyboard with a lighting zone for each key.  Covers the Apex M800, Apex M750 and 750 TKL, and MSI RGB Per Key keyboards.
 
 ## Device types for tactile notifications ##
 
 `tactile`
-: Any connected, supported device that supports a single zone for tactile feedback.  Initially the Rival 700.
+: Any connected, supported device that supports a single zone for tactile feedback.  Covers the Rival 500, Rival 700, and Rival 710.
 
 Note: Engine 3.7.0 and later
 
 ## Device types for OLED/LCD screen notifications ##
 
 `screened`
-: Any connected, supported device that supports notifications on a single OLED or LCD screen.  Initially the Rival 700.
+: Any connected, supported device that supports notifications on a single OLED or LCD screen.  Covers the Rival 700, Rival 710, Arctis Pro Wireless, and GameDAC.
 
 Note: Engine 3.7.0 and later
 
@@ -80,19 +93,121 @@ Note: On the Apex M800, the order of the keys in each zone is left to right and 
 
 * `one`: The main LED
 
-## `rgb-1-zone`, `rgb-2-zone`, `rgb-3-zone`, `rgb-5-zone` ##
+## Static RGB zoned devices (`rgb-zoned-device` and each individual type e.g. `rgb-1-zone`) ##
 
-Note: Each of these types supports up to the number of zones specified in its name.
+Note: Each of these types supports up to the number of zones specified in its name, except `rgb-zoned-device` which can be used with any of them.
 
-* `one`
-* `two`
-* `three`
-* `four`
-* `five`
+<details>
+	<summary>Click to expand the list of numbered zones</summary>
+
+  `one`
+  `two`
+  `three`
+  `four`
+  `five`
+  `six`
+  `seven`
+  `eight`
+  `nine`
+  `ten`
+  `eleven`
+  `twelve`
+  `thirteen`
+  `fourteen`
+  `fifteen`
+  `sixteen`
+  `seventeen`
+  `eighteen`
+  `nineteen`
+  `twenty`
+  `twenty-one`
+  `twenty-two`
+  `twenty-three`
+  `twenty-four`
+  `twenty-five`
+  `twenty-six`
+  `twenty-seven`
+  `twenty-eight`
+  `twenty-nine`
+  `thirty`
+  `thirty-one`
+  `thirty-two`
+  `thirty-three`
+  `thirty-four`
+  `thirty-five`
+  `thirty-six`
+  `thirty-seven`
+  `thirty-eight`
+  `thirty-nine`
+  `forty`
+  `forty-one`
+  `forty-two`
+  `forty-three`
+  `forty-four`
+  `forty-five`
+  `forty-six`
+  `forty-seven`
+  `forty-eight`
+  `forty-nine`
+  `fifty`
+  `fifty-one`
+  `fifty-two`
+  `fifty-three`
+  `fifty-four`
+  `fifty-five`
+  `fifty-six`
+  `fifty-seven`
+  `fifty-eight`
+  `fifty-nine`
+  `sixty`
+  `sixty-one`
+  `sixty-two`
+  `sixty-three`
+  `sixty-four`
+  `sixty-five`
+  `sixty-six`
+  `sixty-seven`
+  `sixty-eight`
+  `sixty-nine`
+  `seventy`
+  `seventy-one`
+  `seventy-two`
+  `seventy-three`
+  `seventy-four`
+  `seventy-five`
+  `seventy-six`
+  `seventy-seven`
+  `seventy-eight`
+  `seventy-nine`
+  `eighty`
+  `eighty-one`
+  `eighty-two`
+  `eighty-three`
+  `eighty-four`
+  `eighty-five`
+  `eighty-six`
+  `eighty-seven`
+  `eighty-eight`
+  `eighty-nine`
+  `ninety`
+  `ninety-one`
+  `ninety-two`
+  `ninety-three`
+  `ninety-four`
+  `ninety-five`
+  `ninety-six`
+  `ninety-seven`
+  `ninety-eight`
+  `ninety-nine`
+  `one-hundred`
+  `one-hundred-one`
+  `one-hundred-two`
+  `one-hundred-three`
+</details>
 
 ## `rgb-per-key-zones` ##
 
-Note: The Apex M800 is a full-size keyboard.  Future per-key-illuminated devices support only a subset of these zones.
+Note: The Apex M800 and M750 are full-size keyboards.  The Apex M750 TKL is a tenkeyless keyboard, and does not include any zone referencing the keypad.
 
 Note: These zones are named based on the keycaps in the US English layout.  If you are developing using a different layout, the zone names you specify will not match your keycaps in all cases.
 
