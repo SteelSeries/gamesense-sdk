@@ -8,7 +8,7 @@ We've built an event framework that offers a common approach for indicating game
 
 Simultaneously with the release of SteelSeries Engine 3.7.0, we have released a plugin for the Unity Engine and editor that is available [here on Github][unity-plugin-repo] or on the Unity Web Store.  For documentation on binding and sending events using the plugin, refer to the documentation in its repository.
 
-An Unreal Engine 4 plugin is also planned for future release.
+An Unreal Engine 4 plugin is also available now [here on Github][ue4-plugin-repo].  It should be available in the Unreal Engine Marketplace shortly.  For documentation on binding and sending events using the plugin, refer to the documentation in its repository.
 
 One enthusiast also created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries and is now inactive.  All credit goes to Christian Schuller.
 
@@ -144,3 +144,4 @@ If the `value_optional` key is set to true for an event, the handlers for the ev
 
 [gamesense-client-repo]: https://github.com/cschuller/gamesense-client
 [unity-plugin-repo]: https://github.com/SteelSeries/unity-gamesense-client
+[ue4-plugin-repo]: https://github.com/SteelSeries/gamesense-plugin-ue4/
