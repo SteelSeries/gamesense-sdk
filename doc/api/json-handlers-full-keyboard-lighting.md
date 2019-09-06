@@ -57,6 +57,20 @@ For example, the below handler definition will write to all keys except those us
 
 It is also possible to re-use a background effect event with a different set of excluded events, rather than needing to create a new one for each different combination of exclusions.  To do this, in addition to passing a `bitmap` context frame key, you must also include a `excluded-events` key.  This key/value functions exactly like the one on the handler definition itself, taking an array of event names as strings.  If this key is present in the context frame, the value in the frame will override the default provided during handler binding.  If not present, that default will be used.
 
+To send an update to the event above that overwrites AMMO and only leaves HEALTH visible, send the following data
+```
+{
+  "game": "MY_GAME",
+  "event": "BITMAP_EVENT",
+  "data": {
+    "frame": {
+      "bitmap": [...], // 132 colors etc.
+      "excluded-events": ["HEALTH"]
+    }
+  }
+}
+```
+
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
 [json-handlers-color]: /doc/api/json-handlers-color.md "JSON Color Handlers"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
