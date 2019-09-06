@@ -34,7 +34,7 @@ If this file is not present, then SteelSeries Engine 3 is not running and you sh
 
 ## Game Events ##
 
-Games communicate with SteelSeries Engine 3 by posting a specifically formatted JSON object to Engine's endpoint.  The properties of this object specify the game it is coming from, the event it corresponds to, and a data payload including a `"value"` property with an arbitrary value that is used by the handler. For example:
+Games communicate with SteelSeries Engine 3 by posting a specifically formatted JSON object to Engine's `/game_event` endpoint.  The properties of this object specify the game it is coming from, the event it corresponds to, and a data payload including a `"value"` property with an arbitrary value that is used by the handler. For example:
 
 ```json
 {
@@ -51,7 +51,7 @@ Notes about the data:
 * The same value for the `game` key should be used for all events and handlers within a single game.
 * All three of the keys `game`, `event`, and `data` are mandatory for the event to be processed.
 * The value for `data` can be either a JSON object or a string containing the stringified form of a JSON object.
-* Inside `data`, the `value` key can be arbitrary data.  However, for both simplicity and greatest compatibility with user configurability in SteelSeries Engine, it is recommended that it be a numerical value.
+* Inside `data`, the `value` key should be an integer value.  If you need to send other types of data, see the Event context data section below.
 
 The events must be sent as a POST request to the address `<SSE3 url>/game_event`, with a content type of `application/json`.
 
@@ -89,6 +89,35 @@ An additional endpoint, `game_heartbeat`, is available to simplify this process.
 ```
 
 This endpoint does not affect any state on the user devices, but resets the GameSense™ deactivation timer.  Use of this endpoint is completely optional, as you can also send real event data to keep GameSense™ alive.
+
+## Sending multiple event updates in one request ##
+
+Games and apps with high event update rates or high numbers of individual events can run into update frequency issues if sending each event update in an individual request.  SteelSeries Engine 3.15.4 added a new endpoint, `/multiple_game_events`, which can be used to send multiple event updates in a single request.  The JSON for the request should consist of a `game` key, and an `events` key which should be an array of the individual event data objects.
+
+```json
+{
+  "game": "MY_GAME",
+  "events": [
+    {
+      "event": "HEALTH",
+      "data": {
+          "value": 75
+      }
+    },
+    {
+      "event": "SOME_OTHER_EVENT",
+      "data": {
+        "value": 36,
+        "frame": {
+          "<arbitrary key>": "value"
+        }
+      }
+    }
+  ]
+}
+```
+
+Because this was added later than most of the other Engine endpoints, an additional endpoint `/supports_multiple_game_events` was also added to test for the existence of this feature.  If this request returns a 200 OK, you can assume that it is safe to use the feature for the remainder of the session.  If it returns a 404, you should fall back to sending individual event updates.
 
 # Registering a game #
 

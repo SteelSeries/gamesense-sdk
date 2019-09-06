@@ -1,6 +1,6 @@
 # JSON color handlers
 
-Note: This document describes the specific handler format for color handlers.  See [Writing Handlers in JSON][json-handlers] for a general overview of how to bind handlers.
+Note: This document describes the specific handler format for color handlers.  See [Writing Handlers in JSON][json-handlers] for a general overview of how to bind handlers.  See [JSON Handlers for Full-Keyboard Lighting Effects][json-handlers-full-keyboard] for details writing an effect handler that writes to each individual key on a keyboard.
 
 Color handlers are used to control LED lighting across a wide variety of supported products.
 
@@ -14,8 +14,8 @@ Top-level schema
 `device-type`: <device type>                     mandatory
 `zone`: <fixed zone value>                       mandatory for either the `zone` or `custom-zone-keys` to be specified
 `custom-zone-keys`: <dynamic-zone-definition>    mandatory for either the `zone` or `custom-zone-keys` to be specified
-`mode`: `count` | `percent` | `color` | `bitmap` mandatory
-`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory except when using `bitmap` mode
+`mode`: `count` | `percent` | `color`            mandatory
+`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory
 `rate`: <rate-definition>                        optional
 ```
 
@@ -318,16 +318,6 @@ For a flashing effect that always flashes for one second, but flashes faster at 
 }
 ```
 
-## Full individual key control via bitmap mode ##
-
-The `bitmap` visualization mode is a special case that can be used to individually control an entire keyboard's lighting each update.  To use this mode, your event data must include a context frame data key named `bitmap`.  This key's value must be a 132-length array of colors, each of which should be a 3-length array specifying R, G, and B values.  This array is interpreted as a 22x6 grid that is automatically mapped to the nearest appropriate keys on the user's keyboard.   Any parts of the array that do not map to a key on the user's keyboard are ignored.
-
-This mode is only usable with per-key illuminated keyboards (type `rgb-per-key-zones`).
-
-When using this lighting mode, the `color` key in the handler is ignored and can be omitted.
-
-For details on sending context data with events, see [Event context data](/doc/api/sending-game-events.md#event-context-data).
-
 ## Examples ##
 
 Use the row of 12 function keys on a per-key keyboard to display a percentage bar graph, selecting the color from a gradient (red at 0, green at 100). Flash at 5 Hz when the value is between 11% and 20%, inclusive, and at 10Hz when it is at or below 10%:
@@ -389,6 +379,7 @@ Flash a per-key keyboard's Esc key 5 times in red (250mS flashes):
 ```
 
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
+[json-handlers-full-keyboard]: /doc/api/json-handlers-full-keyboard-lighting.md "JSON Handlers for Full-Keyboard Lighting Effects"
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
 [HID reference]: https://www.usb.org/document-library/hid-usage-tables-112

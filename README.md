@@ -20,6 +20,8 @@ applications.
 
 [**How to control device illumination**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-color.md)
 
+[**How to write full-keyboard lighting effects**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-full-keybaord-lighting.md)
+
 [**How to control OLED screens**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-screen.md)
 
 [**How to control tactile feedback**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
