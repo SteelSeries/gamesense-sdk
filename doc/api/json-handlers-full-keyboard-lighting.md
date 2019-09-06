@@ -18,9 +18,28 @@ Top-level schema
 
 ## Full keyboard effects ##
 
-The `bitmap` visualization mode is a special case that can be used to individually control an entire keyboard's lighting each update.  To use this mode, your event data must include a context frame data key named `bitmap`.  This key's value must be a 132-length array of colors, each of which should be a 3-length array specifying R, G, and B values.  This array is interpreted as a 22x6 grid that is automatically mapped to the nearest appropriate keys on the user's keyboard.   Any parts of the array that do not map to a key on the user's keyboard are ignored.
+The `bitmap` visualization mode is a special case that can be used to individually control an entire keyboard's lighting each update.  To use this mode, your event data must include a context frame data key named `bitmap`.  This key's value must be a 132-length array of colors, each of which should be a 3-length array specifying R, G, and B values.  This array is interpreted as a 22x6 grid that is automatically mapped to the nearest appropriate keys on the user's keyboard.  The first color specified corresponds to the top left of the keyboard, the 23rd color corresponds to the left side of the second row, etc.   Any parts of the array that do not map to a key on the user's keyboard are ignored.
 
 For details on sending context data with events, see [Event context data](/doc/api/sending-game-events.md#event-context-data).
+
+It is also recommended to set the value_optional flag when binding a bitmap type event, so that you can omit the "value" key from the data and only send the relevant bitmap information.  See [Registering an event](/doc/api/sending-game-events.md#registering-an-event).
+
+Example partial event update payload (assuming value_optional):
+```
+{
+  "game": "MY_GAME",
+  "event": "BITMAP_EVENT",
+  "data": {
+    "frame": {
+      "bitmap": [
+        [255,0,0],   // Color for top left
+        [255,255,0], // Color for second part of top row
+        ...          // 130 more colors 
+      ]
+    }
+  }
+}
+```
 
 ## Full keyboard background effects ##
 
@@ -36,7 +55,7 @@ For example, the below handler definition will write to all keys except those us
 }
 ```
 
-It is also possible to re-use a background effect event with a different set of excluded events, rather than needing to create a new one for each different combination of exclusions.  To do this, in addition to passing a `bitmap` context frame key, you must also include a `excluded-events` key.  This key/value functions exactly like the one on the handler definition itself, taking an array of event names as strings.  If this key is not present in the context frame, the effect will default to excluding the events in the list provided during initial handler binding.
+It is also possible to re-use a background effect event with a different set of excluded events, rather than needing to create a new one for each different combination of exclusions.  To do this, in addition to passing a `bitmap` context frame key, you must also include a `excluded-events` key.  This key/value functions exactly like the one on the handler definition itself, taking an array of event names as strings.  If this key is present in the context frame, the value in the frame will override the default provided during handler binding.  If not present, that default will be used.
 
 [json-handlers]: /doc/api/writing-handlers-in-json.md "Writing Handlers in JSON"
 [json-handlers-color]: /doc/api/json-handlers-color.md "JSON Color Handlers"
