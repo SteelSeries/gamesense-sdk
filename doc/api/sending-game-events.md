@@ -107,17 +107,17 @@ Games and apps with high event update rates or high numbers of individual events
     {
       "event": "SOME_OTHER_EVENT",
       "data": {
-          "value": 36,
-          "frame": {
-            "<arbitrary key>": "value"
-          }
+        "value": 36,
+        "frame": {
+          "<arbitrary key>": "value"
+        }
       }
     }
   ]
 }
 ```
 
-Because this was added later than most of the other Engine endpoints, an endpoint `/supports_multiple_game_events` was also added to test for the existence of this feature.  If this request returns a 200 OK, you can assume that it is safe to use the feature.  If it returns a 404, you should fall back to sending individual event updates.
+Because this was added later than most of the other Engine endpoints, an additional endpoint `/supports_multiple_game_events` was also added to test for the existence of this feature.  If this request returns a 200 OK, you can assume that it is safe to use the feature for the remainder of the session.  If it returns a 404, you should fall back to sending individual event updates.
 
 # Registering a game #
 
