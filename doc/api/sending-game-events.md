@@ -51,7 +51,7 @@ Notes about the data:
 * The same value for the `game` key should be used for all events and handlers within a single game.
 * All three of the keys `game`, `event`, and `data` are mandatory for the event to be processed.
 * The value for `data` can be either a JSON object or a string containing the stringified form of a JSON object.
-* Inside `data`, the `value` key can be arbitrary data.  However, for both simplicity and greatest compatibility with user configurability in SteelSeries Engine, it is recommended that it be a numerical value.
+* Inside `data`, the `value` key should be an integer value.  If you need to send other types of data, see the Event context data section below.
 
 The events must be sent as a POST request to the address `<SSE3 url>/game_event`, with a content type of `application/json`.
 
