@@ -124,6 +124,7 @@ Because this was added later than most of the other Engine endpoints, an additio
 Your game is automatically registered with SteelSeries Engine the system when you register (see below) or bind (see the handler documents) any events.  However, you can use another call to set various pieces of metadata.  Most notably, if you want users to see a user-friendly game name or developer name, you will need to POST that metadata to the URL `http://127.0.0.1:<port>/game_metadata`.  Making this call is optional, and each parameter except `game` is optional when making the call.
 
 The optional parameters are as follows:
+
 | JSON key                       | Value type           | Description       |
 |--------------------------------|----------------------|-------------------|
 | `game_display_name`            | string               | User-friendly name displayed in SSE.  If this is not set, your game will show up as the `game` string sent with your data |
