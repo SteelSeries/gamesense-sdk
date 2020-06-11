@@ -44,6 +44,8 @@ _multi-line-frame-data_
 
 _image-frame-data_
 
+See [Showing raw bitmaps](#showing-raw-bitmaps) and [Sending dynamic images in event data](#sending-dynamic-images-in-event-data)
+
     <frame-modifiers-data>
     `image-data`: <image-data>    Mandatory in this context.  default []    
 
@@ -287,6 +289,24 @@ Because you must match the dimensions of the device's screen exactly you should 
     ]
   }
 ]
+```
+
+#### Sending dynamic images in event data ####
+
+The above section describes how to bind default static images to be displayed when a specific event is sent.  As of SteelSeries Engine 3.17.9, the context frame data sent for any image binding can include image data in specific keys to show instead of the default image.  The keys in the data correspond to the pattern `image-data-WIDTHxHEIGHT`.  The following example shows the full data format that can be used to send image data for each currently supported OLED resolution.  Please note that this example assumes that the event has been registered with the value_optional flag.
+```
+{
+  "game": "MY_GAME",
+  "event": "OLED_EVENT",
+  "data": {
+    "frame": {
+      "image-data-128x36": [<array of length 576>],
+      "image-data-128x40": [<array of length 640>],
+      "image-data-128x48": [<array of length 768>],
+      "image-data-128x52": [<array of length 852>]
+    }
+  }
+}
 ```
 
 #### Controlling frame timing and repeating data ####

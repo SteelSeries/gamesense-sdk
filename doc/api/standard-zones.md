@@ -252,5 +252,6 @@ Note: All current OLED devices have a single screen.  This may change in the fut
 Available WIDTHxHEIGHT device type specifiers:
 
 * `screened-128x36`: Rival 700, Rival 710
+* `screened-128x40`: Apex 7, Apex 7 TKL, Apex Pro, Apex Pro TKL
 * `screened-128x48`: Arctis Pro Wireless
 * `screened-128x52`: GameDAC / Arctis Pro + GameDAC
