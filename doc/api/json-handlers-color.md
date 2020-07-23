@@ -11,12 +11,13 @@ Each portion is described in detail in later sections.
 Top-level schema
 
 ```
-`device-type`: <device type>                     mandatory
-`zone`: <fixed zone value>                       mandatory for either the `zone` or `custom-zone-keys` to be specified
-`custom-zone-keys`: <dynamic-zone-definition>    mandatory for either the `zone` or `custom-zone-keys` to be specified
-`mode`: `count` | `percent` | `color`            mandatory
-`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory
-`rate`: <rate-definition>                        optional
+`device-type`: <device type>                            mandatory
+`zone`: <fixed zone value>                              mandatory for either the `zone` or `custom-zone-keys` to be specified
+`custom-zone-keys`: <dynamic-zone-definition>           mandatory for either the `zone` or `custom-zone-keys` to be specified
+`mode`: `count` | `percent` | `color` | `context-color` mandatory
+`color`: <static-color-definition> | <gradient-color-definition> | <range-color-definition> mandatory except for `context-color` mode
+`rate`: <rate-definition>                               optional
+`context-frame-key`: <string>                           mandatory for `context-color` mode, unused otherwise
 ```
 
 _static-color-definition_
@@ -205,6 +206,12 @@ _*Note_*: The proportional illumination is only enabled for per-key-illuminated 
 
 _*Note_*: The count visualization is only enabled for per-key-illuminated devices (e.g. the Apex M800).  On other devices, the computed color will be applied to all LEDs, behaving like the `color` mode.
 
+`context-color`
+: This mode pulls the color data for the zone from the context data frame sent with the event at runtime.  See the section [Dynamic color via context data](#dynamic-color-via-context-data) below for full details.
+
+_*Note_*: Introduced in SteelSeries Engine 3.18.0.
+
+
 The visualization mode is set using the `"mode"` key. For example:
 
 ```json
@@ -213,7 +220,42 @@ The visualization mode is set using the `"mode"` key. For example:
 }
 ```
 
-For details on the `bitmap` visualization mode, see the section [Full individual key control via bitmap mode](#full-individual-key-control-via-bitmap-mode) below.
+For details on the `bitmap` visualization mode, see the page [JSON handlers for full-keyboard lighting effects][json-handlers-full-keyboard].
+
+## Dynamic color via context data ##
+
+The handler mode `context-color` can be used to entirely avoid pre-calculation and pull the color to display directly from the data sent with the event.  Using this handler type requires you to specify a string value in the `context-frame-key` key for the handler.  The string is treated as a key in the object sent in the `frame` key in the event payload, if specified.  For this handler type, the value of the key in the event data must be a color value specified according to the _static-color-definition_ schema above.  For instructions on sending context data with events, see [Event context data][event-context-data].
+
+For example:
+
+The following handler definition specifies zone one on an `rgb-3-zone` device.  The color for this zone will be located in the `zone-one-color` key in the context data.
+
+```json
+{
+  "mode": "context-color",
+  "device-type": "rgb-3-zone",
+  "zone": "one",
+  "context-frame-key": "zone-one-color"
+}
+```
+
+Sending the following event data will cause green to be displayed on the zone:
+
+```json
+{
+  "game": "WHATEVER-YOUR-GAME-IS",
+  "event": "YOUR-EVENT",
+  "data": {
+    "frame": {
+      "zone-one-color": {
+        "red": 0,
+        "green": 255,
+        "blue": 0
+      }
+    }
+  }
+}
+```
 
 ## Specifying flash effects ##
 
@@ -383,3 +425,4 @@ Flash a per-key keyboard's Esc key 5 times in red (250mS flashes):
 [api doc]: /doc/api/sending-game-events.md "Event API documentation"
 [zones-types]: /doc/api/standard-zones.md "Device types and zones"
 [HID reference]: https://www.usb.org/document-library/hid-usage-tables-112
+[event-context-data]: /doc/api/sending-game-events.md#event-context-data
