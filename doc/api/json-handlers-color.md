@@ -205,9 +205,10 @@ _*Note_*: The proportional illumination is only enabled for per-key-illuminated 
 : As above, but the number of LEDs illuminated directly correspond to the control value. I.e. if the value is 2, 2 LEDs will be lit. The control value should be between 0 and the size of the zone.  As above, increasing count is determined by the order of the LEDs in the zone used. Since the value directly indicates how many LEDs to light, there is no dimming effect on the most significant one.
 
 `context-color`
+: This mode pulls the color data for the zone from the context data frame sent with the event at runtime.  See the section [Dynamic color via context data](#dynamic-color-via-context-data) below for full details.
+
 _*Note_*: Introduced in SteelSeries Engine 3.18.0.
 
-: This mode pulls the color data for the zone from the context data frame sent with the event at runtime.  See the section [](#dynamic-color-via-context-data) below for full details.
 
 _*Note_*: The count visualization is only enabled for per-key-illuminated devices (e.g. the Apex M800).  On other devices, the computed color will be applied to all LEDs, behaving like the `color` mode.
 
@@ -219,11 +220,11 @@ The visualization mode is set using the `"mode"` key. For example:
 }
 ```
 
-For details on the `bitmap` visualization mode, see the page [JSON handlers for full-keyboard lighting effects][json-handlers-full-keyboard] below.
+For details on the `bitmap` visualization mode, see the page [JSON handlers for full-keyboard lighting effects][json-handlers-full-keyboard].
 
 ## Dynamic color via context data ##
 
-The handler mode `context-color` can be used to entirely avoid pre-calculation and pull the color to display directly from the data sent with the event.  Using this handler type requires you to specify the `context-frame-key` key for the handler.  This value corresponds to the string key in the context frame that contains a color value specified according to the _static-color-definition_ schema above.  For instructions on sending contex data with events, see [Event context data][event-context-data].
+The handler mode `context-color` can be used to entirely avoid pre-calculation and pull the color to display directly from the data sent with the event.  Using this handler type requires you to specify a string value in the `context-frame-key` key for the handler.  The string is treated as a key in the object sent in the `frame` key in the event payload, if specified.  For this handler type, the value of the key in the event data must be a color value specified according to the _static-color-definition_ schema above.  For instructions on sending contex data with events, see [Event context data][event-context-data].
 
 For example:
 
