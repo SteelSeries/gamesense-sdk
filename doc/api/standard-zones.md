@@ -19,7 +19,7 @@ A category of device is specified using the `"device-type"` key. The value of th
 ## Device types by number of RGB zones ##
 
 `rgb-zoned-device`
-: A generic specifier that applies to any connected, supported RGB device that has a static number of lighting zones.  This can be used to apply settings to a certain zone on all of the types of devices in the list below at once.  When using this type, a handler will be created for each type below that has the sepcified zone. 
+: A generic specifier that applies to any connected, supported RGB device that has a static number of lighting zones.  This can be used to apply settings to a certain zone on all of the types of devices in the list below at once.  When using this type, a handler will be created for each type below that has the specified zone.
 
 <details>
   <summary>Static RGB zone device types</summary>

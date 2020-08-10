@@ -111,7 +111,7 @@ var drawMeter = function() {
     for (var i = 0; i < meterNum; i++) {
         var value = array[Math.floor(i * STEP + OFFSET)];
         values.push(value);
-        ctx.fillStyle = gradient; //set the filllStyle to gradient for a better look
+        ctx.fillStyle = gradient; //set the fillStyle to gradient for a better look
         ctx.fillRect(i * 12, cheight - value, meterWidth, cheight); //the meter
     }
     if (that.status === 1) {
@@ -292,7 +292,7 @@ This is the expression part of the `let` primitive. However, since we already ca
 ))
 ```
 
-`visualizer-columns` is a symbol that contains a list of lists! Each list represents a virtual column for our visualizer and contains a list of HID codes for each key in the column, listed from bottom to top. The HID codes are the same as the USB HID spec, with two exeptions: the SteelSeries key is HID code 0xEF and the logo area is HID code 0x00. We use nil lists `()` for padding purposes for when there isn't a key on that row of our column. Note that the whole thing has an apostrophe before it, this is a shortcut for the GoLisp `quote` primitive. This means that nothing inside these lists is evaluated. There is an issue with this though; symbols in the lists are not evaluated. Luckily this is not an issue for this case. If you want to use symbols in `quote`d lists, you have to remember to `eval` those symbols first.
+`visualizer-columns` is a symbol that contains a list of lists! Each list represents a virtual column for our visualizer and contains a list of HID codes for each key in the column, listed from bottom to top. The HID codes are the same as the USB HID spec, with two exceptions: the SteelSeries key is HID code 0xEF and the logo area is HID code 0x00. We use nil lists `()` for padding purposes for when there isn't a key on that row of our column. Note that the whole thing has an apostrophe before it, this is a shortcut for the GoLisp `quote` primitive. This means that nothing inside these lists is evaluated. There is an issue with this though; symbols in the lists are not evaluated. Luckily this is not an issue for this case. If you want to use symbols in `quote`d lists, you have to remember to `eval` those symbols first.
 
 ```scheme
 (handler "AUDIO"
@@ -311,7 +311,7 @@ This is the expression part of the `let` primitive. However, since we already ca
 (colors (map percent vals visualizer-columns))
 ```
 
-`colors` contains all the key colors we are going to draw. We use `map` here again but with two differences. First, instead of passing in a GoLisp primitive as its first argument, we supply our own function `percent` from eariler. Second, we have two arguments after the function instead of one. This means each list is treated as one of the parameters for the map function. So each value passed in is paired with it's respective custom zone and both are passed to `percent`. The end result is a list of colors, separated by zones.
+`colors` contains all the key colors we are going to draw. We use `map` here again but with two differences. First, instead of passing in a GoLisp primitive as its first argument, we supply our own function `percent` from earlier. Second, we have two arguments after the function instead of one. This means each list is treated as one of the parameters for the map function. So each value passed in is paired with it's respective custom zone and both are passed to `percent`. The end result is a list of colors, separated by zones.
 
 ```scheme
 (filtered-zones (filter notnil? (reduce append '() visualizer-columns)))

@@ -4,9 +4,9 @@ This document assumes that you have read the [Sending Events to the SteelSeries 
 
 Using the JSON API to create event handlers is recommended for programs and games that will be distributed to other users, because it allows user customization and requires no distribution dependencies.  See [this document][json api doc] for details.
 
-However, for personal projects or to take fullest advantage of the capabilities of the SDK, you can create event handlers using SteelSeries Golisp.  Steelseries GoLisp is a version of Scheme we wrote to provide an extension/scripting language for Engine3.
+However, for personal projects or to take fullest advantage of the capabilities of the SDK, you can create event handlers using SteelSeries GoLisp.  Steelseries GoLisp is a version of Scheme we wrote to provide an extension/scripting language for Engine3.
 
-The rest of this document assumes familiarity Lisp in general, and with SteelSeries Golisp in particular.  See [the GoLisp documentation][golisp documentation] for more information.
+The rest of this document assumes familiarity Lisp in general, and with SteelSeries GoLisp in particular.  See [the GoLisp documentation][golisp documentation] for more information.
 
 ## Getting started ##
 
@@ -103,7 +103,7 @@ The name of the event corresponds to the same rules governing the names that can
 
 **`handler-with-post-event`** `<event name>` `<1 parameter lambda function>`
 
-The `handler-with-post-event` primitive takes the same parameters and behaves nearly identically to the `handler` primitive.  The difference between the two is that after handlers finish running for the registered event, another event is automatically dispatched.  The extra event will have "POST-" prepended to the event name passed in, and lambda functions registered for this new event will recieve the same data as the original event.
+The `handler-with-post-event` primitive takes the same parameters and behaves nearly identically to the `handler` primitive.  The difference between the two is that after handlers finish running for the registered event, another event is automatically dispatched.  The extra event will have "POST-" prepended to the event name passed in, and lambda functions registered for this new event will receive the same data as the original event.
 
     (handler-with-post-event "HEALTH" (lambda (data)
       ;; Handle health event
@@ -213,7 +213,7 @@ For a list of device types valid for the first parameter, see the [list of stand
 
 The device interface functions below are valid values for the second parameter of the `on-device` call.  Each function lists its required arguments that should be passed in.
 
-If a connected device doesn't support the requested fuction, it's simply ignored. For example, the Apex M800 has individually controlled key illumination and supports `show-on-key:` while the Apex does not. This lets us write handlers without having to worry about what devices are actually connected.
+If a connected device doesn't support the requested function, it's simply ignored. For example, the Apex M800 has individually controlled key illumination and supports `show-on-key:` while the Apex does not. This lets us write handlers without having to worry about what devices are actually connected.
 
 A given device command is implemented in device specific ways to get the most out of each device's capabilities. For example, the Apex and Apex M800 keyboards both support `show-percent-on-zone:` (the Apex sets the color of the specified zone, and the M800 also uses the keys in that zone as a bar graph corresponding to the value.
 
@@ -221,7 +221,7 @@ A given device command is implemented in device specific ways to get the most ou
 Set the lighting on a single-zone device to the specified color.  For information on colors, see the section "Color Manipulation" below.
 
 **`show-on-zone:`** `<color>` `<zone>`
-Set the specified zone to the specied color.  For information on colors, see the section "Color Manipulation" below.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
+Set the specified zone to the specified color.  For information on colors, see the section "Color Manipulation" below.  For information on available zones by device type, see the [list of standard device types and zones][zones-types].
 
 **`show-percent-on-zone:`** `<color>` `<percent>` `<zone>`
 Set the specified zone to the specified color, providing a percentage value as well.  On some devices, the percentage value will be used to select a subset of the zone to color as a bar graph.
@@ -274,9 +274,9 @@ _Note:_: You will notice that the zone values used in these examples were specif
 
 #### Zones ####
 
-Many Steelseries products have multiple LEDs that are indpendantly controlled. We call these _illumination zones_. When you are setting colors from a handler, naturally you can specify what zone is to be effected.
+Many Steelseries products have multiple LEDs that are independently controlled. We call these _illumination zones_. When you are setting colors from a handler, naturally you can specify what zone is to be effected.
 
-Things get complicated when you consider that the Apex keyboard has 5 zones, while the M800 has over one hundred (since a zone can be a single key). In order to be able to work with zones in a device independent way, we refer to them symbolicly and leave the details up to the device.
+Things get complicated when you consider that the Apex keyboard has 5 zones, while the M800 has over one hundred (since a zone can be a single key). In order to be able to work with zones in a device independent way, we refer to them symbolically and leave the details up to the device.
 
 For full information on available zones by device type, see the [list of standard device types and zones][zones-types].
 
@@ -416,7 +416,7 @@ _Note:_: When the flasher is toggled on, the color passed to this function will 
 This function is invoked as the last thing the flasher does as it is stopping. This function is optional and defaults to having no behavior. Takes the current value as its single parameter.
 
 
-There are several data slots that can be overriden to tweak the behavior of the flasher:
+There are several data slots that can be overridden to tweak the behavior of the flasher:
 
 **`off-color:`**
 The color to use when the flasher is in the off part of its duty cycle. This defaults to `black-color`.
@@ -436,7 +436,7 @@ Defaults to `#f`. If set to `#t`, the flasher will automatically be enabled if `
 The function slots you override or add also have access to a handful of useful slots in the `Flasher` prototype frame:
 
 **`is-on:`**
-This is the current on/off state of the flasher's cycle (using `#t` and `#f`, respectively). The flasher toggles beteen off and on every `period` milliseconds while it is running. When the `cleanup-function:` slot is invoked `is-on:` will be `#t`.
+This is the current on/off state of the flasher's cycle (using `#t` and `#f`, respectively). The flasher toggles between off and on every `period` milliseconds while it is running. When the `cleanup-function:` slot is invoked `is-on:` will be `#t`.
 
 **`color:`**
 This contains the color that was returned by the `compute-color:` function the last time it was invoked.
@@ -514,7 +514,7 @@ The flasher enablement could be moved into the flasher itself, by making use of 
 
 ## Support Code ##
 
-Anything you need to define in support of your handlers, you can simply define as you normally would. This includes flashers as above, custome colors, or support functions. Each game has it's own sandboxed environment which acts like a namespace. You don't have to worry about names you define getting confused with anything defined for a different game.
+Anything you need to define in support of your handlers, you can simply define as you normally would. This includes flashers as above, custom colors, or support functions. Each game has it's own sandboxed environment which acts like a namespace. You don't have to worry about names you define getting confused with anything defined for a different game.
 
 ## Best Practices ##
 
@@ -534,7 +534,7 @@ Your game keeps track of its state, there's no reason your event handlers should
 
 ### Send single values ###
 
-If possible, each event should have a single value, preferrably an integer, and preferrable as a percentage value. This makes handlers far easier to write.
+If possible, each event should have a single value, preferably an integer, and preferable as a percentage value. This makes handlers far easier to write.
 
 In this ideal world, the data payload with the event should be a JSON object with a single key of `"value"`. E.g.
 

@@ -45,7 +45,7 @@ As of SteelSeries Engine 3.7.0, there are three different types of handlers you 
 
 * [Color handlers][color-handlers] for interacting with illumination of devices with RGB LED lighting
 * [Tactile handlers][tactile-handlers] for providing tactile notifications that users can feel on supported devices
-* [Screen handlers][screen-handlers] for providing text and image notificaitons on OLED/LCD screens on supported devices
+* [Screen handlers][screen-handlers] for providing text and image notifications on OLED/LCD screens on supported devices
 
 # Removing an event #
 

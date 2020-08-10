@@ -211,7 +211,7 @@ The default value that is substituted into the final text or used to fill the pr
 
 The `context-frame-key` key takes a string.  The string is treated as a key in the object sent in the `frame` key in the event payload, if specified.  The value used is the value of this subkey, if the `frame` object exists and the `context-frame-key` specified exists as a key in that object.
 
-The `arg` key can be used to specify a more complex data transformation to be applied to the event data to get the value substituted.  The value of the `arg` key is a string containing a GoLisp expression that will be evaluated to obtain the final value to display.  The self keyword within this expression refers to the event payload object.  This key is largely useful when using the local Golisp API rather than the JSON api, but is provided here for flexibility.
+The `arg` key can be used to specify a more complex data transformation to be applied to the event data to get the value substituted.  The value of the `arg` key is a string containing a GoLisp expression that will be evaluated to obtain the final value to display.  The self keyword within this expression refers to the event payload object.  This key is largely useful when using the local GoLisp API rather than the JSON api, but is provided here for flexibility.
 
 For example, assume the following event payload structure:
 

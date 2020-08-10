@@ -59,7 +59,7 @@ Code for the [GameSense™ Minecraft mod](http://www.technicpack.net/modpack/ste
 ### You actually don't need to submit anything to us.
 Feel free to release your own app, and anyone who has your game/app installed should see it appear as a GameSense App inside of SteelSeries Engine.  We want smaller devs to be able to develop their implementation completely on their own if they so choose.
 
-### Want to partner up and have a full curated experence for our mututal users?
+### Want to partner up and have a full curated experience for our mutual users?
 Great, we do too.  [Contact us through this form](https://steelseries.com/developer/contact-us) and we'll get back to you right away.  We can add images, text, links, and other info about your project.  We can also help you with implementation, answer questions, and a lot more.
 
 #### Project info we'll ask for:

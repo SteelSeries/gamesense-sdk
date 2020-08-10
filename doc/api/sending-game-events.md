@@ -2,7 +2,7 @@
 
 Most modern SteelSeries gaming devices have multiple zones of RGB illumination.  Several of our own and partnered keyboards offer individual control of illumination on each key.  A number of devices have OLED screens which can be used to display text or even arbitrary images.  And a few select devices offer the possibility of tactile feedback.
 
-We've built an event framework that offers a common approach for indicating game state to the user by using any of these capabilites.  The event framework will work with games written in any language. All you need is to be able to create a JSON formatted string and POST it to a local URL. We've used it so far with languages as varied as C++, Java, Swift, Go, and Javascript.
+We've built an event framework that offers a common approach for indicating game state to the user by using any of these capabilities.  The event framework will work with games written in any language. All you need is to be able to create a JSON formatted string and POST it to a local URL. We've used it so far with languages as varied as C++, Java, Swift, Go, and Javascript.
 
 ## Engine plugins ##
 
@@ -78,7 +78,7 @@ Some more complicated event handling may require access to more data than a simp
 
 ## Heartbeat/Keepalive Events ##
 
-GameSense™ is initialized on devices when the first event for a game is recieved.  It is deactivated when no events have been received within its timeout period, which defaults to 15 seconds.  This means that your game should send at least one event every 15 seconds if you want the game state to continue to be fully represented on the user's devices.
+GameSense™ is initialized on devices when the first event for a game is received.  It is deactivated when no events have been received within its timeout period, which defaults to 15 seconds.  This means that your game should send at least one event every 15 seconds if you want the game state to continue to be fully represented on the user's devices.
 
 An additional endpoint, `game_heartbeat`, is available to simplify this process.  The data payload sent to this endpoint only needs to include the name of the game:
 
