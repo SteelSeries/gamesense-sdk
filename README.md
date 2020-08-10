@@ -68,4 +68,4 @@ Great, we do too.  [Contact us through this form](https://steelseries.com/develo
 * **Link text & URL**
 * **Short description**: for App tile, cannot exceed 200 characters
 * **App tile image**: 330 pixels x 200 pixels as a PNG, containing your logo with a solid background
-* **GameSense customization page image**: 200 pixels x 80 pixels as a PNG, containing your logo with a fully transparent background
+* **GameSense customization page image**: 200 pixels x 50 pixels as a PNG, containing your logo with a fully transparent background
