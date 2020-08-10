@@ -27,3 +27,19 @@ The following IDs can be specified in the `"icon_id"` key when registering or bi
 23: <img src="/images/eventicons/music.svg" height="24px"> Music  
 24: <img src="/images/eventicons/play.svg" height="24px"> Play  
 25: <img src="/images/eventicons/pause.svg" height="24px"> Pause  
+27: <img src="/images/eventicons/CPU.svg" height="24px"> CPU  
+28: <img src="/images/eventicons/GPU.svg" height="24px"> GPU  
+29: <img src="/images/eventicons/RAM.svg" height="24px"> RAM  
+30: <img src="/images/eventicons/assists.svg" height="24px"> Assists  
+31: <img src="/images/eventicons/creep_score.svg" height="24px"> Creep Score  
+32: <img src="/images/eventicons/dead.svg" height="24px"> Dead  
+33: <img src="/images/eventicons/dragon.svg" height="24px"> Dragon  
+35: <img src="/images/eventicons/enemies.svg" height="24px"> Enemies  
+36: <img src="/images/eventicons/game_started.svg" height="24px"> Game Start  
+37: <img src="/images/eventicons/gold.svg" height="24px"> Gold  
+38: <img src="/images/eventicons/health2.svg" height="24px"> Health (2)  
+39: <img src="/images/eventicons/kills2.svg" height="24px"> Kills (2)  
+40: <img src="/images/eventicons/mana2.svg" height="24px"> Mana (2)  
+41: <img src="/images/eventicons/teammates.svg" height="24px"> Teammates  
+42: <img src="/images/eventicons/timer.svg" height="24px"> Timer  
+43: <img src="/images/eventicons/TEMP.svg" height="24px"> Temperature  
