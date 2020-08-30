@@ -219,11 +219,12 @@ For example, assume the following event payload structure:
 {
   "game": "MYGAME",
   "event": "MYEVENT",
-  "value": 56,
-  "frame": 
-  {
-    "textvalue": "this is some text",
-    "numericalvalue": 88
+  "datas": {
+    "value": 56,
+    "frame": {
+      "textvalue": "this is some text",
+      "numericalvalue": 88
+    }
   }
 }
 ```
