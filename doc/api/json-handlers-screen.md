@@ -379,7 +379,7 @@ The following example shows you how to bind an event handler that shows custom t
   "device-type": "screened",
   "mode": "screen",
   "zone": "one",
-  "datas": [{
+  "datas": {
     "has-text": true,
     "arg": "(custom-text: (context-frame: self))}"
   }
