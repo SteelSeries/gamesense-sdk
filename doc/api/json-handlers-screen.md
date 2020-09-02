@@ -219,11 +219,12 @@ For example, assume the following event payload structure:
 {
   "game": "MYGAME",
   "event": "MYEVENT",
-  "value": 56,
-  "frame": 
-  {
-    "textvalue": "this is some text",
-    "numericalvalue": 88
+  "data": {
+    "value": 56,
+    "frame": {
+      "textvalue": "this is some text",
+      "numericalvalue": 88
+    }
   }
 }
 ```
@@ -381,8 +382,8 @@ The following example shows you how to bind an event handler that shows custom t
   "zone": "one",
   "datas": [{
     "has-text": true,
-    "arg": "(custom-text: (context-frame: self))}"
-  }
+    "context-frame-key": "custom-text"
+  }]
 }
 ```
 
