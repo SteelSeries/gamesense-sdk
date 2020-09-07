@@ -45,7 +45,7 @@ applications.
 
 [**Support tutorial on modding MineCraft**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/creating-a-minecraft-mod.md)
 
-[**Customizing built-in CS:GO event handling with GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/csgo-customization-with-golisp.md), read (https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md) first.
+[**Customizing built-in CS:GO event handling with GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/tutorials/csgo-customization-with-golisp.md), read (https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md) first.
 
 ## Sample Code ##
 
