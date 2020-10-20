@@ -2,22 +2,21 @@
 
 Moments is a new service from SteelSeries GG that allows users to capture gameplay clips, edit them, and share them with the community. When moments game capture is enabled users can manually clip the game they're playing via a shortcut. Devs can utilize timeline events to mark relevant game events on the clip editing timeline. This makes it easy for users to find the exact moment cool things happen in your game, so they can more easily edit and share the clip.
 
-**This feature requires SteelSeries GG which can be downloaded [here]()**
-
 ![timeline events](/images/timelineevents/timeline_events.png)
 
+**This feature requires SteelSeries GG which can be downloaded [here](https://steelseries.com/gg/moments)**
 
-Moments apis utilize the same server as gamesense events, so adding support for moments in your existing gamesense game is very simple. You can learn more about server discovery and gamesense events [here](sending-game-events.md).
+Moments APIs utilize the same server as GameSense events, so adding support for Moments in your existing GameSense game is very simple. You can learn more about server discovery and GameSense events [here](sending-game-events)
 
 ## Timeline Events ##
 
-Timeline events work by registering a list of existing gamesense events that you want to show on the timeline. This data should be sent via POST to `http://127.0.0.1:<port>/register_timeline_events`. The event list keys correspond to normal gamesense events you have registered via `register_game_event` or `bind_game_event`. 
+Timeline events work by registering a list of existing GameSense events that you want to show on the timeline. This data should be sent via HTTP POST to `http://127.0.0.1:<port>/register_timeline_events`. The event list keys correspond to normal GameSense events you have registered via `register_game_event` or `bind_game_event`. 
 
 The `previewable` param corresponds to showing a preview of the event icon in the clip gallery view:
 ![icon_preview](/images/timelineevents/thumbnail_icons.png)
 
 ```
-`game`: <string>                        registered gamesense game name        mandatory
+`game`: <string>                        registered GameSense game name        mandatory
 `events`: <timeline-events-definition>  list of events to show on timeline    mandatory
 ```
 
