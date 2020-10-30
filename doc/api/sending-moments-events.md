@@ -34,16 +34,18 @@ Here is an example of a timeline registration payload:
 ```json
 {
   "game": "MY_GAME",
-  "events": {
-    "MY_EVENT_1": {
+  "events": [
+    {
+      "event": "MY_EVENT_1",
       "icon_id": "KILL",
       "previewable": 1
     },
-    "MY_EVENT_2": {
+    {
+      "event": "MY_EVENT_2",
       "icon_id": "DEATH",
       "previewable": 0
     }
-  }
+  ]
 }
 ```
 
