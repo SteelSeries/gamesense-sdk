@@ -2,9 +2,9 @@
 
 Moments is a new service from SteelSeries GG that allows users to capture gameplay clips, edit them, and share them with the community. When Moments game capture is enabled users can manually clip the game they're playing via a shortcut. Devs can utilize timeline events to mark relevant game events on the clip editing timeline. This makes it easy for users to find the exact moment cool things happen in your game, so they can more easily edit and share the clip.
 
+**This feature requires SteelSeries GG which can be downloaded [here](https://steelseries.com/gg/moments)**
 ![timeline events](/images/timelineevents/timeline_events.png)
 
-**This feature requires SteelSeries GG which can be downloaded [here](https://steelseries.com/gg/moments)**
 
 Moments APIs utilize the same server as GameSense events, so adding support for Moments in your existing GameSense game is very simple. You can learn more about server discovery and GameSense events [here](sending-game-events)
 
