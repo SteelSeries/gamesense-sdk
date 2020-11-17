@@ -1,6 +1,6 @@
 # SteelSeries Moments Event Support #
 
-Moments is a new service from SteelSeries GG that allows users to capture gameplay clips, edit them, and share them with the community. When moments game capture is enabled users can manually clip the game they're playing via a shortcut. Devs can utilize timeline events to mark relevant game events on the clip editing timeline. This makes it easy for users to find the exact moment cool things happen in your game, so they can more easily edit and share the clip.
+Moments is a new service from SteelSeries GG that allows users to capture gameplay clips, edit them, and share them with the community. When Moments game capture is enabled users can manually clip the game they're playing via a shortcut. Devs can utilize timeline events to mark relevant game events on the clip editing timeline. This makes it easy for users to find the exact moment cool things happen in your game, so they can more easily edit and share the clip.
 
 ![timeline events](/images/timelineevents/timeline_events.png)
 
