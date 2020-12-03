@@ -11,18 +11,19 @@ Moments APIs utilize the same server as GameSense events, so adding support for 
 
 ## Autoclipping ##
 
-Autoclipping works in two parts, registration and triggering. First you need to register a list of events you want to Autoclip. This should be sent via HTTP POST when your game starts to the URL `http://127.0.0.1:<port>/register_autoclip_rules`. It takes in a JSON list of autoclip rules and keys outlined below.
+Autoclipping works in two parts, registration and triggering. First you need to register a list of events you want to Autoclip. This should be sent via HTTP POST when your game starts to the URL `http://127.0.0.1:<port>/register_autoclip_rules`. It takes in a JSON list of autoclip rules outlined below.
 
 The next step is triggering the autoclip when something cool happens. To do this, HTTP POST the autoclip rule key to the URL `http://127.0.0.1:<port>/autoclip` when your autoclip condition is met in-game.
 
 _autoclip_registration_
 ```
 `game`: <string>                        game name that matches what is used for sending gamesense events    mandatory
-`rules`: <autoclip-rules-definition>    list of autoclip rules with keys                                    mandatory
+`rules`: <autoclip-rules-definition>    list of autoclip rules                                              mandatory
 ```
 
 _autoclip-rules-definition_
 ```
+`rule_key`: <string>              key that will be passed with send-autoclip api            mandatory
 `label`: <string>                 non-localized label                                       optional
 `localized_label_key`: <string>   localization key                                          optional*
 `default_enabled`: <bool>         whether to enable autoclipping of this rule by default    optional - default false
