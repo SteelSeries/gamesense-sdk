@@ -23,9 +23,9 @@ _autoclip_registration_
 
 _autoclip-rules-definition_
 ```
-`label`: <string>                 non-localized label   optional
-`localized_label_key`: <string>   localization key      optional*
-`default_enabled`: <int> (0-1)    enabled by default    optional - default `0`
+`label`: <string>                 non-localized label                                       optional
+`localized_label_key`: <string>   localization key                                          optional*
+`default_enabled`: <bool>         whether to enable autoclipping of this rule by default    optional - default false
 ```
 \* localization is not currently available to 3rd party developers.
 
@@ -41,16 +41,18 @@ Here is an example of an autoclip registration payload:
 ```json
 {
   "game": "MY_GAME",
-  "rules": {
-    "headshot_kill": {
+  "rules": [
+    {
+      "rule_key":"headshot_kill",
       "label": "Any headshot kill",
-      "default_enabled": 0
+      "enabled": false
     },
-    "multi_kill": {
+    {
+      "rule_key":"multi_kill",
       "label": "3+ kills in a row",
-      "default_enabled": 1
+      "enabled": true
     }
-  }
+  ]
 }
 ```
 
