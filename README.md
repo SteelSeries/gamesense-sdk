@@ -26,6 +26,8 @@ applications.
 
 [**How to control tactile feedback**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/json-handlers-tactile.md)
 
+[**How to add support for Moments**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/sending-moments-events.md)
+
 
 ### GoLisp Handlers
 [**How to write handlers in GoLisp**](https://github.com/SteelSeries/gamesense-sdk/blob/master/doc/api/writing-handlers-in-golisp.md), for the ultimate flexibility and power.
