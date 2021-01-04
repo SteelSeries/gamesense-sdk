@@ -78,7 +78,7 @@ _has-progress-bar_
 
     `has-progress-bar`: <boolean> Either this or `has-text` is mandatory. default false
 
-_data_accessor_data_
+_data-accessor-data_
 
   See [Data Accessors](#data-accessors)
 
