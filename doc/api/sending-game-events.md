@@ -10,7 +10,9 @@ Simultaneously with the release of SteelSeries Engine 3.7.0, we have released a 
 
 An Unreal Engine 4 plugin is also available now [here on Github][ue4-plugin-repo].  It should be available in the Unreal Engine Marketplace shortly.  For documentation on binding and sending events using the plugin, refer to the documentation in its repository.
 
-An enthusiast created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to the original creator Christian Schuller and the new maintainer DaanWet.
+An enthusiast created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on GitHub][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to the original creator Christian Schuller and the new maintainer DaanWet.
+
+Another enthusiast has begun implementing Rust bindings to the SDK.  This is available as the crate [gamesense][gamesense-rust-crate], or [on GitHub][gamesense-rust-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to ptrstr.
 
 ## Server discovery ##
 
@@ -175,3 +177,5 @@ If the `value_optional` key is set to true for an event, the handlers for the ev
 [gamesense-client-repo]: https://github.com/DaanWet/gamesense-client
 [unity-plugin-repo]: https://github.com/SteelSeries/unity-gamesense-client
 [ue4-plugin-repo]: https://github.com/SteelSeries/gamesense-plugin-ue4/
+[gamesense-rust-crate]: https://crates.io/crates/gamesense
+[gamesense-rust-repo]: https://github.com/ptrstr/gamesense/tree/master/src/handler
