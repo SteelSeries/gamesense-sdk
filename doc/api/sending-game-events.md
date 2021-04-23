@@ -10,7 +10,7 @@ Simultaneously with the release of SteelSeries Engine 3.7.0, we have released a 
 
 An Unreal Engine 4 plugin is also available now [here on Github][ue4-plugin-repo].  It should be available in the Unreal Engine Marketplace shortly.  For documentation on binding and sending events using the plugin, refer to the documentation in its repository.
 
-One enthusiast also created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries and is now inactive.  All credit goes to Christian Schuller.
+An enthusiast created an open source node-compatible implementation which is available on npm as `gamesense-client`, or [on Github][gamesense-client-repo].  This is an unofficial project not created by SteelSeries.  All credit goes to the original creator Christian Schuller and the new maintainer DaanWet.
 
 ## Server discovery ##
 
@@ -172,6 +172,6 @@ For a list of available icons, see [Event icons](event-icons.md).
 
 If the `value_optional` key is set to true for an event, the handlers for the event will be processed each time it is updated, even if a value key is not specified in the data or if the value key matches the previously cached value.  This is mainly useful for events that use context data rather than the event value to determine what to display, such as some OLED screen events or for `bitmap` type lighting events.
 
-[gamesense-client-repo]: https://github.com/cschuller/gamesense-client
+[gamesense-client-repo]: https://github.com/DaanWet/gamesense-client
 [unity-plugin-repo]: https://github.com/SteelSeries/unity-gamesense-client
 [ue4-plugin-repo]: https://github.com/SteelSeries/gamesense-plugin-ue4/
