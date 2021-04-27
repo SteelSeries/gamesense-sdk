@@ -13,17 +13,13 @@ Top-level schema
     `device-type`: <device type>                                               mandatory
     `zone`: <fixed zone value>                                                 mandatory
     `mode`: "screen"                                                           mandatory
-    `datas`: <static-screen-data-definition> |  <range-screen-data-definition> mandatory
-
-_static-screen-data-definition_
-
-    [ <screen-frame-data> ... ] The list is mandatory and must contain one or more entries
+    `datas`: [<screen-frame-data> ...] | [<range-screen-data-definition> ...]  mandatory
 
 _range-screen-data-definition_
 
     `low`: <event value, low end of range (inclusive)>   mandatory
     `high`: <event value, high end of range (inclusive)> mandatory
-    `datas`: <static-screen-data-definition>             mandatory
+    `datas`: [<screen-frame-data> ...]                   mandatory
 
 _screen-frame-data_
 
