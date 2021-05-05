@@ -1,0 +1,162 @@
+Changelog:
+Build 2784:
+	mezz: Improve exception handling from server starting events (#5226)
+
+Build 2783:
+	mezz: Improve context provided by potion icon rendering hooks (#5111)
+
+Build 2782:
+	mezz: Fix an ObjectHolderRef internal error message (#5214)
+
+Build 2781:
+	mezz: Implement rendering for item models with emissive quads (#5047)
+
+Build 2780:
+	mezz: Clean up logged mod states (#5227)
+	mezz: Fix minor issue in getFilledPercentage for Fluid rendering (#5206)
+
+Build 2779:
+	mezz: Improve reflection helper methods (#4853)
+	mezz: Fix inaccurate main thread name shown in client log (#5078)
+
+Build 2778:
+	mezz: Fix Baked Item models with transformations (#5241)
+
+Build 2777:
+	mezz:
+		Re-add some missing villager profession patches (#5200)
+		* Fix zombie villagers only spawning with vanilla professions
+		* Fix spawning modded villagers that do not have their own building
+	mezz: Fix missing string parameters in some log messages (#5210)
+	mezz: Stop firing LivingSetAttackTargetEvent for setRevengeTarget (#5217)
+	mezz: Prevent RecipeBook from crashing on empty modded ingredients (#5234)
+
+Build 2776:
+	mezz: Fix the bed position given to the SleepingTimeCheck event (#5107)
+
+Build 2775:
+	LexManos: Fix some null returns from defaulted registries (#5235)
+
+Build 2774:
+	LexManos:
+		Only remove synthetic lambda methods referenced in body of SideOnly
+		methods (#5127)
+
+Build 2773:
+	LexManos:
+		A different approach to my changes in
+		https://github.com/MinecraftForge/MinecraftForge/commit/8ace535995522bec0557d4217e0d98b3dc76cf1e
+		to fix #5207
+	LexManos: Fix patches from #5160 setting rotation as well as position (#5233)
+	LexManos: Use HTTPS for files website.
+
+Build 2772:
+	tterrag: Make Forge-provided default transforms accessible to custom models
+	tterrag:
+		Make Forge blockstate variants correctly inherit AO setting from vanilla
+		models (#5190)
+		* Make Forge blockstate variants correctly inherit AO setting
+		
+		* Move variant format checks into variant, check for added properties
+		
+		* Small code cleanup
+	tterrag: fixed visual bug with guislider
+	tterrag:
+		Allow IModel to express itself as a vanilla parent (#5195)
+		* Fix errors caused by fancy missing model being non-vanilla parent
+		
+		* Switch instanceof checks to a default IModel method
+		
+		* Small code tweaks
+
+Build 2771:
+	tterrag: Add CreativeTabs#getLabelColor
+
+Build 2770:
+	tterrag:
+		Allow providing a BufferedImage for banner render generation (#5041)
+		* Adds an Event to allow providing a BufferedImage for the banner render
+		generation (cached)
+		textures, since banners don't use an atlas.
+		implementation.
+		
+		* Missed some copyright; might as well absolut text match, I guess
+		
+		* Remove unneeded patch change
+		
+		* Fix event variable access convention
+		
+		* Formatting fix
+		
+		* Improve event handling registration
+		
+		* Import cleanup
+		
+		* Replace event approach with Supplier approach
+		
+		* Better name for test mod (now that it's no longer an event); adds
+		ENABLE flag
+		
+		* Moves MC code into
+		net.minecraftforge.client.MinecraftForgeClient.getImageLayer to simplify
+		patch
+		
+		* Generalize naming
+
+Build 2769:
+	mezz: Fix Mesa biome entry tags in the BiomeDictionary (#5177)
+
+Build 2768:
+	LexManos: Bump version number for RB.
+
+Build 2767:
+	LexManos:
+		Change biome spawn list entries to use factory method where possible
+		(#5075)
+	LexManos: Prevent some texture loading errors from crashing the game (#5121)
+	LexManos: Patch PotionHelper to use registry delegates (#5142)
+	LexManos: Add a notification event for handling game rule changes (#5152)
+
+Build 2766:
+	LexManos:
+		Change universal bucket support to use fluid names instead of instances
+		(#5031)
+
+Build 2765:
+	LexManos: Fix NPE on clientside entities constructed with null world (#5170)
+
+Build 2764:
+	tterrag: Fix patches from #5160 running on the client and causing stutter
+
+Build 2763:
+	LexManos:
+		Class transformer optimizations (#5159)
+		* Filter packages for deobf transformation
+		* Only serialize transformed class with TerminalTransformer if bytecode
+		changed
+
+Build 2762:
+	github: Update github stale so issues can be Assigned
+
+Build 2761:
+	LexManos:
+		Fix MC-136995 - Chunk loading and unloading issue with entities placed
+		in exact positions. (#5160)
+		Scatter gun patches to improve entity tracking and position tracking. 
+		Provided by Aikar through the Paper project, this commit of patches
+		combines the following patches:
+		 
+		https://github.com/PaperMC/Paper/blob/fd1bd5223a461b6d98280bb8f2d67280a30dd24a/Spigot-Server-Patches/0306-Mark-chunk-dirty-anytime-entities-change-to-guarante.patch
+		 
+		https://github.com/PaperMC/Paper/blob/fd1bd5223a461b6d98280bb8f2d67280a30dd24a/Spigot-Server-Patches/0315-Always-process-chunk-registration-after-moving.patch
+		 
+		https://github.com/PaperMC/Paper/blob/fd1bd5223a461b6d98280bb8f2d67280a30dd24a/Spigot-Server-Patches/0335-Ensure-chunks-are-always-loaded-on-hard-position-set.patch
+		 
+		https://github.com/PaperMC/Paper/blob/fd1bd5223a461b6d98280bb8f2d67280a30dd24a/Spigot-Server-Patches/0378-Sync-Player-Position-to-Vehicles.patch
+
+Build 2760:
+	LexManos: Fix --mods and --modListFile arguments not making it past LaunchWrapper.
+
+Build 2759:
+	LexManos: Remove BlamingTransformer (#5115)
+
