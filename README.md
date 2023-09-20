@@ -1,5 +1,5 @@
 # My Modification starts here 
-My name is poojitha.I don't know why am here and writing here
+My name is poojitha.I don't know why am here and writing this
 # SteelSeries GameSense™ SDK #
 GameSense™ is a framework in SteelSeries Engine that allows games & apps
 to send status updates to Engine, which can then drive illumination,
