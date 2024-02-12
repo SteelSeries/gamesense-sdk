@@ -230,10 +230,10 @@ The following data accessor key-value pairs result in the following final values
 ```
 "context-frame-key": "textvalue"                    -> "this is some text"
 "context-frame-key": "numericalvalue"               -> 88
-"arg": "(textvalue: (frame: self))"                 -> "this is some text"
-"arg": "(numericalvalue: (frame: self))"            -> 88
-"arg": "(/ (numericalvalue: (frame: self)) 44)"     -> 2
-"arg": "(string-upcase (textvalue: (frame: self)))" -> "THIS IS SOME TEXT"
+"arg": "(textvalue: (context-frame: self))"                 -> "this is some text"
+"arg": "(numericalvalue: (context-frame: self))"            -> 88
+"arg": "(/ (numericalvalue: (context-frame: self)) 44)"     -> 2
+"arg": "(string-upcase (textvalue: (context-frame: self)))" -> "THIS IS SOME TEXT"
 "arg": "(value: self)"                              -> 56 
 ```
 
