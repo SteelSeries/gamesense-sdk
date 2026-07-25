@@ -124,7 +124,7 @@ Not only does this code get values for sending to GameSense™, but also changes
 
 ## Spooky Scary ~~Skeletons~~ GoLisp
 
-This is where things get interesting. Instead of using simple JSON event handlers, the audio visualizer we're making is going to use fancy [GoLisp handlers](writing-handlers-in-golisp.md) with advanced functionality. [GoLisp](http://techblog.steelseries.com/golisp/) is a variant of Lisp based off of Scheme with some extra additions of its own.
+This is where things get interesting. Instead of using simple JSON event handlers, the audio visualizer we're making is going to use fancy [GoLisp handlers](../api/writing-handlers-in-golisp.md) with advanced functionality. [GoLisp](http://techblog.steelseries.com/golisp/) is a variant of Lisp based off of Scheme with some extra additions of its own.
 
 GoLisp handlers have to be placed in a special directory for GameSense™ to use them, and have to be named a certain way. The filename must be `<Game name>.lsp` (case insensitive) and placed in the `hax0rBindings` directory. This directory, like `coreProps.json`, is in a different location depending on your platform:
 

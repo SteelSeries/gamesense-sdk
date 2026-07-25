@@ -101,7 +101,7 @@ Another status used in Minecraft is hunger. The hunger bar in the HUD has 2 piec
 
 ```
 
-If you have read [writing handlers in GoLisp](\doc\api\writing-handlers-in-golisp.md) you will recognize the Flasher prototype. Essentially, this code defines a hunger-flash frame that uses a `Flasher` as its prototype. The `Flasher` prototype has built-in functionality for both displaying a value as a bar across a zone and flashing based on other parameters. For now, just the level of hunger is set on the bar across the number keys. 
+If you have read [writing handlers in GoLisp](../api/writing-handlers-in-golisp.md) you will recognize the Flasher prototype. Essentially, this code defines a hunger-flash frame that uses a `Flasher` as its prototype. The `Flasher` prototype has built-in functionality for both displaying a value as a bar across a zone and flashing based on other parameters. For now, just the level of hunger is set on the bar across the number keys. 
 
 In order to see this in action, the mod will also need to send the HUNGERLEVEL event. Add the following to the `onLivingUpdate` method:
 
@@ -196,7 +196,7 @@ Build the jar, make sure your `myminecraftmod.lsp` is updated in `hax0rBindings`
 
 ## Hungry for more! ##
 
-Now that you have an understanding of how to do more advanced handlers using GoLisp, it is highly recommended to read the [api docs](/docs/api) if you haven't already done so.
+Now that you have an understanding of how to do more advanced handlers using GoLisp, it is highly recommended to read the [api docs](../api) if you haven't already done so.
 Also, here are some exercises if you're looking for more ways to get familiar:
  * Refactor `onLivingUpdate()` to use a single variable instead of always checking `curTick - this.lastTickMS > 2000`
  * Add a method to `MyMod` for sending an event. _HINT: implement a method with the signature `public void SendGameEvent(String eventName, String jsonData)`_
