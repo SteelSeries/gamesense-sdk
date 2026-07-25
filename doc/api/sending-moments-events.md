@@ -6,7 +6,7 @@ Moments is a new service from SteelSeries GG that allows users to capture gamepl
 ![timeline events](/images/timelineevents/timeline_events.png)
 
 
-Moments APIs utilize the same server as GameSense events, so adding support for Moments in your existing GameSense game is very simple. You can learn more about server discovery and GameSense events [here](sending-game-events)
+Moments APIs utilize the same server as GameSense events, so adding support for Moments in your existing GameSense game is very simple. You can learn more about server discovery and GameSense events [here](sending-game-events.md)
 
 
 ## Autoclipping ##
